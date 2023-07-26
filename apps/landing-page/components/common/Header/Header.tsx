@@ -43,7 +43,7 @@ export const Header = () => {
           <HStack as={Link} href="/" rel="home" ml="2">
             <Logo />
             <Heading as="p" fontSize="xl">
-              HackLeads
+              Chatworth
             </Heading>
           </HStack>
         </Flex>
@@ -100,7 +100,7 @@ export const Header = () => {
             colorScheme="orange"
             fontWeight={700}
           >
-            Create a typebot
+            Try Chatworth
           </Button>
         </HStack>
       </HStack>
