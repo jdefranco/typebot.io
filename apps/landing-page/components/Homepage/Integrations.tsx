@@ -104,7 +104,7 @@ export const Integrations = () => (
 
       <Stack w="full" maxWidth="1200px" px="4">
         <Heading fontSize={['3xl', '4xl']} data-aos="fade-up">
-          Integrate with any platform
+          Universal Integration
         </Heading>
         <Text
           color="gray.400"
@@ -112,8 +112,7 @@ export const Integrations = () => (
           fontSize={['lg', 'xl']}
           data-aos="fade-up"
         >
-          Typebot offers several native integrations blocks as well as
-          instructions on how to embed typebot on particular platforms
+          Chatworth provides a plethora of native integration options, as well as comprehensive instructions on how to seamlessly incorporate our chatbot into various platforms.
         </Text>
       </Stack>
     </Stack>
