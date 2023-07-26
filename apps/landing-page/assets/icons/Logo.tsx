@@ -3,5 +3,5 @@ import React from 'react'
 import Image from 'next/image'
 
 export const Logo = () => (
-  <Image src={'/chatworth-icon.png'} width={90} height={90} alt="chatworth logo" />
+  <Image src={'/chatworth-icon.png'} width={30} height={30} alt="chatworth logo" />
 )
