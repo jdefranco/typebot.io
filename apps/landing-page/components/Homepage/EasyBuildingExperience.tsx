@@ -35,21 +35,19 @@ export const EasyBuildingExperience = () => {
       >
         <Stack spacing="6" maxW="300px" minW={[0, '300px']}>
           <Heading as="h1" data-aos="fade">
-            Easy building experience
+            Effortless Building Experience
           </Heading>
           <Text
             color="gray.400"
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            All you have to do is drag and drop blocks to create your app. Even
-            if you have custom needs, you can always add custom code.
-          </Text>
+Crafting your chatbot with Chatworth is an exercise in elegance. Our intuitive interface allows you to shape your chatbot with a simple drag-and-drop mechanism. For those bespoke needs, our system welcomes the addition of custom code, ensuring your chatbot is as unique as your brand.          </Text>
           <Flex>
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
-              href={`https://app.typebot.io/register`}
+              href={`https://app.chatworth.io/register`}
               variant="ghost"
               data-aos="fade"
             >

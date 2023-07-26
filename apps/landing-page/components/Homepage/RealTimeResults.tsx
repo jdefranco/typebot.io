@@ -54,7 +54,8 @@ export const RealTimeResults = () => {
             textAlign="center"
             data-aos="fade"
           >
-            Collect results in real-time
+                          as={Link}
+
           </Heading>
           <Text
             textAlign="center"
@@ -63,15 +64,13 @@ export const RealTimeResults = () => {
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            One of the main advantage of a chat application is that you collect
-            the user&apos;s responses on each question.{' '}
-            <strong>You won&apos;t lose any valuable data.</strong>
+            The power of a chat application lies in its ability to gather data in real-time. With Chatworth, you not only collect data but also gain insights, ensuring no valuable information is lost in the ether.
           </Text>
           <Flex>
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
-              href={`https://app.typebot.io/register`}
+              href={`https://app.chatworth.io/register`}
               variant="ghost"
               colorScheme="blue"
               data-aos="fade"

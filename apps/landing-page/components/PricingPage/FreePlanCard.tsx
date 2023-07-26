@@ -39,7 +39,7 @@ export const FreePlanCard = () => (
     button={
       <Button
         as={Link}
-        href="https://typebot-builder-teal.vercel.app/register"
+        href="https://chatworth.io/register"
         variant="outline"
         colorScheme="gray"
         size="lg"

@@ -32,7 +32,7 @@ export const Hero = () => {
               bgClip="text"
               data-aos="fade-up"
             >
-              Build advanced chatbots visually
+              Chatworth - AI-Powered Conversational Chatbot System
             </Heading>
             <Text
               fontSize={['lg', 'xl']}
@@ -41,9 +41,7 @@ export const Hero = () => {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              Typebot gives you powerful blocks to create unique chat
-              experiences. Embed them anywhere on your web/mobile apps and start
-              collecting results like magic.
+              Harness the power of AI to create sophisticated chat experiences. Embed Chatworth anywhere on your web/mobile apps and start engaging with your audience like never before.
             </Text>
             <Stack
               direction={['column-reverse', 'row']}
@@ -58,7 +56,7 @@ export const Hero = () => {
                 height="4rem"
                 px="2rem"
               >
-                Create a typebot for free
+                Start For Free
               </Button>
             </Stack>
           </VStack>
@@ -106,7 +104,7 @@ export const Hero = () => {
       <Flex justify="center" bgGradient="linear(to-b, gray.900, gray.800)">
         <VStack spacing="12" pb="32" maxW="7xl" px={4}>
           <Heading fontSize="25px" fontWeight="semibold" data-aos="fade">
-            Loved by teams and creators from all around the world
+            Trusted by Teams and Creators Globally
           </Heading>
           <SimpleGrid
             columns={{ base: 2, md: 4 }}

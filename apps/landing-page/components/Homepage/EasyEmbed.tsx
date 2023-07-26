@@ -35,22 +35,19 @@ export const EasyEmbed = () => {
       >
         <Stack spacing="6" maxW="300px" minW={[0, '300px']}>
           <Heading as="h1" data-aos="fade">
-            Embed it in a click
+            Seamless Integration for a Cohesive User Experience
           </Heading>
           <Text
             color="gray.400"
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            Embedding your typebot in your applications is a walk in the park.
-            Typebot gives you several step-by-step platform-specific
-            instructions. Your typebot will always feel &quot;native&quot;.
-          </Text>
+Incorporating Chatworth into your applications is as seamless as the flight of an owl. Our detailed, platform-specific instructions ensure your Chatworth bot integrates smoothly, providing a cohesive and native user experience.          </Text>
           <Flex data-aos="fade">
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
-              href={`https://app.typebot.io/register`}
+              href={`https://app.chatworth.io/register`}
               variant="ghost"
               colorScheme="orange"
             >

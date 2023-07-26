@@ -27,19 +27,19 @@ export const EndCta = () => {
           letterSpacing="tight"
           data-aos="fade-up"
         >
-          Take your forms to the next level
+          Take your customer interactions to the next level with Chatworth.
         </Heading>
         <Flex>
           <Button
             as={Link}
-            href="https://app.typebot.io/register"
+            href="https://app.chatworth.io/register"
             size="lg"
             colorScheme="orange"
             height="4rem"
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            Create a typebot
+            Get Started
           </Button>
         </Flex>
 
