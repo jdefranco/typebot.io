@@ -54,8 +54,7 @@ export const RealTimeResults = () => {
             textAlign="center"
             data-aos="fade"
           >
-                          as={Link}
-
+Real-Time Data Collection, Enlightened by AI
           </Heading>
           <Text
             textAlign="center"
