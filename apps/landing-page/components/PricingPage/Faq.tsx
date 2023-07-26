@@ -47,7 +47,7 @@ export const Faq = () => (
           Yes, you can cancel, upgrade, or downgrade your subscription at any time. There is no minimum time commitment or lock-in.
           <br />
           <br />
-          When you upgrade or downgrade your subscription, you'll get access to the new options right away. Your next invoice will have a prorated amount.
+          When you upgrade or downgrade your subscription, you&apos;ll get access to the new options right away. Your next invoice will have a prorated amount.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
