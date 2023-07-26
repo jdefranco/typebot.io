@@ -46,28 +46,26 @@ const Pricing = () => {
           <Stack align="center" spacing="12" w="full" px={4}>
             <VStack>
               <Heading fontSize={{ base: '4xl', xl: '6xl' }}>
-                Plans fit for you
+                Plans Tailored to Your Needs
               </Heading>
               <Text
                 maxW="900px"
                 textAlign="center"
                 fontSize={{ base: 'lg', xl: 'xl' }}
               >
-                Whether you&apos;re a{' '}
+                Whether you&apos;re an{' '}
                 <Text as="span" color="orange.200" fontWeight="bold">
-                  solo business owner
+                  independent entrepreneur
                 </Text>
                 , a{' '}
                 <Text as="span" color="blue.200" fontWeight="bold">
-                  growing startup
+                  emerging startup
                 </Text>{' '}
                 or a{' '}
                 <Text as="span" fontWeight="bold">
-                  large company
+                  large corporation
                 </Text>
-                , Typebot is here to help you build high-performing chat forms
-                for the right price. Pay for as little or as much usage as you
-                need.
+                , Chatworth is here to assist you in creating high-performing chatbots at the right price. Pay for as little or as much usage as you need. Chatworth is committed to contributing 1% of your subscription to carbon removal initiatives.
               </Text>
             </VStack>
 
