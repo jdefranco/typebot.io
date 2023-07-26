@@ -29,11 +29,11 @@ export const Footer = () => {
         <SimpleGrid columns={[1, 2, 4]} spacing={8} px={2}>
           <Stack spacing={6}>
             <HStack>
-              <Logo boxSize="30px" />
-              <Heading as="p" fontSize="lg">
-                Typebot
-              </Heading>
-            </HStack>
+  <Logo />
+  <Heading as="p" fontSize="lg">
+    Chatworth
+  </Heading>
+</HStack>
             <Text>
               Made with ❤️ by{' '}
               <TextLink href={baptisteTwitterUrl}>@baptisteArno</TextLink>
