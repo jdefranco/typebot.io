@@ -74,7 +74,7 @@ Real-Time Data Collection, Enlightened by AI
               colorScheme="blue"
               data-aos="fade"
             >
-              Try it now
+              Get Started
             </Button>
           </Flex>
         </VStack>
