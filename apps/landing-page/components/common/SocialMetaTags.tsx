@@ -2,8 +2,8 @@ import Head from 'next/head'
 import React from 'react'
 
 export const SocialMetaTags = ({
-  title = 'Typebot - Open-source conversational apps builder',
-  description = 'Powerful blocks to create unique chat experiences. Embed them anywhere on your apps and start collecting results like magic.',
+  title = 'Chatworth: Sophisticated AI-Powered Chatbot System',
+  description = 'Experience the wisdom of Chatworth, a sophisticated AI-powered chatbot system designed to revolutionize customer interactions through intuitive chatbot creation, seamless integration, and real-time data collection. Elevate your customer engagement today.',
   currentUrl,
   imagePreviewUrl = 'https://s3.typebot.io/preview.png',
 }: {
