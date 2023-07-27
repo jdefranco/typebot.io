@@ -11,7 +11,7 @@ export const Faq = () => (
         <Text>
   A chat is counted whenever a user initiates a conversation. This count is independent of the number of messages sent and received. For instance, if a user starts a chat and sends 10 messages to the bot, it will count as 1 chat. If the user chats again later and their session is remembered, it won&apos;t be counted as a new chat. <br />
   <br />
-  Think of it this way: 1 chat equals to a row in your Results table. 
+  Think of it this way: 1 chat equals to a row in your Results table.  
 </Text>
 
       </Stack>
@@ -36,7 +36,7 @@ export const Faq = () => (
           What happens once I reach the storage limit?
         </Heading>
         <Text>
-          When you exceed the storage size included in your plan, you will receive a notification email. There won't be any immediate additional charges and your bots will continue to store new files. If you continue to exceed the limit, you will be kindly asked to upgrade your subscription.
+          When you exceed the storage size included in your plan, you will receive a notification email. There won&apos;t be any immediate additional charges and your bots will continue to store new files. If you continue to exceed the limit, you will be kindly asked to upgrade your subscription.
         </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
