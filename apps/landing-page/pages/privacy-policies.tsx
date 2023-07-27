@@ -12,10 +12,10 @@ const PrivacyPolicies = () => {
         title="Typebot - Privacy & Policies"
       />
       <Stack spacing={10} mx="auto" maxW="3xl" my="20">
-        <Heading as="h1">Privacy Policy for Typebot</Heading>
+        <Heading as="h1">Privacy Policy for Chatworth</Heading>
 
         <p>
-          At typebot.io, accessible from https://www.typebot.io, one of our main
+          At chatworth.io, accessible from https://www.chatworth.io, one of our main
           priorities is the privacy of our visitors. This Privacy Policy
           document contains types of information that is collected and recorded
           by typebot.io and how we use it.
@@ -123,7 +123,7 @@ const PrivacyPolicies = () => {
         <Heading>Third Party Privacy Policies</Heading>
 
         <p>
-          typebot.io&apos;s Privacy Policy does not apply to other advertisers
+          Chatworth.io&apos;s Privacy Policy does not apply to other advertisers
           or websites. Thus, we are advising you to consult the respective
           Privacy Policies of these third-party ad servers for more detailed
           information. It may include their practices and instructions about how
@@ -211,7 +211,7 @@ const PrivacyPolicies = () => {
         </p>
 
         <p>
-          typebot.io does not knowingly collect any Personal Identifiable
+          Chatworth.io does not knowingly collect any Personal Identifiable
           Information from children under the age of 13. If you think that your
           child provided this kind of information on our website, we strongly
           encourage you to contact us immediately and we will do our best

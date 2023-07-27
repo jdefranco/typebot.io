@@ -11,28 +11,28 @@ export const links = [
       {
         label: 'GitHub repository',
         description: 'Check out the entire source code of the project',
-        href: 'https://github.com/baptisteArno/typebot.io',
+        href: 'https://github.com/josephdefranco/typebot.io',
         icon: <GitHubIcon fill="blue.300" />,
       },
       {
         label: 'Documentation',
         description:
           "Everything you need to know about how to use Typebot's builder",
-        href: 'https://docs.typebot.io',
+        href: 'https://docs.chatworth.io',
         icon: <DocIcon />,
       },
       {
         label: 'Roadmap',
         description:
           "Follow the development and make suggestions for which features you'd like to see",
-        href: 'https://feedback.typebot.io/roadmap',
+        href: 'https://feedback.chatworth.io/roadmap',
         icon: <MapIcon />,
       },
       {
         label: 'Community',
         description:
           'Join our facebook community and get insights on how to create high performing surveys',
-        href: 'https://www.facebook.com/groups/262165102257585',
+        href: 'https://www.facebook.com/groups/chatworth',
         icon: <PeopleCircleIcon />,
       },
     ],
