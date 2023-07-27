@@ -14,7 +14,7 @@ const PrivacyPolicies = () => {
         <Heading>1. Terms</Heading>
 
         <p>
-          By accessing this Website, accessible from https://www.typebot.io, you
+          By accessing this Website, accessible from https://www.chatworth.io, you
           are agreeing to be bound by these Website Terms and Conditions of Use
           and agree that you are responsible for the agreement with any
           applicable local laws. If you disagree with any of these terms, you
@@ -52,7 +52,7 @@ const PrivacyPolicies = () => {
         </ul>
 
         <p>
-          This will let Typebot to terminate upon violations of any of these
+          This will let Chatworth to terminate upon violations of any of these
           restrictions. Upon termination, your viewing right will also be
           terminated and you should destroy any downloaded materials in your
           possession whether it is printed or electronic format. These Terms of
@@ -70,9 +70,9 @@ const PrivacyPolicies = () => {
         <Heading>3. Disclaimer</Heading>
 
         <p>
-          All the materials on Typebot’s Website are provided &quot;as is&quot;.
-          Typebot makes no warranties, may it be expressed or implied, therefore
-          negates all other warranties. Furthermore, Typebot does not make any
+          All the materials on Chatworth’s Website are provided &quot;as is&quot;.
+          Chatworth makes no warranties, may it be expressed or implied, therefore
+          negates all other warranties. Furthermore, Chatworth does not make any
           representations concerning the accuracy or reliability of the use of
           the materials on its Website or otherwise relating to such materials
           or any sites linked to this Website.
@@ -81,9 +81,9 @@ const PrivacyPolicies = () => {
         <Heading>4. Limitations</Heading>
 
         <p>
-          Typebot or its suppliers will not be hold accountable for any damages
+          Chatworth or its suppliers will not be hold accountable for any damages
           that will arise with the use or inability to use the materials on
-          Typebot’s Website, even if Typebot or an authorize representative of
+          Chatworth’s Website, even if Chatworth or an authorize representative of
           this Website has been notified, orally or written, of the possibility
           of such damage. Some jurisdiction does not allow limitations on
           implied warranties or limitations of liability for incidental damages,
@@ -93,38 +93,38 @@ const PrivacyPolicies = () => {
         <Heading>5. Revisions and Errata</Heading>
 
         <p>
-          The materials appearing on Typebot’s Website may include technical,
-          typographical, or photographic errors. Typebot will not promise that
+          The materials appearing on Chatworth&apos;s Website may include technical,
+          typographical, or photographic errors. Chatworth will not promise that
           any of the materials in this Website are accurate, complete, or
-          current. Typebot may change the materials contained on its Website at
-          any time without notice. Typebot does not make any commitment to
+          current. Chatworth may change the materials contained on its Website at
+          any time without notice. Chatworth does not make any commitment to
           update the materials.
         </p>
 
         <Heading>6. Links</Heading>
 
         <p>
-          Typebot has not reviewed all of the sites linked to its Website and is
+          Chatworth has not reviewed all of the sites linked to its Website and is
           not responsible for the contents of any such linked site. The presence
-          of any link does not imply endorsement by Typebot of the site. The use
+          of any link does not imply endorsement by Chatworth of the site. The use
           of any linked website is at the user’s own risk.
         </p>
 
         <Heading>7. Site Terms of Use Modifications</Heading>
 
         <p>
-          Typebot may revise these Terms of Use for its Website at any time
+          Chatworth may revise these Terms of Use for its Website at any time
           without prior notice. By using this Website, you are agreeing to be
           bound by the current version of these Terms and Conditions of Use.
         </p>
 
         <Heading id="scam-typebots">8. Prohibition of Scam Typebots</Heading>
         <p>
-          You agree not to create or use typebots on Typebot&apos;s Website for
+          You agree not to create or use typebots on Chatworth&apos;s Website for
           the purpose of engaging in fraudulent activities, scamming
           individuals, or any other unethical or illegal activities. This
-          includes but is not limited to typebots designed to deceive, defraud,
-          or mislead people for financial gain or personal benefit. Typebot
+          includes but is not limited to chatbots designed to deceive, defraud,
+          or mislead people for financial gain or personal benefit. Chatworth
           reserves the right to take appropriate action, including the
           termination of any user account, if it determines that a typebot is
           being used in violation of this provision.
@@ -140,7 +140,7 @@ const PrivacyPolicies = () => {
         <Heading>10. Governing Law</Heading>
 
         <p>
-          Any claim related to Typebot&apos;s Website shall be governed by the
+          Any claim related to Chatworth&apos;s Website shall be governed by the
           laws of fr without regards to its conflict of law provisions.
         </p>
       </Stack>

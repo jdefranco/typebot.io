@@ -65,11 +65,11 @@ const Pricing = () => {
                 <Text as="span" fontWeight="bold">
                   large corporation
                 </Text>
-                , Chatworth is here to assist you in creating high-performing chatbots at the right price. Pay for as little or as much usage as you need. Chatworth is committed to contributing 1% of your subscription to carbon removal initiatives.
+                , Chatworth is here to assist you in creating high-performing chatbots at the right price. Pay for as little or as much usage as you need. 
               </Text>
             </VStack>
 
-            <HStack
+           { /* <HStack
               maxW="500px"
               spacing="4"
               bgColor="gray.800"
@@ -84,7 +84,7 @@ const Pricing = () => {
                   More info
                 </TextLink>
               </Text>
-            </HStack>
+            </HStack> */ }
             <Stack align="flex-end" maxW="1200px" w="full" spacing={4}>
               <HStack>
                 <Text>Monthly</Text>
