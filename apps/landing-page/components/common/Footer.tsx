@@ -63,7 +63,7 @@ export const Footer = () => {
             <TextLink href={typebotLinkedInUrl} isExternal>
               LinkedIn
             </TextLink>
-            <TextLink href="/oss-friends">OSS Friends</TextLink>
+            
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
