@@ -41,7 +41,7 @@ const AboutPage = () => {
           Our mission is to help businesses communicate more effectively with their customers. We believe that every interaction is an opportunity to learn, improve, and build stronger relationships. With Chatworth, businesses can make the most of these opportunities.
         </Text>
         <Text>
-          Whether you're a solo entrepreneur looking to automate customer support, a growing startup aiming to generate leads, or a large corporation seeking to enhance customer satisfaction, Chatworth is here to help. Our flexible plans are designed to fit your needs.
+          Whether you&apos;re a solo entrepreneur looking to automate customer support, a growing startup aiming to generate leads, or a large corporation seeking to enhance customer satisfaction, Chatworth is here to help. Our flexible plans are designed to fit your needs.
         </Text>
         <Text>
           Join us on our mission to transform customer interactions. Experience the wisdom of Chatworth today.
