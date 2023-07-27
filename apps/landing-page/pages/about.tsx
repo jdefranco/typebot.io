@@ -3,7 +3,6 @@ import { Header } from 'components/common/Header/Header'
 import { SocialMetaTags } from 'components/common/SocialMetaTags'
 import React from 'react'
 import { Footer } from 'components/common/Footer'
-import { TextLink } from 'components/common/TextLink'
 
 const AboutPage = () => {
   return (
