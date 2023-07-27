@@ -17,7 +17,7 @@ export const links = [
       {
         label: 'Documentation',
         description:
-          "Everything you need to know about how to use Typebot's builder",
+          "Everything you need to know about how to use Chatworth's builder",
         href: 'https://docs.chatworth.io',
         icon: <DocIcon />,
       },
