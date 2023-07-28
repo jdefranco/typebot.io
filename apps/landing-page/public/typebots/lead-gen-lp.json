@@ -1,1 +1,348 @@
-{"id":"jdxfqn5jq2y0degyyzdkgpkr","version":"3","createdAt":"2023-07-19T16:30:28.961Z","updatedAt":"2023-07-27T20:20:42.660Z","icon":"https://s3.us-east-2.amazonaws.com:443/chatworth.io/public/typebots/jdxfqn5jq2y0degyyzdkgpkr/icon?v=1690489141265","name":"Product recommendation copy","folderId":null,"groups":[{"id":"wz08hb21c0dbz6lj8ry7l6xi","title":"Start","blocks":[{"id":"li6nyybzaojujnz241jv5rr1","type":"start","label":"Start","groupId":"wz08hb21c0dbz6lj8ry7l6xi","outgoingEdgeId":"xjj9z6uhtb7e2dhc3tuwhvh7"}],"graphCoordinates":{"x":0,"y":0}},{"id":"nithahgfaaamqnjb5hsuh11w","title":"Continent","blocks":[{"id":"ub5tforva9nlqky5lbrfrsdb","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Ok {{Name}}"}]}]},"groupId":"nithahgfaaamqnjb5hsuh11w"},{"id":"jaj0pyfmlf4hb4suglr3v0be","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Because all products are not available everywhere, I need to know..."}]}]},"groupId":"nithahgfaaamqnjb5hsuh11w"},{"id":"x6lj1mhze2xtc0h3ln42xg84","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Where do you live?"}]}]},"groupId":"nithahgfaaamqnjb5hsuh11w"},{"id":"lwtynqjykiem5zdtns3fwhu2","type":"choice input","items":[{"id":"b6mg694wlrmx4k1fgc46co57","type":0,"blockId":"lwtynqjykiem5zdtns3fwhu2","content":"North America"},{"id":"fpey0ohbvgvg7b86y4ol8wr7","type":0,"blockId":"lwtynqjykiem5zdtns3fwhu2","content":"Europe"}],"groupId":"nithahgfaaamqnjb5hsuh11w","options":{"variableId":"vma96g9rw8oaosc0ei2iacqig","buttonLabel":"Send","isSearchable":false,"isMultipleChoice":false,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"p5jpsvuc8zf3ne9k0pfxkpq4"}],"graphCoordinates":{"x":367.82,"y":175.39}},{"id":"ivh8fqry62411xgik7pb3rmc","title":"Name","blocks":[{"id":"mu6ygqqpi48dacy1n4xj6x4y","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Let's determine what Näak's products suit you best. 💪"}]}]},"groupId":"ivh8fqry62411xgik7pb3rmc"},{"id":"w9rc4yf0ytnzqy16r938h094","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What's your name?"}]}]},"groupId":"ivh8fqry62411xgik7pb3rmc"},{"id":"xobx3g928f9zj220n5qe1ih6","type":"text input","groupId":"ivh8fqry62411xgik7pb3rmc","options":{"isLong":false,"labels":{"button":"Send","placeholder":"Type your answer..."},"variableId":"vp1r2yrb6xgmi2aq3x6x73vaz"},"outgoingEdgeId":"py638tww7d4v2i3gqv6k2yu6"}],"graphCoordinates":{"x":21.64,"y":176.32}},{"id":"p1whb3maq78alk7knwkbu06e","title":"Sport","blocks":[{"id":"xpbrytz3gucp0xzf1qs8mlwe","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What's your sport?"}]}]},"groupId":"p1whb3maq78alk7knwkbu06e"},{"id":"zesp4ro7ltjmh64sn8d4912c","type":"picture choice input","items":[{"id":"l4y5s4rz63g3kl91sq5h6401","type":3,"title":"Running","blockId":"zesp4ro7ltjmh64sn8d4912c","pictureSrc":"https://images.unsplash.com/photo-1456613820599-bfe244172af5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHw0fHx0cmFpbHxlbnwwfDB8fHwxNjg1MzYyOTQ2fDA&ixlib=rb-4.0.3&q=80&w=1080"},{"id":"urqlzmsiixatiamg06pexhsn","type":3,"title":"Cycling","blockId":"zesp4ro7ltjmh64sn8d4912c","pictureSrc":"https://images.unsplash.com/photo-1545575439-3261931f52f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHw3fHxjeWNsaW5nfGVufDB8MHx8fDE2ODUzNjI5NjJ8MA&ixlib=rb-4.0.3&q=80&w=1080"},{"id":"go2ko2zs5haeairrtfw7jqb2","type":3,"title":"Triathlon","blockId":"zesp4ro7ltjmh64sn8d4912c","pictureSrc":"https://images.unsplash.com/photo-1627900258552-50850df9dbc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHw0fHxUcmlhdGhsb258ZW58MHwwfHx8MTY4NTM2Mjk3N3ww&ixlib=rb-4.0.3&q=80&w=1080"},{"id":"ctvsb2gsogkbaj9sxsgw25p9","type":3,"title":"Hiking","blockId":"zesp4ro7ltjmh64sn8d4912c","pictureSrc":"https://images.unsplash.com/photo-1551632811-561732d1e306?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHwyfHxIaWtpbmd8ZW58MHwwfHx8MTY4NTM2Mjk5NXww&ixlib=rb-4.0.3&q=80&w=1080"}],"groupId":"p1whb3maq78alk7knwkbu06e","options":{"buttonLabel":"Send","isMultipleChoice":false,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"nuqupwcsy2fkx5upobfclqi0"}],"graphCoordinates":{"x":721.14,"y":173.95}},{"id":"yb50sji9tgnux5s7c64k6qex","title":"Gender","blocks":[{"id":"ahuasm8oa058gl4np96qadox","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Nice! 😎"}]}]},"groupId":"yb50sji9tgnux5s7c64k6qex"},{"id":"phbeq3fg1jp2ktmz2blr6bzf","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What's your gender?"}]}]},"groupId":"yb50sji9tgnux5s7c64k6qex"},{"id":"mfz600vwgfjcisahf5tdnz7l","type":"choice input","items":[{"id":"zv2np66vgqoruntfh9h9vidx","type":0,"blockId":"mfz600vwgfjcisahf5tdnz7l","content":"♂️ Men","displayCondition":{"condition":{"comparisons":[{"id":"r7gcyof1nhavgaap1uhvw3ox","value":"test","variableId":"vp1r2yrb6xgmi2aq3x6x73vaz","comparisonOperator":"Equal to"}],"logicalOperator":"AND"},"isEnabled":false}},{"id":"w5e2h4n10u1l2pap1vtm68ma","type":0,"blockId":"mfz600vwgfjcisahf5tdnz7l","content":"♀️ Women"},{"id":"m1t9qrfs4z998ogqd4ttueus","type":0,"blockId":"mfz600vwgfjcisahf5tdnz7l","content":"Other"}],"groupId":"yb50sji9tgnux5s7c64k6qex","options":{"buttonLabel":"Send","isSearchable":false,"isMultipleChoice":false,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"f1jzkkg0gc8jujf2bhch36xg"}],"graphCoordinates":{"x":1071,"y":173.95}},{"id":"klzxx6db72cxsejpyiqddqmb","title":"Goals","blocks":[{"id":"pksck9ppag8q24ou26ewgodw","type":"text","content":{"richText":[{"type":"p","children":[{"text":"How can Näak help you achieve your goals?"}]}]},"groupId":"klzxx6db72cxsejpyiqddqmb"},{"id":"cx2v8nfb4kxvk58bbu6w85uy","type":"picture choice input","items":[{"id":"fmhwukhd2112743tgrmv85st","type":3,"title":"Energy","blockId":"cx2v8nfb4kxvk58bbu6w85uy","pictureSrc":"https://images.unsplash.com/photo-1615845522103-82f98cd2a9de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHw5fHxlbmR1cmFuY2V8ZW58MHwwfHx8MTY4NTM2MzY3Nnww&ixlib=rb-4.0.3&q=80&w=1080"},{"id":"hkzoroc6mf9tt9g2uxppweay","type":3,"title":"Hydration","blockId":"cx2v8nfb4kxvk58bbu6w85uy","pictureSrc":"https://images.unsplash.com/photo-1536044635785-467d51fc5880?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHwxMnx8ZHJpbmslMjBzcG9ydHxlbnwwfDB8fHwxNjg1MzYzNzIxfDA&ixlib=rb-4.0.3&q=80&w=1080"},{"id":"nn5629jaux41qo0fhl1yj3zi","type":3,"title":"Recovery","blockId":"cx2v8nfb4kxvk58bbu6w85uy","pictureSrc":"https://images.unsplash.com/photo-1531403939386-c08a16cd7eef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0MjU2MDR8MHwxfHNlYXJjaHw3fHxzdHJldGNofGVufDB8MHx8fDE2ODUzNjM2OTl8MA&ixlib=rb-4.0.3&q=80&w=1080"}],"groupId":"klzxx6db72cxsejpyiqddqmb","options":{"variableId":"vgz8fr5u7q0p4jdef1krz2vm3","buttonLabel":"Send","isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"cjf2udh4rhuog5mufp8rwlk4"}],"graphCoordinates":{"x":1412.34,"y":174.77}},{"id":"legji7362651u0la9nk64xw9","title":"Protein source","blocks":[{"id":"ife4ujh1l5ljpp3x4gnram1z","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What protein source are you interested in?"}]}]},"groupId":"legji7362651u0la9nk64xw9"},{"id":"ogy9ng7q9jglxg2ivb39tzeh","type":"choice input","items":[{"id":"exj60v3j83wx9yjbdsm8gwzj","type":0,"blockId":"ogy9ng7q9jglxg2ivb39tzeh","content":"Cricket-based"},{"id":"kvqeznudz85jbqwxzfpwz8z8","type":0,"blockId":"ogy9ng7q9jglxg2ivb39tzeh","content":"Plant-based"}],"groupId":"legji7362651u0la9nk64xw9","options":{"variableId":"vlgo7i0r514jkd9a9f24otm4m","buttonLabel":"Send","isSearchable":false,"isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"klo5o6xg84um2v0jmvgiospe"}],"graphCoordinates":{"x":1745.61,"y":183.87}},{"id":"c5s07e7hpp7qbjehdvgbnrfv","title":"Flavours","blocks":[{"id":"muy0ptwahuy20bhs5b9npz2m","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What are flavors do you enjoy?"}]}]},"groupId":"c5s07e7hpp7qbjehdvgbnrfv"},{"id":"p71conb1ln7f3m41ca6pxetz","type":"choice input","items":[{"id":"t7fkowjzn7eygfn6q1r4a8l9","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Chocolate","displayCondition":{"condition":{"comparisons":[],"logicalOperator":"AND"},"isEnabled":false}},{"id":"b1a0qlhtirnxqaqudskc4hnb","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Vanilla"},{"id":"vef4uodxrj05lp2i5k3uhdd5","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Berries"},{"id":"oyyx5j4j5fee37rc47adb5m8","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Caramel"},{"id":"myapux2pojdtbdy0gyc47rhq","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Nuts"},{"id":"aegltvuw163qqx88rwzjrg3v","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Coffee"},{"id":"zql5o66rry2ab3ofxa1y8kll","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Lime"},{"id":"ecvbkdakesh18zn5bfkylvt1","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Watermelon"},{"id":"b1xcrk5tv1b1rkjy40uhp44d","type":0,"blockId":"p71conb1ln7f3m41ca6pxetz","content":"Maple Syrup"}],"groupId":"c5s07e7hpp7qbjehdvgbnrfv","options":{"variableId":"vhbd5800sc98l1lk8wf7fe742","buttonLabel":"Next","isSearchable":false,"isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"rh27zryirmnz4tsb1b0rdt2t"}],"graphCoordinates":{"x":2077.77,"y":182.75}},{"id":"bet6sh7fv4vynqe1atixcdyx","title":"Diet restrictions","blocks":[{"id":"bwqiy7w4x6egwozthsvraeup","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Great choice 😋"}]}]},"groupId":"bet6sh7fv4vynqe1atixcdyx"},{"id":"n6ns6i9z8qyk83wg5f8bn2j8","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Do you have any dietary restrictions?"}]}]},"groupId":"bet6sh7fv4vynqe1atixcdyx"},{"id":"cbcz08dj67rkx8k1cbj2ybz8","type":"choice input","items":[{"id":"u9gi0gnaza6ottid74l82wlm","type":0,"blockId":"cbcz08dj67rkx8k1cbj2ybz8","content":"Non GMO"},{"id":"yr7q8fcyi6l1sw83t37fjosj","type":0,"blockId":"cbcz08dj67rkx8k1cbj2ybz8","content":"No palm oil"},{"id":"gckqnnt2but4d6wwsfia3035","type":0,"blockId":"cbcz08dj67rkx8k1cbj2ybz8","content":"Gluten free"},{"id":"m3qdwzep7uugpejvga0yqorg","type":0,"blockId":"cbcz08dj67rkx8k1cbj2ybz8","content":"Nut free"}],"groupId":"bet6sh7fv4vynqe1atixcdyx","options":{"variableId":"vz4fqc40gkk99h0qeus2tjwhx","buttonLabel":"Send","isSearchable":false,"isMultipleChoice":false,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"f4uzq18evuom30tz2dvj6tpq"}],"graphCoordinates":{"x":2424.83,"y":184.48}},{"id":"gtiukuwnu6zx6ccag83747i7","title":"Email","blocks":[{"id":"fynckthiy3zq7selucjvp44q","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Alright {{Name}}, I think we know exactly what you need."}]}]},"groupId":"gtiukuwnu6zx6ccag83747i7"},{"id":"pbn0oib7yt3uspici7to3i9f","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Sign up to our email list to receive a copy of your product recommendations."}]}]},"groupId":"gtiukuwnu6zx6ccag83747i7"},{"id":"rez1phkqpkeoj7u2kzmde653","type":"text","content":{"richText":[{"type":"p","children":[{"text":"We will also send a little gift 🎁"}]}]},"groupId":"gtiukuwnu6zx6ccag83747i7"},{"id":"vdzzxwdocfxdvqnqwwvjymzw","type":"email input","groupId":"gtiukuwnu6zx6ccag83747i7","options":{"labels":{"button":"Send","placeholder":"Type your email..."},"retryMessageContent":"This email doesn't seem to be valid. Can you type it again?"},"outgoingEdgeId":"hhzk1un8rcrnnl8jek21m8oy"}],"graphCoordinates":{"x":2765.89,"y":187.64}},{"id":"vqmp9d4nlaqpfnzus3505y7i","title":"If cricket","blocks":[{"id":"l16y2qzslakgl2up4jybj5m4","type":"Condition","items":[{"id":"yffl8ja17g5fr9rpi4d0cl36","type":1,"blockId":"l16y2qzslakgl2up4jybj5m4","content":{"comparisons":[{"id":"g995jwhkyj8e5tv4ci7gd5fi","value":"Cricket-based","variableId":"vlgo7i0r514jkd9a9f24otm4m","comparisonOperator":"Contains"},{"id":"qjhmaage7fe1i5e0nscr0954","value":"Europe","variableId":"vma96g9rw8oaosc0ei2iacqig","comparisonOperator":"Equal to"}],"logicalOperator":"AND"},"outgoingEdgeId":"azq3eb2cesy89vkbsv46dasf"}],"groupId":"vqmp9d4nlaqpfnzus3505y7i","outgoingEdgeId":"o1zoeurcswxd9nqx64mgdkkm"}],"graphCoordinates":{"x":3107.95,"y":187.35}},{"id":"z4uirhdaygaxvf2xq598g6la","title":"No cricket in Europe","blocks":[{"id":"c3m4f1kcyf3dnsdlykjrxytm","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Unfortunately, cricket-based products are not available in Europe. 😢"}]}]},"groupId":"z4uirhdaygaxvf2xq598g6la"},{"id":"pxb59zd4bjqmva9er47l6x15","type":"text","content":{"richText":[{"type":"p","children":[{"text":"We'll make sure to let you know once it's available!"}]}]},"groupId":"z4uirhdaygaxvf2xq598g6la","outgoingEdgeId":"ue2jqsalzqti6u61obz9lim3"}],"graphCoordinates":{"x":3452.46,"y":113.36}},{"id":"s90qufpkhi30agiuy2twqscq","title":"If Energy","blocks":[{"id":"okl6akklm8djknl7lofqr3cm","type":"Condition","items":[{"id":"vyjgfexvyrijez06kpxi1mva","type":1,"blockId":"okl6akklm8djknl7lofqr3cm","content":{"comparisons":[{"id":"w3ii2flw8vz608pm45j92nli","value":"Energy","variableId":"vgz8fr5u7q0p4jdef1krz2vm3","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"outgoingEdgeId":"ssywocvhg3g9lpk1k2uc3273"}],"groupId":"s90qufpkhi30agiuy2twqscq","outgoingEdgeId":"rfkzngvlbbb565nbt7uwh235"}],"graphCoordinates":{"x":3646.4,"y":447.89}},{"id":"ee9zl9chi3k9borspi9zhht3","title":"If hydration","blocks":[{"id":"styhci2fh3yi17b7cmv3x8cc","type":"Condition","items":[{"id":"okd2sbmr1mgoubpf7kdjr9ey","type":1,"blockId":"styhci2fh3yi17b7cmv3x8cc","content":{"comparisons":[{"id":"w3ii2flw8vz608pm45j92nli","value":"Hydration","variableId":"vgz8fr5u7q0p4jdef1krz2vm3","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"outgoingEdgeId":"n5w6u4n9odndkv46bc7gj43k"}],"groupId":"ee9zl9chi3k9borspi9zhht3","outgoingEdgeId":"h3000sv5xk6sbfh7shpwbqlo"}],"graphCoordinates":{"x":4165.91,"y":568.07}},{"id":"r22v9z94nu94qbi5pconbclr","title":"If recovery","blocks":[{"id":"m8o93n92t5wcy5bi8tgauc5f","type":"Condition","items":[{"id":"yw3cil1rvf3iduc0mko0c8og","type":1,"blockId":"m8o93n92t5wcy5bi8tgauc5f","content":{"comparisons":[{"id":"w3ii2flw8vz608pm45j92nli","value":"Recovery","variableId":"vgz8fr5u7q0p4jdef1krz2vm3","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"outgoingEdgeId":"agjt36el2h1117zp17duzpw1"}],"groupId":"r22v9z94nu94qbi5pconbclr"}],"graphCoordinates":{"x":4634.08,"y":886.36}},{"id":"r1jwo2h03zceiinp43vy1601","title":"Energy","blocks":[{"id":"v4tvmb615jdg52vofgzlz7ai","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Let's talk about "},{"bold":true,"text":"Energy. ⚡"}]}]},"groupId":"r1jwo2h03zceiinp43vy1601"},{"id":"vxadalubq6hnsywwt7w9tzoc","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Here is a selection for you based on your answers."}]}]},"groupId":"r1jwo2h03zceiinp43vy1601"},{"id":"zzws62fe3zha7x7kln3kp0ko","type":"Condition","items":[{"id":"kb6eovh6di5xqnkegms0ljee","type":1,"blockId":"zzws62fe3zha7x7kln3kp0ko","content":{"comparisons":[{"id":"ysu7q0adna5tyhaghtq9qzrj","value":"Chocolate","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"j7sune97lh32xukeil8poeif","value":"Berries","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"tsrm85u8demtuc95aootakrj","value":"Caramel","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"gfqvik3txgrinlslj0jvs9gt","value":"Nuts","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"yv3jre55h7w9qp55t5m8ax2p","value":"Coffee","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"xksf2b1la2h8yy9lvn96yqo1","value":"Vanilla","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"outgoingEdgeId":"wpf9r5kbrdz57l07d3x6adk8"}],"groupId":"r1jwo2h03zceiinp43vy1601","outgoingEdgeId":"o2ocyd0jll9mj37v7u72uyz9"}],"graphCoordinates":{"x":4001.8,"y":-860.94}},{"id":"t0w1qkuvtiugn478ulgr8lbz","title":"Hydration","blocks":[{"id":"qsd35sfqjq1eskoovubrjc7k","type":"text","content":{"richText":[{"type":"p","children":[{"text":"About "},{"bold":true,"text":"Hydration. 💧"}]}]},"groupId":"t0w1qkuvtiugn478ulgr8lbz"},{"id":"eobb04nb37ezx24go2iipm85","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Here is a selection for you based on your answers."}]}]},"groupId":"t0w1qkuvtiugn478ulgr8lbz"},{"id":"ph2jgb8r0lyui0j6v3jtifo2","type":"picture choice input","items":[{"id":"pkv4omwvnr338lkhwh6jglh6","type":3,"title":"Lime Energy Drink Mix","blockId":"ph2jgb8r0lyui0j6v3jtifo2","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-energy-drink-mix-1-sac-3-50-portion-energy-drink-mix-lime-eu-29868312887382_600x.png?v=1677355814","description":"- 250 calories: get all your calories in a liquid form\n- 55g carbohydrates: simple and complex natural carbohydrates\n- 650mg electrolytes: replenish minerals lost in sweat\n- 1300mg BCAAs: prevent muscle breakdown during exercise\n- 8g protein: all essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"ntnhk9cqrvogutrldgpm7d56","value":"Lime","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"s6nx86xyuclsjtqmr53ijea1","type":3,"title":"Watermelon Energy Drink Mix","blockId":"ph2jgb8r0lyui0j6v3jtifo2","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-energy-drink-mix-1-sac-3-50-portion-energy-drink-mix-watermelon-eu-29868346605654_600x.png?v=1677355821","description":"- 250 calories: get all your calories in a liquid form\n- 55g carbohydrates: simple and complex natural carbohydrates\n- 650mg electrolytes: replenish minerals lost in sweat\n- 1300mg BCAAs: prevent muscle breakdown during exercise\n- 8g protein: all essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"r20yudlu77l7fhss45z87f7l","value":"Watermelon","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":false}}],"groupId":"t0w1qkuvtiugn478ulgr8lbz","options":{"buttonLabel":"Next","isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"exdgytrrhld8cjw2mkszdegh"}],"graphCoordinates":{"x":4604.39,"y":102.62}},{"id":"zhgi0xj1sb8lfa0ur4el4yfk","title":"Recovery","blocks":[{"id":"xbbsd6xsl44fukz2ygdpjbd1","type":"text","content":{"richText":[{"type":"p","children":[{"bold":true,"text":"Recovery 🧘‍♂️ "},{"text":"is crucial to perform at your highest level on the field."}]}]},"groupId":"zhgi0xj1sb8lfa0ur4el4yfk"},{"id":"cgb8mt2krmq3mdddwjehtrzu","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Here is a selection for you based on your answers."}]}]},"groupId":"zhgi0xj1sb8lfa0ur4el4yfk"},{"id":"mtj2j6zgnp50wpw9ewuwui5u","type":"picture choice input","items":[{"id":"s9nop23fmq55jilo9mntgpn8","type":3,"title":"Protein Nut Butter","blockId":"mtj2j6zgnp50wpw9ewuwui5u","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-breakfast-340g-protein-nut-butter-peanut-40637318365488_600x.png?v=1678033822","description":"- 500mg super fats: promote heart and gut health\n- 640mg BCAAs: reduce muscle damage & soreness\n- 120mg electrolytes: replenish minerals lost in sweat\n- 4.3g protein: build & repair muscle post-workout","displayCondition":{"condition":{"comparisons":[{"id":"rm8omv5htisk7s4nzvmsvc5c","value":"Nuts","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"xde05nklbld4u80qhs422y47","value":"Nut free","variableId":"vz4fqc40gkk99h0qeus2tjwhx","comparisonOperator":"Does not contain"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"snr3wam9c0p1f191rf2587wz","type":3,"title":"Vanilla Protein Powder","blockId":"mtj2j6zgnp50wpw9ewuwui5u","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-protein-powder-1-bag-2-75-serving-protein-powder-vanilla-29774755954774_600x.png?v=1677355777","description":"- 25g complete protein: build & repair muscle post-workout\n- 4g BCAAs: reduce muscle damage & soreness\n- 430mg electrolytes: replenish minerals lost in sweat\n- 1g carbohydrates: no added sugar"}],"groupId":"zhgi0xj1sb8lfa0ur4el4yfk","options":{"buttonLabel":"Send","isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."}}],"graphCoordinates":{"x":5092.14,"y":286.56}},{"id":"bywd8tivptb8yanh5mety4a7","title":"","blocks":[{"id":"bqq8o994nr8ltkkdc8bax01i","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Since you like all these flavors you could try our discovery packs"}]}]},"groupId":"bywd8tivptb8yanh5mety4a7"},{"id":"np8236cce7e79h8i21hg5ncp","type":"picture choice input","items":[{"id":"smabu9g31qcovytdu2yyi86n","type":3,"title":"Bars - Variety pack","blockId":"np8236cce7e79h8i21hg5ncp","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/PACKS_8_600x.png?v=1680032168","description":"- 180 calories: long-lasting energy with no sugar crash\n- 65mg caffeine: increase focus and stamina\n- 29g carbohydrates: simple and complex natural carbohydrates\n- 480mg electrolytes: replenish minerals lost in sweat\n- 7g protein: essential amino acids to reduce muscle fatigue"},{"id":"f8rm4b7ic73nq92u52717th5","type":3,"title":"Waffle - Variety pack","blockId":"np8236cce7e79h8i21hg5ncp","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/PACKS_7_600x.png?v=1680032183","description":"- 140 calories: quick energy boost from high-quality ingredients\n- 16g carbohydrates: simple and complex natural carbohydrates\n- 200mg electrolytes: replenish minerals lost in sweat\n- 3g protein: all essential amino acids to reduce muscle fatigue"}],"groupId":"bywd8tivptb8yanh5mety4a7","options":{"buttonLabel":"Send","isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"wzgsdv968bcdef0239rsezuv"}],"graphCoordinates":{"x":4425.49,"y":-1989.58}},{"id":"yjaj7bibx0hax9uyoxvna9jx","title":"","blocks":[{"id":"r5hq4sr8iovxqyixejparma7","type":"picture choice input","items":[{"id":"zc1c5ahukxhalbu9p6oqz4tw","type":3,"title":"Chocolate Energy Waffle","blockId":"r5hq4sr8iovxqyixejparma7","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-energy-waffle-energy-waffle-chocolate-40633672728880_600x.png?v=1677355844","description":"- 140 calories: quick energy boost from high-quality ingredients\n- 17g carbohydrates: simple and complex natural carbohydrates\n- 200mg electrolytes: replenish minerals lost in sweat\n- 3g protein: all essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"pkmq8tabhm9nqi5oo8cmz2gz","value":"Chocolate","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"j953heg9dx2xzdhwk773fha0","type":3,"title":"Vanilla Energy Waffle","blockId":"r5hq4sr8iovxqyixejparma7","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-energy-waffle-energy-waffle-vanilla-40633799246128_600x.png?v=1677355758","description":"- 140 calories: quick energy boost from high-quality ingredients\n- 16g carbohydrates: simple and complex natural carbohydrates\n- 210mg electrolytes: replenish minerals lost in sweat\n- 4g protein: all essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"l4cye2ndoqcdmhiylc4zyho9","value":"Vanilla","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"z8brrxkvbxfxfwryit6bjqb9","type":3,"title":"Maple Syrup Energy Waffle","blockId":"r5hq4sr8iovxqyixejparma7","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/naak-energy-waffle-energy-waffle-maple-syrup-40633783877936_600x.png?v=1678034628","description":"- 140 calories: quick energy boost from high-quality ingredients\n- 16g carbohydrates: simple and complex natural carbohydrates\n- 210mg electrolytes: replenish minerals lost in sweat\n- 4g protein: all essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"l4cye2ndoqcdmhiylc4zyho9","value":"Maple Syrup","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"ex1l3ynwk2iiz6wmavsr3l8y","type":3,"title":"Peanut Butter & Chocolate Bar","blockId":"r5hq4sr8iovxqyixejparma7","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/PACKS_600x.png?v=1678223153","description":"- 200 calories: long-lasting energy with no sugar crash\n- 27g carbohydrates: simple and complex natural carbohydrates\n- 445mg electrolytes: replenish minerals lost in sweat\n- 7g protein: essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"ez9ppwlsy77hzum27l7vxnu6","value":"Nuts","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"s4khjdtxicrwpdelg41fs6d8","value":"Chocolate","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"x2octz0rxe0s8ach4zdf2gch","type":3,"title":"Mocha Energy Bar","blockId":"kl9cacv5pde99co9w9d9pmmq","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/98_600x.png?v=1678223518","description":"- 180 calories: long-lasting energy with no sugar crash\n- 65mg caffeine: increase focus and stamina\n- 29g carbohydrates: simple and complex natural carbohydrates\n- 480mg electrolytes: replenish minerals lost in sweat\n- 7g protein: essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"mz7hwzkpjycizegz5216as63","value":"Coffee","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"hxcd05xn9rzhrvreh9bjqdbr","type":3,"title":"Caramel Macchiato Bar","blockId":"kl9cacv5pde99co9w9d9pmmq","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/101_600x.png?v=1678223652","description":"- 180 calories: long-lasting energy with no sugar crash\n- 65mg caffeine: increase focus and stamina\n- 29g carbohydrates: simple and complex natural carbohydrates\n- 480mg electrolytes: replenish minerals lost in sweat\n- 7g protein: essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"mz7hwzkpjycizegz5216as63","value":"Caramel","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}},{"id":"qw9p8xrmvli4xsn019cddxbh","type":3,"title":"Berries & Nuts Bar","blockId":"kl9cacv5pde99co9w9d9pmmq","pictureSrc":"https://cdn.shopify.com/s/files/1/0704/1744/9254/products/92_600x.png?v=1678222928","description":"- 200 calories: long-lasting energy with no sugar crash\n- 28g carbohydrates: simple and complex natural carbohydrates\n- 405mg electrolytes: replenish minerals lost in sweat\n- 7g protein: essential amino acids to reduce muscle fatigue","displayCondition":{"condition":{"comparisons":[{"id":"mz7hwzkpjycizegz5216as63","value":"Berries","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"},{"id":"m48fa084tvurk9nzcibm0d2d","value":"Nuts","variableId":"vhbd5800sc98l1lk8wf7fe742","comparisonOperator":"Contains"}],"logicalOperator":"AND"},"isEnabled":true}}],"groupId":"yjaj7bibx0hax9uyoxvna9jx","options":{"buttonLabel":"Send","isMultipleChoice":true,"searchInputPlaceholder":"Filter the options..."},"outgoingEdgeId":"gyh6hk5dxnouqbilnxh5k4kv"}],"graphCoordinates":{"x":4431.34,"y":-1425.83}}],"variables":[{"id":"vp1r2yrb6xgmi2aq3x6x73vaz","name":"Name"},{"id":"vhbd5800sc98l1lk8wf7fe742","name":"Flavour"},{"id":"vma96g9rw8oaosc0ei2iacqig","name":"Continent"},{"id":"vlgo7i0r514jkd9a9f24otm4m","name":"Protein source"},{"id":"vgz8fr5u7q0p4jdef1krz2vm3","name":"Goals"},{"id":"vz4fqc40gkk99h0qeus2tjwhx","name":"Diet restrictions"}],"edges":[{"id":"xjj9z6uhtb7e2dhc3tuwhvh7","to":{"groupId":"ivh8fqry62411xgik7pb3rmc"},"from":{"blockId":"li6nyybzaojujnz241jv5rr1","groupId":"wz08hb21c0dbz6lj8ry7l6xi"}},{"id":"py638tww7d4v2i3gqv6k2yu6","to":{"groupId":"nithahgfaaamqnjb5hsuh11w"},"from":{"blockId":"xobx3g928f9zj220n5qe1ih6","groupId":"ivh8fqry62411xgik7pb3rmc"}},{"id":"p5jpsvuc8zf3ne9k0pfxkpq4","to":{"groupId":"p1whb3maq78alk7knwkbu06e"},"from":{"blockId":"lwtynqjykiem5zdtns3fwhu2","groupId":"nithahgfaaamqnjb5hsuh11w"}},{"id":"nuqupwcsy2fkx5upobfclqi0","to":{"groupId":"yb50sji9tgnux5s7c64k6qex"},"from":{"blockId":"zesp4ro7ltjmh64sn8d4912c","groupId":"p1whb3maq78alk7knwkbu06e"}},{"id":"f1jzkkg0gc8jujf2bhch36xg","to":{"groupId":"klzxx6db72cxsejpyiqddqmb"},"from":{"blockId":"mfz600vwgfjcisahf5tdnz7l","groupId":"yb50sji9tgnux5s7c64k6qex"}},{"id":"klo5o6xg84um2v0jmvgiospe","to":{"groupId":"c5s07e7hpp7qbjehdvgbnrfv"},"from":{"blockId":"ogy9ng7q9jglxg2ivb39tzeh","groupId":"legji7362651u0la9nk64xw9"}},{"id":"rh27zryirmnz4tsb1b0rdt2t","to":{"groupId":"bet6sh7fv4vynqe1atixcdyx"},"from":{"blockId":"p71conb1ln7f3m41ca6pxetz","groupId":"c5s07e7hpp7qbjehdvgbnrfv"}},{"id":"f4uzq18evuom30tz2dvj6tpq","to":{"groupId":"gtiukuwnu6zx6ccag83747i7"},"from":{"blockId":"cbcz08dj67rkx8k1cbj2ybz8","groupId":"bet6sh7fv4vynqe1atixcdyx"}},{"id":"cjf2udh4rhuog5mufp8rwlk4","to":{"groupId":"legji7362651u0la9nk64xw9"},"from":{"blockId":"cx2v8nfb4kxvk58bbu6w85uy","groupId":"klzxx6db72cxsejpyiqddqmb"}},{"id":"azq3eb2cesy89vkbsv46dasf","to":{"groupId":"z4uirhdaygaxvf2xq598g6la"},"from":{"itemId":"yffl8ja17g5fr9rpi4d0cl36","blockId":"l16y2qzslakgl2up4jybj5m4","groupId":"vqmp9d4nlaqpfnzus3505y7i"}},{"id":"hhzk1un8rcrnnl8jek21m8oy","to":{"groupId":"vqmp9d4nlaqpfnzus3505y7i"},"from":{"blockId":"vdzzxwdocfxdvqnqwwvjymzw","groupId":"gtiukuwnu6zx6ccag83747i7"}},{"id":"ue2jqsalzqti6u61obz9lim3","to":{"groupId":"s90qufpkhi30agiuy2twqscq"},"from":{"blockId":"pxb59zd4bjqmva9er47l6x15","groupId":"z4uirhdaygaxvf2xq598g6la"}},{"id":"o1zoeurcswxd9nqx64mgdkkm","to":{"groupId":"s90qufpkhi30agiuy2twqscq"},"from":{"blockId":"l16y2qzslakgl2up4jybj5m4","groupId":"vqmp9d4nlaqpfnzus3505y7i"}},{"id":"ssywocvhg3g9lpk1k2uc3273","to":{"groupId":"r1jwo2h03zceiinp43vy1601"},"from":{"itemId":"vyjgfexvyrijez06kpxi1mva","blockId":"okl6akklm8djknl7lofqr3cm","groupId":"s90qufpkhi30agiuy2twqscq"}},{"id":"rfkzngvlbbb565nbt7uwh235","to":{"groupId":"ee9zl9chi3k9borspi9zhht3"},"from":{"blockId":"okl6akklm8djknl7lofqr3cm","groupId":"s90qufpkhi30agiuy2twqscq"}},{"id":"n5w6u4n9odndkv46bc7gj43k","to":{"groupId":"t0w1qkuvtiugn478ulgr8lbz"},"from":{"itemId":"okd2sbmr1mgoubpf7kdjr9ey","blockId":"styhci2fh3yi17b7cmv3x8cc","groupId":"ee9zl9chi3k9borspi9zhht3"}},{"id":"h3000sv5xk6sbfh7shpwbqlo","to":{"groupId":"r22v9z94nu94qbi5pconbclr"},"from":{"blockId":"styhci2fh3yi17b7cmv3x8cc","groupId":"ee9zl9chi3k9borspi9zhht3"}},{"id":"agjt36el2h1117zp17duzpw1","to":{"groupId":"zhgi0xj1sb8lfa0ur4el4yfk"},"from":{"itemId":"yw3cil1rvf3iduc0mko0c8og","blockId":"m8o93n92t5wcy5bi8tgauc5f","groupId":"r22v9z94nu94qbi5pconbclr"}},{"id":"exdgytrrhld8cjw2mkszdegh","to":{"groupId":"r22v9z94nu94qbi5pconbclr"},"from":{"blockId":"ph2jgb8r0lyui0j6v3jtifo2","groupId":"t0w1qkuvtiugn478ulgr8lbz"}},{"id":"wpf9r5kbrdz57l07d3x6adk8","to":{"groupId":"bywd8tivptb8yanh5mety4a7"},"from":{"itemId":"kb6eovh6di5xqnkegms0ljee","blockId":"zzws62fe3zha7x7kln3kp0ko","groupId":"r1jwo2h03zceiinp43vy1601"}},{"id":"o2ocyd0jll9mj37v7u72uyz9","to":{"groupId":"yjaj7bibx0hax9uyoxvna9jx"},"from":{"blockId":"zzws62fe3zha7x7kln3kp0ko","groupId":"r1jwo2h03zceiinp43vy1601"}},{"id":"gyh6hk5dxnouqbilnxh5k4kv","to":{"groupId":"t0w1qkuvtiugn478ulgr8lbz"},"from":{"blockId":"r5hq4sr8iovxqyixejparma7","groupId":"yjaj7bibx0hax9uyoxvna9jx"}},{"id":"wzgsdv968bcdef0239rsezuv","to":{"groupId":"t0w1qkuvtiugn478ulgr8lbz"},"from":{"blockId":"np8236cce7e79h8i21hg5ncp","groupId":"bywd8tivptb8yanh5mety4a7"}}],"theme":{"chat":{"inputs":{"color":"#ffffff","backgroundColor":"#1B1A1A","placeholderColor":"#9095A0"},"buttons":{"color":"#010000","backgroundColor":"#FFEF02"},"roundness":"medium","hostAvatar":{"url":"https://s3.us-east-2.amazonaws.com:443/chatworth.io/public/typebots/jdxfqn5jq2y0degyyzdkgpkr/hostAvatar?v=1690489232373","isEnabled":true},"hostBubbles":{"color":"#ffffff","backgroundColor":"#1B1A1A"},"guestBubbles":{"color":"#010000","backgroundColor":"#FFFFFF"}},"general":{"font":"Open Sans","background":{"type":"Color","content":"#010000"}}},"selectedThemeTemplateId":"typebot-dark","settings":{"general":{"rememberUser":{"isEnabled":false},"isBrandingEnabled":false,"isInputPrefillEnabled":true,"isHideQueryParamsEnabled":true},"metadata":{"description":"Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form."},"typingEmulation":{"speed":300,"enabled":true,"maxDelay":1.5}},"publicId":"product-recommendation-copy-zdkgpkr","customDomain":null } 
+<<<<<<< Updated upstream
+{
+  "id": "cl0s4zy9m247009l1ybkoojxe",
+  "createdAt": "2022-03-15T12:54:54.778Z",
+  "updatedAt": "2022-03-15T13:13:54.482Z",
+  "name": "My typebot",
+  "folderId": null,
+  "groups": [
+    {
+      "id": "k6kY6gwRE6noPoYQNGzgUq",
+      "blocks": [
+        {
+          "id": "22HP69iipkLjJDTUcc1AWW",
+          "type": "start",
+          "label": "Start",
+          "groupId": "k6kY6gwRE6noPoYQNGzgUq",
+          "outgoingEdgeId": "oNvqaqNExdSH2kKEhKZHuE"
+        }
+      ],
+      "title": "Start",
+      "graphCoordinates": { "x": 0, "y": 0 }
+    },
+    {
+      "id": "kinRXxYop2X4d7F9qt8WNB",
+      "blocks": [
+        {
+          "id": "sc1y8VwDabNJgiVTBi4qtif",
+          "type": "text",
+          "groupId": "kinRXxYop2X4d7F9qt8WNB",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  { "text": "Welcome to " },
+                  { "bold": true, "text": "AA" },
+                  { "text": " (Awesome Agency)" }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "s7YqZTBeyCa4Hp3wN2j922c",
+          "type": "image",
+          "groupId": "kinRXxYop2X4d7F9qt8WNB",
+          "content": {
+            "url": "https://media2.giphy.com/media/XD9o33QG9BoMis7iM4/giphy.gif?cid=fe3852a3ihg8rvipzzky5lybmdyq38fhke2tkrnshwk52c7d&rid=giphy.gif&ct=g"
+          }
+        },
+        {
+          "id": "sbjZWLJGVkHAkDqS4JQeGow",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "hQw2zbp7FDX7XYK9cFpbgC",
+              "type": 0,
+              "blockId": "sbjZWLJGVkHAkDqS4JQeGow",
+              "content": "Hi!"
+            }
+          ],
+          "groupId": "kinRXxYop2X4d7F9qt8WNB",
+          "options": { "buttonLabel": "Send", "isMultipleChoice": false },
+          "outgoingEdgeId": "i51YhHpk1dtSyduFNf5Wim"
+        }
+      ],
+      "title": "Welcome",
+      "graphCoordinates": { "x": 1, "y": 148 }
+    },
+    {
+      "id": "o4SH1UtKANnW5N5D67oZUz",
+      "blocks": [
+        {
+          "id": "sxeYubYN6XzhAfG7m9Fivhc",
+          "type": "text",
+          "groupId": "o4SH1UtKANnW5N5D67oZUz",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [{ "text": "Great! Nice to meet you {{Name}}" }]
+              }
+            ]
+          }
+        },
+        {
+          "id": "scQ5kduafAtfP9T8SHUJnGi",
+          "type": "text",
+          "groupId": "o4SH1UtKANnW5N5D67oZUz",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  { "text": "What's the best email we can reach you at?" }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "snbsad18Bgry8yZ8DZCfdFD",
+          "type": "email input",
+          "groupId": "o4SH1UtKANnW5N5D67oZUz",
+          "options": {
+            "labels": { "button": "Send", "placeholder": "Type your email..." },
+            "variableId": "3VFChNVSCXQ2rXv4DrJ8Ah",
+            "retryMessageContent": "This email doesn't seem to be valid. Can you type it again?"
+          },
+          "outgoingEdgeId": "w3MiN1Ct38jT5NykVsgmb5"
+        }
+      ],
+      "title": "Email",
+      "graphCoordinates": { "x": 669, "y": 141 }
+    },
+    {
+      "id": "q5dAhqSTCaNdiGSJm9B9Rw",
+      "blocks": [
+        {
+          "id": "sgtE2Sy7cKykac9B223Kq9R",
+          "type": "text",
+          "groupId": "q5dAhqSTCaNdiGSJm9B9Rw",
+          "content": {
+            "richText": [
+              { "type": "p", "children": [{ "text": "What's your name?" }] }
+            ]
+          }
+        },
+        {
+          "id": "sqEsMo747LTDnY9FjQcEwUv",
+          "type": "text input",
+          "groupId": "q5dAhqSTCaNdiGSJm9B9Rw",
+          "options": {
+            "isLong": false,
+            "labels": {
+              "button": "Send",
+              "placeholder": "Type your answer..."
+            },
+            "variableId": "giiLFGw5xXBCHzvp1qAbdX"
+          },
+          "outgoingEdgeId": "4tYbERpi5Po4goVgt6rWXg"
+        }
+      ],
+      "title": "Name",
+      "graphCoordinates": { "x": 340, "y": 143 }
+    },
+    {
+      "id": "fKqRz7iswk7ULaj5PJocZL",
+      "blocks": [
+        {
+          "id": "su7HceVXWyTCzi2vv3m4QbK",
+          "type": "text",
+          "groupId": "fKqRz7iswk7ULaj5PJocZL",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [{ "text": "What services are you interested in?" }]
+              }
+            ]
+          }
+        },
+        {
+          "id": "s5VQGsVF4hQgziQsXVdwPDW",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "fnLCBF4NdraSwcubnBhk8H",
+              "type": 0,
+              "blockId": "s5VQGsVF4hQgziQsXVdwPDW",
+              "content": "Website dev"
+            },
+            {
+              "id": "a782h8ynMouY84QjH7XSnR",
+              "type": 0,
+              "blockId": "s5VQGsVF4hQgziQsXVdwPDW",
+              "content": "Content Marketing"
+            },
+            {
+              "id": "jGvh94zBByvVFpSS3w97zY",
+              "type": 0,
+              "blockId": "s5VQGsVF4hQgziQsXVdwPDW",
+              "content": "Social Media"
+            },
+            {
+              "id": "6PRLbKUezuFmwWtLVbvAQ7",
+              "type": 0,
+              "blockId": "s5VQGsVF4hQgziQsXVdwPDW",
+              "content": "UI / UX Design"
+            }
+          ],
+          "groupId": "fKqRz7iswk7ULaj5PJocZL",
+          "options": { "buttonLabel": "Send", "isMultipleChoice": true },
+          "outgoingEdgeId": "ohTRakmcYJ7GdFWRZrWRjk"
+        }
+      ],
+      "title": "Services",
+      "graphCoordinates": { "x": 1002, "y": 144 }
+    },
+    {
+      "id": "7qHBEyCMvKEJryBHzPmHjV",
+      "blocks": [
+        {
+          "id": "sqR8Sz9gW21aUYKtUikq7qZ",
+          "type": "text",
+          "groupId": "7qHBEyCMvKEJryBHzPmHjV",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  { "text": "Can you tell me a bit more about your needs?" }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "sqFy2G3C1mh9p6s3QBdSS5x",
+          "type": "text input",
+          "groupId": "7qHBEyCMvKEJryBHzPmHjV",
+          "options": {
+            "isLong": true,
+            "labels": { "button": "Send", "placeholder": "Type your answer..." }
+          },
+          "outgoingEdgeId": "sH5nUssG2XQbm6ZidGv9BY"
+        }
+      ],
+      "title": "Additional information",
+      "graphCoordinates": { "x": 1337, "y": 145 }
+    },
+    {
+      "id": "vF7AD7zSAj7SNvN3gr9N94",
+      "blocks": [
+        {
+          "id": "seLegenCgUwMopRFeAefqZ7",
+          "type": "text",
+          "groupId": "vF7AD7zSAj7SNvN3gr9N94",
+          "content": {
+            "richText": [{ "type": "p", "children": [{ "text": "Perfect!" }] }]
+          }
+        },
+        {
+          "id": "s779Q1y51aVaDUJVrFb16vv",
+          "type": "text",
+          "groupId": "vF7AD7zSAj7SNvN3gr9N94",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [{ "text": "We'll get back to you at {{Email}}" }]
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Bye",
+      "graphCoordinates": { "x": 1668, "y": 143 }
+    }
+  ],
+  "variables": [
+    { "id": "giiLFGw5xXBCHzvp1qAbdX", "name": "Name" },
+    { "id": "3VFChNVSCXQ2rXv4DrJ8Ah", "name": "Email" }
+  ],
+  "edges": [
+    {
+      "id": "oNvqaqNExdSH2kKEhKZHuE",
+      "to": { "groupId": "kinRXxYop2X4d7F9qt8WNB" },
+      "from": {
+        "blockId": "22HP69iipkLjJDTUcc1AWW",
+        "groupId": "k6kY6gwRE6noPoYQNGzgUq"
+      }
+    },
+    {
+      "id": "i51YhHpk1dtSyduFNf5Wim",
+      "to": { "groupId": "q5dAhqSTCaNdiGSJm9B9Rw" },
+      "from": {
+        "blockId": "sbjZWLJGVkHAkDqS4JQeGow",
+        "groupId": "kinRXxYop2X4d7F9qt8WNB"
+      }
+    },
+    {
+      "id": "4tYbERpi5Po4goVgt6rWXg",
+      "to": { "groupId": "o4SH1UtKANnW5N5D67oZUz" },
+      "from": {
+        "blockId": "sqEsMo747LTDnY9FjQcEwUv",
+        "groupId": "q5dAhqSTCaNdiGSJm9B9Rw"
+      }
+    },
+    {
+      "id": "w3MiN1Ct38jT5NykVsgmb5",
+      "to": { "groupId": "fKqRz7iswk7ULaj5PJocZL" },
+      "from": {
+        "blockId": "snbsad18Bgry8yZ8DZCfdFD",
+        "groupId": "o4SH1UtKANnW5N5D67oZUz"
+      }
+    },
+    {
+      "id": "ohTRakmcYJ7GdFWRZrWRjk",
+      "to": { "groupId": "7qHBEyCMvKEJryBHzPmHjV" },
+      "from": {
+        "blockId": "s5VQGsVF4hQgziQsXVdwPDW",
+        "groupId": "fKqRz7iswk7ULaj5PJocZL"
+      }
+    },
+    {
+      "id": "sH5nUssG2XQbm6ZidGv9BY",
+      "to": { "groupId": "vF7AD7zSAj7SNvN3gr9N94" },
+      "from": {
+        "blockId": "sqFy2G3C1mh9p6s3QBdSS5x",
+        "groupId": "7qHBEyCMvKEJryBHzPmHjV"
+      }
+    }
+  ],
+  "theme": {
+    "chat": {
+      "inputs": {
+        "color": "#ffffff",
+        "backgroundColor": "#1e293b",
+        "placeholderColor": "#9095A0"
+      },
+      "buttons": { "color": "#ffffff", "backgroundColor": "#1a5fff" },
+      "hostBubbles": { "color": "#ffffff", "backgroundColor": "#1e293b" },
+      "guestBubbles": { "color": "#FFFFFF", "backgroundColor": "#FF8E21" },
+      "hostAvatar": {
+        "isEnabled": true,
+        "url": "https://s3.eu-west-3.amazonaws.com/typebot/public/typebots/cl0s4zy9m247009l1ybkoojxe/me-square.png"
+      }
+    },
+    "general": {
+      "font": "Open Sans",
+      "background": { "type": "Color", "content": "#171923" }
+    },
+    "customCss": ".typebot-button {box-shadow: inset 0 1px 0 0 rgb(255 255 255/0.2)}"
+  },
+  "settings": {
+    "general": { "isBrandingEnabled": false },
+    "metadata": {
+      "description": "Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form."
+    },
+    "typingEmulation": { "speed": 300, "enabled": true, "maxDelay": 1.5 }
+  },
+  "publicId": null,
+  "customDomain": null
+}
+=======
+{"id":"wfzny6vvwpsto66258jrllp2","version":"3","createdAt":"2023-07-27T20:21:39.601Z","updatedAt":"2023-07-27T20:24:38.385Z","icon":"🤝","name":"Lead Generation copy","folderId":null,"groups":[{"id":"e0af0lzy6kw97cj4c7eangu9","title":"Start","blocks":[{"id":"22HP69iipkLjJDTUcc1AWW","type":"start","label":"Start","groupId":"e0af0lzy6kw97cj4c7eangu9","outgoingEdgeId":"q5m80jmkq2y1ntdix84nt76p"}],"graphCoordinates":{"x":0,"y":0}},{"id":"iaebcpdwip8of18plfh2wdbc","title":"Welcome","blocks":[{"id":"sc1y8VwDabNJgiVTBi4qtif","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Welcome to "},{"bold":true,"text":"AA"},{"text":" (Awesome Agency)"}]}]},"groupId":"iaebcpdwip8of18plfh2wdbc"},{"id":"s7YqZTBeyCa4Hp3wN2j922c","type":"image","content":{"url":"https://media2.giphy.com/media/XD9o33QG9BoMis7iM4/giphy.gif?cid=fe3852a3ihg8rvipzzky5lybmdyq38fhke2tkrnshwk52c7d&rid=giphy.gif&ct=g"},"groupId":"iaebcpdwip8of18plfh2wdbc"},{"id":"sbjZWLJGVkHAkDqS4JQeGow","type":"choice input","items":[{"id":"hQw2zbp7FDX7XYK9cFpbgC","type":0,"blockId":"sbjZWLJGVkHAkDqS4JQeGow","content":"Hi!"}],"groupId":"iaebcpdwip8of18plfh2wdbc","options":{"buttonLabel":"Send","isMultipleChoice":false},"outgoingEdgeId":"waqjvhh4rnfo9ozf8z32culg"}],"graphCoordinates":{"x":1,"y":148}},{"id":"qbwk6fx7ebmqmmgnozwut512","title":"Email","blocks":[{"id":"sxeYubYN6XzhAfG7m9Fivhc","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Great! Nice to meet you {{Name}}"}]}]},"groupId":"qbwk6fx7ebmqmmgnozwut512"},{"id":"scQ5kduafAtfP9T8SHUJnGi","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What's the best email we can reach you at?"}]}]},"groupId":"qbwk6fx7ebmqmmgnozwut512"},{"id":"snbsad18Bgry8yZ8DZCfdFD","type":"email input","groupId":"qbwk6fx7ebmqmmgnozwut512","options":{"labels":{"button":"Send","placeholder":"Type your email..."},"variableId":"v3VFChNVSCXQ2rXv4DrJ8Ah","retryMessageContent":"This email doesn't seem to be valid. Can you type it again?"},"outgoingEdgeId":"b6xj5u2o1dl65m8bmh1566qk"}],"graphCoordinates":{"x":669,"y":141}},{"id":"h55mkeqyg7ypin9oam7leoq9","title":"Name","blocks":[{"id":"sgtE2Sy7cKykac9B223Kq9R","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What's your name?"}]}]},"groupId":"h55mkeqyg7ypin9oam7leoq9"},{"id":"sqEsMo747LTDnY9FjQcEwUv","type":"text input","groupId":"h55mkeqyg7ypin9oam7leoq9","options":{"isLong":false,"labels":{"button":"Send","placeholder":"Type your answer..."},"variableId":"giiLFGw5xXBCHzvp1qAbdX"},"outgoingEdgeId":"e6mw2rwof2gewbhxe8r493pd"}],"graphCoordinates":{"x":340,"y":143}},{"id":"clq9y593b5qyf9yhl6erokjf","title":"Services","blocks":[{"id":"su7HceVXWyTCzi2vv3m4QbK","type":"text","content":{"richText":[{"type":"p","children":[{"text":"What services are you interested in?"}]}]},"groupId":"clq9y593b5qyf9yhl6erokjf"},{"id":"s5VQGsVF4hQgziQsXVdwPDW","type":"choice input","items":[{"id":"fnLCBF4NdraSwcubnBhk8H","type":0,"blockId":"s5VQGsVF4hQgziQsXVdwPDW","content":"Website dev"},{"id":"a782h8ynMouY84QjH7XSnR","type":0,"blockId":"s5VQGsVF4hQgziQsXVdwPDW","content":"Content Marketing"},{"id":"jGvh94zBByvVFpSS3w97zY","type":0,"blockId":"s5VQGsVF4hQgziQsXVdwPDW","content":"Social Media"},{"id":"6PRLbKUezuFmwWtLVbvAQ7","type":0,"blockId":"s5VQGsVF4hQgziQsXVdwPDW","content":"UI / UX Design"}],"groupId":"clq9y593b5qyf9yhl6erokjf","options":{"buttonLabel":"Send","isMultipleChoice":true},"outgoingEdgeId":"ah6op9hgeso51fh4m4sjjjjw"}],"graphCoordinates":{"x":1002,"y":144}},{"id":"bbvh8kzjux3rbi8gfz693gkp","title":"Additional information","blocks":[{"id":"sqR8Sz9gW21aUYKtUikq7qZ","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Can you tell me a bit more about your needs?"}]}]},"groupId":"bbvh8kzjux3rbi8gfz693gkp"},{"id":"sqFy2G3C1mh9p6s3QBdSS5x","type":"text input","groupId":"bbvh8kzjux3rbi8gfz693gkp","options":{"isLong":true,"labels":{"button":"Send","placeholder":"Type your answer..."}},"outgoingEdgeId":"ivqip6hf6sykb4uxtoht0biw"}],"graphCoordinates":{"x":1337,"y":145}},{"id":"n1dme76j72o6yf00tcj8rdgt","title":"Bye","blocks":[{"id":"seLegenCgUwMopRFeAefqZ7","type":"text","content":{"richText":[{"type":"p","children":[{"text":"Perfect!"}]}]},"groupId":"n1dme76j72o6yf00tcj8rdgt"},{"id":"s779Q1y51aVaDUJVrFb16vv","type":"text","content":{"richText":[{"type":"p","children":[{"text":"We'll get back to you at {{Email}}"}]}]},"groupId":"n1dme76j72o6yf00tcj8rdgt"}],"graphCoordinates":{"x":1668,"y":143}}],"variables":[{"id":"giiLFGw5xXBCHzvp1qAbdX","name":"Name"},{"id":"v3VFChNVSCXQ2rXv4DrJ8Ah","name":"Email"}],"edges":[{"id":"q5m80jmkq2y1ntdix84nt76p","to":{"groupId":"iaebcpdwip8of18plfh2wdbc"},"from":{"blockId":"22HP69iipkLjJDTUcc1AWW","groupId":"e0af0lzy6kw97cj4c7eangu9"}},{"id":"waqjvhh4rnfo9ozf8z32culg","to":{"groupId":"h55mkeqyg7ypin9oam7leoq9"},"from":{"blockId":"sbjZWLJGVkHAkDqS4JQeGow","groupId":"iaebcpdwip8of18plfh2wdbc"}},{"id":"e6mw2rwof2gewbhxe8r493pd","to":{"groupId":"qbwk6fx7ebmqmmgnozwut512"},"from":{"blockId":"sqEsMo747LTDnY9FjQcEwUv","groupId":"h55mkeqyg7ypin9oam7leoq9"}},{"id":"b6xj5u2o1dl65m8bmh1566qk","to":{"groupId":"clq9y593b5qyf9yhl6erokjf"},"from":{"blockId":"snbsad18Bgry8yZ8DZCfdFD","groupId":"qbwk6fx7ebmqmmgnozwut512"}},{"id":"ah6op9hgeso51fh4m4sjjjjw","to":{"groupId":"bbvh8kzjux3rbi8gfz693gkp"},"from":{"blockId":"s5VQGsVF4hQgziQsXVdwPDW","groupId":"clq9y593b5qyf9yhl6erokjf"}},{"id":"ivqip6hf6sykb4uxtoht0biw","to":{"groupId":"n1dme76j72o6yf00tcj8rdgt"},"from":{"blockId":"sqFy2G3C1mh9p6s3QBdSS5x","groupId":"bbvh8kzjux3rbi8gfz693gkp"}}],"theme":{"chat":{"inputs":{"color":"#303235","backgroundColor":"#FFFFFF","placeholderColor":"#9095A0"},"buttons":{"color":"#FFFFFF","backgroundColor":"#0042DA"},"hostAvatar":{"url":"https://s3.us-east-2.amazonaws.com:443/chatworth.io/public/typebots/wfzny6vvwpsto66258jrllp2/hostAvatar?v=1690489473777","isEnabled":true},"hostBubbles":{"color":"#303235","backgroundColor":"#F7F8FF"},"guestBubbles":{"color":"#FFFFFF","backgroundColor":"#FF8E21"}},"general":{"font":"Open Sans","background":{"type":"Color","content":"#ffffff"}}},"selectedThemeTemplateId":null,"settings":{"general":{"isBrandingEnabled":false,"isInputPrefillEnabled":true,"isResultSavingEnabled":true,"isHideQueryParamsEnabled":true,"isNewResultOnRefreshEnabled":true},"metadata":{"description":"Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form."},"typingEmulation":{"speed":300,"enabled":true,"maxDelay":1.5}},"publicId":"lead-generation-copy-8jrllp2","customDomain":null,"workspaceId":"clk9xurgh0002jw08dplblkw4","resultsTablePreferences":null,"isArchived":false,"isClosed":false}
+>>>>>>> Stashed changes
