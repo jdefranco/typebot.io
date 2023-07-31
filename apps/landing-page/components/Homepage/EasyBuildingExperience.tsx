@@ -42,7 +42,7 @@ export const EasyBuildingExperience = () => {
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-Design your chatbot using Chatworth's intuitive drag-and-drop interface. For unique brand and functional needs, our system accommodates custom code and integrations, allowing for a tailored and flexible chatbot experience <Flex>
+Design your chatbot using Chatworth's intuitive drag-and-drop interface. For unique brand and functional needs, our system accommodates custom code and integrations, allowing for a tailored and flexible chatbot experience. <Flex>
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
