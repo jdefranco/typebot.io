@@ -42,8 +42,7 @@ export const EasyBuildingExperience = () => {
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-Crafting your chatbot with Chatworth is an exercise in elegance. Our intuitive interface allows you to shape your chatbot with a simple drag-and-drop mechanism. For those bespoke needs, our system welcomes the addition of custom code, ensuring your chatbot is as unique as your brand.          </Text>
-          <Flex>
+Design your chatbot using Chatworth's intuitive drag-and-drop interface. For unique brand and functional needs, our system accommodates custom code and integrations, allowing for a tailored and flexible chatbot experience <Flex>
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
