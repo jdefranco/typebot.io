@@ -85,27 +85,27 @@ const colors = {
 const components = {
   Button: {
     defaultProps: {
-      colorScheme: 'blue',
+      colorScheme: 'royalPurple',
     },
     variants: {
       solid: () => ({
-        bg: 'blue.400',
+        bg: 'royalPurple.400',
         color: 'white',
         shadow: 'inset 0 1px 0 0 rgb(255 255 255/.2)',
         _hover: {
-          bg: 'blue.300',
+          bg: 'royalPurple.300',
         },
       }),
     },
   },
   NumberInput: {
     defaultProps: {
-      focusBorderColor: 'blue.200',
+      focusBorderColor: 'royalPurple.200',
     },
   },
   Input: {
     defaultProps: {
-      focusBorderColor: 'blue.200',
+      focusBorderColor: 'royalPurple.200',
     },
   },
   Popover: {
