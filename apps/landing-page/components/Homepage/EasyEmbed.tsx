@@ -16,7 +16,7 @@ export const EasyEmbed = () => {
   return (
     <Flex as="section" justify="center" pos="relative">
       <Flare
-        color="gold"
+        color="orange"
         pos="absolute"
         right="-200px"
         top="100px"
