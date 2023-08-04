@@ -63,7 +63,7 @@ export const Hero = () => {
             <Box
               pos="absolute"
               left="-40px"
-              bgColor="orange.500"
+              bgColor="yellow.500"
               boxSize={['150px', '150px', '300px', '600px']}
               rounded="full"
               filter="blur(40px)"
