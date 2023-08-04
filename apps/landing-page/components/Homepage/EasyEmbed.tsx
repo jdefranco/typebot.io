@@ -16,7 +16,7 @@ export const EasyEmbed = () => {
   return (
     <Flex as="section" justify="center" pos="relative">
       <Flare
-        color="orange"
+        color="gold"
         pos="absolute"
         right="-200px"
         top="100px"
@@ -49,7 +49,7 @@ Incorporating Chatworth into your applications is as seamless as the flight of a
               rightIcon={<ArrowRight />}
               href={`https://app.chatworth.io/register`}
               variant="ghost"
-              colorScheme="orange"
+              colorScheme="gold"
             >
               Try it now
             </Button>
