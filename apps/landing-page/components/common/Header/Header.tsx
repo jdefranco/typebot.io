@@ -88,7 +88,7 @@ export const Header = () => {
           <Button
             as={Link}
             href="https://app.chatworth.io/signin"
-            colorScheme="blue"
+            colorScheme="purple"
             variant="outline"
             fontWeight={700}
           >
