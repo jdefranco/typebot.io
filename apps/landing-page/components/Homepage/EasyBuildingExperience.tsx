@@ -16,7 +16,7 @@ export const EasyBuildingExperience = () => {
   return (
     <Flex as="section" justify="center" pos="relative">
       <Flare
-        color="royalPurple"
+        color="#E1BEE7"
         pos="absolute"
         left="-200px"
         top="-50px"
