@@ -71,7 +71,7 @@ Real-Time Data Collection, Enlightened by AI
               rightIcon={<ArrowRight />}
               href={`https://app.chatworth.io/register`}
               variant="ghost"
-              colorScheme="blue"
+              colorScheme="royalPurple"
               data-aos="fade"
             >
               Get Started
