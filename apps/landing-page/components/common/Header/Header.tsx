@@ -42,7 +42,7 @@ export const Header = () => {
         >
           <HStack as={Link} href="/" rel="home" ml="2">
             <Logo />
-            <Heading as="p" fontSize="xl">
+            <Heading as="p" fontSize="x2">
               Chatworth
             </Heading>
           </HStack>
