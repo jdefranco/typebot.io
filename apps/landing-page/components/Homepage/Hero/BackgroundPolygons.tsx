@@ -99,8 +99,8 @@ const DemiCircle = () => (
         y2="309.216"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#4C83FF" />
-        <stop offset="1" stopColor="#4C83FF" />
+        <stop stopColor="#984cff" />
+        <stop offset="1" stopColor="#984cff" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_44_12"
@@ -111,8 +111,8 @@ const DemiCircle = () => (
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="#7AA1FA" />
-        <stop offset="0.49" stopColor="#215CE3" />
-        <stop offset="0.99" stopColor="#254898" />
+        <stop offset="0.49" stopColor="#7821e3" />
+        <stop offset="0.99" stopColor="#482598" />
       </linearGradient>
       <linearGradient
         id="paint2_linear_44_12"
@@ -122,8 +122,8 @@ const DemiCircle = () => (
         y2="309.216"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#4C83FF" />
-        <stop offset="1" stopColor="#4C83FF" />
+        <stop stopColor="#764cff" />
+        <stop offset="1" stopColor="#764cff" />
       </linearGradient>
       <linearGradient
         id="paint3_linear_44_12"
@@ -133,9 +133,9 @@ const DemiCircle = () => (
         y2="-37084.4"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#7AA1FA" />
-        <stop offset="0.49" stopColor="#215CE3" />
-        <stop offset="0.99" stopColor="#254898" />
+        <stop stopColor="#a47afa" />
+        <stop offset="0.49" stopColor="#5821e3" />
+        <stop offset="0.99" stopColor="#3d2598" />
       </linearGradient>
       <clipPath id="clip0_44_12">
         <rect
