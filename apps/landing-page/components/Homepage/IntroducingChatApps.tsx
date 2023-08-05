@@ -104,7 +104,7 @@ const FakeLeadGenForm = () => (
     </FormControl>
     <FormControl isRequired>
       <FormLabel htmlFor="services">
-        What services are you interested in?
+        What services are you interested in? 
       </FormLabel>
       <Stack>
         <Checkbox>Website Dev</Checkbox>
