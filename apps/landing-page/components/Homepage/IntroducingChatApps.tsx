@@ -10,28 +10,13 @@ import {
   Checkbox,
   Textarea,
 } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import { PublicTypebot } from '@typebot.io/schemas'
-import { sendRequest } from '@typebot.io/lib'
+import React from 'react'
 import { DontIcon } from 'assets/icons/DontIcon'
 import { DoIcon } from 'assets/icons/DoIcon'
 import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow'
 import { Standard } from '@typebot.io/react'
 
 export const IntroducingChatApps = () => {
-  const [typebot, setTypebot] = useState<PublicTypebot>()
-
-  useEffect(() => {
-    fetchTemplate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const fetchTemplate = async () => {
-    const { data, error } = await sendRequest(`/typebots/lead-gen-lp.json`)
-    if (error) return
-    setTypebot(data as PublicTypebot)
-  }
-
   return (
     <Flex as="section" justify="center">
       <Stack
@@ -80,16 +65,14 @@ export const IntroducingChatApps = () => {
             align={['flex-start', 'center']}
           >
             <DoIcon />
-            {typebot && (
-              <Standard
-                typebot={typebot}
-                style={{
-                  borderRadius: '0.375rem',
-                  borderWidth: '1px',
-                  height: '562px',
-                }}
-              />
-            )}
+            <Standard
+              typebot="chatworth-ai-a8up210"
+              style={{
+                borderRadius: '0.375rem',
+                borderWidth: '1px',
+                height: '562px',
+              }}
+            />
             <Flex top="-20px" right="40px" pos="absolute">
               <Text fontFamily="'Indie Flower'" fontSize="2xl">
                 Try it out!
