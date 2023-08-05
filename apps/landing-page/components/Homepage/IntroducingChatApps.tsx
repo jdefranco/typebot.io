@@ -9,12 +9,12 @@ import {
   Input,
   Checkbox,
   Textarea,
-} from '@chakra-ui/react'
-import React from 'react'
-import { DontIcon } from 'assets/icons/DontIcon'
-import { DoIcon } from 'assets/icons/DoIcon'
-import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow'
-import { Standard } from '@typebot.io/react'
+} from '@chakra-ui/react';
+import React from 'react';
+import { DontIcon } from 'assets/icons/DontIcon';
+import { DoIcon } from 'assets/icons/DoIcon';
+import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow';
+import { Standard } from '@typebot.io/react';
 
 export const IntroducingChatApps = () => {
   return (
@@ -68,9 +68,10 @@ export const IntroducingChatApps = () => {
             <Standard
               typebot="chatworth-ai-a8up210"
               style={{
+                width: '100%',
+                height: '600px',
                 borderRadius: '0.375rem',
                 borderWidth: '1px',
-                height: '562px',
               }}
             />
             <Flex top="-20px" right="40px" pos="absolute">
@@ -89,8 +90,8 @@ export const IntroducingChatApps = () => {
         </Stack>
       </Stack>
     </Flex>
-  )
-}
+  );
+};
 
 const FakeLeadGenForm = () => (
   <Stack borderWidth="1px" spacing="4" padding="6" rounded="md" w="full">
@@ -104,7 +105,7 @@ const FakeLeadGenForm = () => (
     </FormControl>
     <FormControl isRequired>
       <FormLabel htmlFor="services">
-        What services are you interested in? 
+        What services are you interested in?
       </FormLabel>
       <Stack>
         <Checkbox>Website Dev</Checkbox>
@@ -121,4 +122,4 @@ const FakeLeadGenForm = () => (
       <Button>Submit</Button>
     </Flex>
   </Stack>
-)
+);
