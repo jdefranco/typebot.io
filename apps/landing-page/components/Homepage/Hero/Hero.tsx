@@ -17,7 +17,7 @@ import Link from 'next/link'
 export const Hero = () => {
   return (
     <Box as="section" overflow="hidden" 
-    backgroundImage="url('/hero-bg.svg')" 
+    backgroundImage="url('/hero-bg.png')" 
       backgroundSize="cover"                
       backgroundPosition="center"            
       >
