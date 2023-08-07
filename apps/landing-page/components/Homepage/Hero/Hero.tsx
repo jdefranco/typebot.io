@@ -31,7 +31,7 @@ export const Hero = () => {
               fontSize={['4xl', '4xl', '5xl', '7xl']}
               textAlign="center"
               maxW="1000px"
-              bgGradient="linear(to-r, royalPurple.100, royalPurple.600)"
+              bgGradient="linear(to-r, royalPurple.100, royalPurple.300)"
               bgClip="text"
               data-aos="fade-up"
             >
