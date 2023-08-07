@@ -164,5 +164,5 @@ const DemiCircle = () => (
 )
 const Triangle = () => (
 
-<img src="/yellow-moon-png.png" alt="Yellow Moon"  width={169} height={201} />
+<img src="/yellow-full-moon.png" alt="Yellow Moon"  width={169} height={201} />
 );
