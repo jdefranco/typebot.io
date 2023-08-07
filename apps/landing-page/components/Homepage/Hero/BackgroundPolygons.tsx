@@ -31,9 +31,9 @@ export const BackgroundPolygons = () => {
 }
 
 const DemiCircle = () => (
-  <img src="/white-clouds.png" alt="Clouds"  width={500} height={450} />
+  <img src="/purple-clouds.png" alt="Purple Clouds"  width={450} height={400} />
 )
 const Triangle = () => (
 
-<img src="/yellow-full-moon.png" alt="Yellow Moon"  width={200} height={240} />
+<img src="/yellow-full-moon.png" alt="Yellow Moon"  width={250} height={250} />
 );
