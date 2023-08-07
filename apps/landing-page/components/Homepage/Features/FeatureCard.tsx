@@ -22,7 +22,7 @@ export const FeatureCard = ({ Icon, title, content }: FeatureCardProps) => {
     >
       <Flex
         boxSize="50px"
-        bgColor="royalPurple.500"
+        bgColor="yellow.300"
         rounded="lg"
         color="white"
         justify="center"
