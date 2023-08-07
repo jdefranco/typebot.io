@@ -197,7 +197,7 @@ const Triangle = () => (
       <use
          id="use35-7-6-6"
          overflow="visible"
-         xlink:href="#SVGID_5_"
+         xlinkHref="#SVGID_5_"
          style="overflow:visible"
          x="0"
          y="0"
