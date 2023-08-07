@@ -229,7 +229,7 @@ const Triangle = () => (
        y2="608.32001"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-385.82167,436.20492)"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#z" />
+       xlinkHref="#z" />
     <linearGradient
        id="z">
       <stop
@@ -249,7 +249,7 @@ const Triangle = () => (
        y2="314.20999"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-385.82167,511.75796)"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#z" />
+       xlinkHref="#z" />
     <linearGradient
        id="ad"
        x1="694.64001"
@@ -258,7 +258,7 @@ const Triangle = () => (
        y2="478.38"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-385.82167,511.75796)"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#b" />
+       xlinkHref="#b" />
     <linearGradient
        id="b">
       <stop
@@ -278,7 +278,7 @@ const Triangle = () => (
        y2="545.97998"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-385.82167,511.75796)"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#b" />
+       xlinkHref="#b" />
     <linearGradient
        id="af"
        x1="706.72998"
@@ -286,7 +286,7 @@ const Triangle = () => (
        y1="773.96997"
        y2="765.40002"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6"
+       xlinkHref="#a-6"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-385.82167,436.20492)" />
     <linearGradient
        id="a-6">
@@ -306,7 +306,7 @@ const Triangle = () => (
        y1="659.78998"
        y2="690.51001"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6"
+       xlinkHref="#a-6"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-385.82167,436.20492)" />
     <linearGradient
        id="ai"
@@ -316,7 +316,7 @@ const Triangle = () => (
        y2="255.23"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-380.51347,455.38989)"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6" />
+       xlinkHref="#a-6" />
     <linearGradient
        id="al"
        x1="331.45999"
@@ -324,7 +324,7 @@ const Triangle = () => (
        y1="311.75"
        y2="303.04001"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#b"
+       xlinkHref="#b"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <linearGradient
        id="am"
@@ -333,7 +333,7 @@ const Triangle = () => (
        y1="297.32001"
        y2="304.39001"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#b"
+       xlinkHref="#b"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <linearGradient
        id="an"
@@ -342,7 +342,7 @@ const Triangle = () => (
        y1="298.26999"
        y2="305.09"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#b"
+       xlinkHref="#b"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <linearGradient
        id="ao"
@@ -351,7 +351,7 @@ const Triangle = () => (
        y1="257.62"
        y2="257.62"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6"
+       xlinkHref="#a-6"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <linearGradient
        id="ap"
@@ -377,7 +377,7 @@ const Triangle = () => (
        y1="231.14"
        y2="217.48"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6"
+       xlinkHref="#a-6"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <linearGradient
        id="ar"
@@ -386,7 +386,7 @@ const Triangle = () => (
        y1="181.92"
        y2="208.44"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6"
+       xlinkHref="#a-6"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <linearGradient
        id="as"
@@ -395,7 +395,7 @@ const Triangle = () => (
        y1="291.32999"
        y2="265.57001"
        gradientUnits="userSpaceOnUse"
-       xlink:href="#a-6"
+       xlinkHref="#a-6"
        gradientTransform="matrix(0.24508723,0,0,0.24508723,-378.88937,506.04599)" />
     <clipPath
        id="SVGID_6_-19-1-0-6-0-2-2">
