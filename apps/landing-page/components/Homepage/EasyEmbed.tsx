@@ -35,15 +35,14 @@ export const EasyEmbed = () => {
       >
         <Stack spacing="6" maxW="300px" minW={[0, '300px']}>
           <Heading as="h1" data-aos="fade">
-Versatile Embedding for Every Platform
+Flexible Integration Across Multiple Platforms
           </Heading>
           <Text
             color="gray.400"
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-          Embedding Chatworth into your applications has never been easier. Whether you&apos;re using WordPress, Shopify, Wix, or even Notion, we&apos;ve got you covered. Our platform-specific guides ensure that you can integrate Chatworth seamlessly, no matter where your digital presence is.
-          <Flex data-aos="fade">
+Incorporating Chatworth into your digital platforms is straightforward and efficient. With a diverse range of embedding options, from WordPress and Shopify to Wix and Notion, we ensure a seamless experience tailored to your specific needs.          <Flex data-aos="fade">
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
