@@ -49,7 +49,7 @@ Incorporating Chatworth into your applications is as seamless as the flight of a
               rightIcon={<ArrowRight />}
               href={`https://app.chatworth.io/register`}
               variant="ghost"
-              colorScheme="orange"
+              colorScheme="yellow"
             >
               Try it now
             </Button>
