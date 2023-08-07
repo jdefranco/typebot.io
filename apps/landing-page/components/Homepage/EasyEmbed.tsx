@@ -57,7 +57,7 @@ Incorporating Chatworth into your applications is as seamless as the flight of a
         </Stack>
         <Box rounded="md" data-aos="fade">
           <Image
-            src="https://s3.typebot.io/native-feeling.png"
+            src="/easy-embed.png"
             alt="incomplete results illustration"
             placeholder="blur"
           />
