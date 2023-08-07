@@ -198,7 +198,7 @@ const Triangle = () => (
          id="use35-7-6-6"
          overflow="visible"
          xlinkHref="#SVGID_5_"
-         style="overflow:visible"
+         style={{ overflow: "visible" }}
          x="0"
          y="0"
          width="100%"
@@ -403,7 +403,7 @@ const Triangle = () => (
          id="use35-7-6-13-0-8-8-2"
          overflow="visible"
          xlink:href="#SVGID_5_"
-         style="overflow:visible"
+         style={{ overflow: "visible" }}
          x="0"
          y="0"
          width="100%"
