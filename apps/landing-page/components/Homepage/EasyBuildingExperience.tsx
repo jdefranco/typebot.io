@@ -57,7 +57,7 @@ Design your chatbot using Chatworth&apos;s intuitive drag-and-drop interface. Fo
         </Stack>
         <Box rounded="md" data-aos="fade">
           <Image
-            src="https://s3.typebot.io/builder-dnd.png"
+            src="/easy-build.png"
             alt="incomplete results illustration"
             placeholder="blur"
           />
