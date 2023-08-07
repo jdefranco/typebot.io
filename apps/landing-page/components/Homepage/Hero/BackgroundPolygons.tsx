@@ -402,7 +402,7 @@ const Triangle = () => (
       <use
          id="use35-7-6-13-0-8-8-2"
          overflow="visible"
-         xlink:href="#SVGID_5_"
+         xlinkHref="#SVGID_5_"
          style={{ overflow: "visible" }}
          x="0"
          y="0"
