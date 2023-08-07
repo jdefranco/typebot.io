@@ -17,7 +17,7 @@ export const MobileMenu = ({ isOpen }: Props) => (
       <Button
         as={Link}
         href="https://app.chatworth.io/signin"
-        colorScheme="blue"
+        colorScheme="royalPurple"
         variant="outline"
         fontWeight={700}
       >
@@ -26,7 +26,7 @@ export const MobileMenu = ({ isOpen }: Props) => (
       <Button
         as={Link}
         href="https://app.chatworth.io/register"
-        colorScheme="orange"
+        colorScheme="yellow"
         fontWeight={700}
       >
         Get Started
