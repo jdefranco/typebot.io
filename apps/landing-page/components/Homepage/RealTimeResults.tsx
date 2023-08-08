@@ -1,4 +1,5 @@
 import { Flex, Stack, Heading, Text, Button, VStack } from '@chakra-ui/react';
+import { Standard } from '@chatworth.io/react'; // Assuming Chatworth provides a similar React component
 import { ArrowRight } from 'assets/icons/ArrowRight';
 import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow';
 import Link from 'next/link';
@@ -40,7 +41,7 @@ export const RealTimeResults = () => {
                         textAlign="center"
                         data-aos="fade"
                     >
-                        Conversational Data Capture Beyond Boundaries
+                        Real-Time Data Collection, Enlightened by AI
                     </Heading>
                     <Text
                         textAlign="center"
@@ -49,7 +50,7 @@ export const RealTimeResults = () => {
                         fontSize={{ base: 'lg', xl: 'xl' }}
                         data-aos="fade"
                     >
-                        Traditional web forms have their place, but with Chatworth, data collection becomes a dynamic conversation. Seamlessly capture information in real-time and integrate it across a multitude of platforms, ensuring every valuable interaction is effectively utilized.
+                        The power of a chat application lies in its ability to gather data in real-time. With Chatworth, you not only collect data but also gain insights, ensuring no valuable information is lost in the ether.
                     </Text>
                     <Flex>
                         <Button
@@ -57,10 +58,10 @@ export const RealTimeResults = () => {
                             rightIcon={<ArrowRight />}
                             href={`https://app.chatworth.io/register`}
                             variant="ghost"
-                            colorScheme="royalPurple"
+                            colorScheme="blue"
                             data-aos="fade"
                         >
-                            Get Started
+                            Try it now
                         </Button>
                     </Flex>
                 </VStack>
@@ -71,14 +72,14 @@ export const RealTimeResults = () => {
                     spacing="4"
                     data-aos="fade"
                 >
-                    <iframe
-                        src="https://bot.chatworth.io/my-typebot-orp4iiy"
-                        width="100%"
-                        height="533"
+                    <Standard
+                        typebot="airtable-real-time"
+                        apiHost="https://chatworth.io" // Update this to the correct Chatworth API endpoint
+                        onAnswer={handleAnswer}
                         style={{
-                            borderRadius: '0.5rem',
-                            border: 'none',
-                            backgroundColor: 'white',
+                            borderRadius: '0.375rem',
+                            borderWidth: '1px',
+                            height: '533px',
                         }}
                     />
                     <iframe
