@@ -85,7 +85,7 @@ export const RealTimeResults = () => {
                 >
                     <Standard
                         typebot="airtable-real-time"
-                        apiHost="https://chatworth.io" // Update this to the correct Chatworth API endpoint
+                        apiHost="https://bot.chatworth.io" // Update this to the correct Chatworth API endpoint
                         onAnswer={handleAnswer}
                         style={{
                             borderRadius: '0.375rem',
