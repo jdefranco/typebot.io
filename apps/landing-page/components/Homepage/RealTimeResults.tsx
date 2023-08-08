@@ -1,28 +1,38 @@
 import { Flex, Stack, Heading, Text, Button, VStack } from '@chakra-ui/react';
-import { Standard } from '@chatworth.io/react'; // Assuming Chatworth provides a similar React component
+import { Standard } from '@typebot.io/react'; // Corrected import
 import { ArrowRight } from 'assets/icons/ArrowRight';
 import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow';
 import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { sendRequest } from '@typebot.io/lib';
+
+const nameBlockId = 'shuUtMDMw9P4iAHbz7B5SqJ';
+const messageBlockId = 'sqvXpT1YXE3Htp6BCPvVGv3';
 
 export const RealTimeResults = () => {
-    const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [typebot, setTypebot] = useState<PublicTypebot>();
 
-    useEffect(() => {
-        // Listener for the postMessage event
-        window.addEventListener('message', function(event) {
-            // Check if the received message is the one we're expecting
-            if (event.data && event.data.from === 'chatworth' && event.data.action === 'refresh-airtable') {
-                console.log("Refreshing Airtable iframe.");
-                // Refresh the Airtable iframe
-                if (iframeRef.current) {
-                    const currentSrc = iframeRef.current.src;
-                    iframeRef.current.src = '';
-                    iframeRef.current.src = currentSrc;
-                }
-            }
-        });
-    }, []);
+  const fetchTemplate = async () => {
+    const { data, error } = await sendRequest(`/typebots/realtime-airtable.json`);
+    if (error) return;
+    const typebot = data as Typebot;
+    setTypebot({ ...typebot, typebotId: typebot.id } as PublicTypebot);
+  };
+
+  useEffect(() => {
+    fetchTemplate();
+  }, []);
+
+  const refreshIframeContent = () => {
+    if (!iframeRef.current) return;
+    iframeRef.current.src += '';
+  };
+
+  const handleAnswer = ({ blockId }: { blockId: string }) => {
+    if ([nameBlockId, messageBlockId].includes(blockId))
+      setTimeout(refreshIframeContent, 1000);
+  };
 
     return (
         <Flex as="section" justify="center">
