@@ -16,11 +16,14 @@ export const RealTimeResults = () => {
         if (event.data === 'submission_complete') {
             // Refresh the Airtable iframe
             if (iframeRef.current) {
-                iframeRef.current.src += '';
+                const currentSrc = iframeRef.current.src;
+                iframeRef.current.src = '';
+                iframeRef.current.src = currentSrc;
             }
         }
     });
 }, []);
+
 
 
     return (
