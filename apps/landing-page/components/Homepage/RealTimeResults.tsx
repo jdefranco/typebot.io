@@ -1,40 +1,15 @@
 import { Flex, Stack, Heading, Text, Button, VStack } from '@chakra-ui/react'
-import { Standard } from '@typebot.io/react'
 import { ArrowRight } from 'assets/icons/ArrowRight'
 import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow'
-import { PublicTypebot, Typebot } from '@typebot.io/schemas'
 import Link from 'next/link'
-import React, { useEffect, useRef, useState } from 'react'
-import { sendRequest } from '@typebot.io/lib'
-
-const nameBlockId = 'shuUtMDMw9P4iAHbz7B5SqJ'
-const messageBlockId = 'sqvXpT1YXE3Htp6BCPvVGv3'
+import React, { useRef } from 'react'
 
 export const RealTimeResults = () => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
-  const [typebot, setTypebot] = useState<PublicTypebot>()
-
-  const fetchTemplate = async () => {
-    const { data, error } = await sendRequest(
-      `/typebots/realtime-airtable.json`
-    )
-    if (error) return
-    const typebot = data as Typebot
-    setTypebot({ ...typebot, typebotId: typebot.id } as PublicTypebot)
-  }
-
-  useEffect(() => {
-    fetchTemplate()
-  }, [])
 
   const refreshIframeContent = () => {
     if (!iframeRef.current) return
     iframeRef.current.src += ''
-  }
-
-  const handleAnswer = ({ blockId }: { blockId: string }) => {
-    if ([nameBlockId, messageBlockId].includes(blockId))
-      setTimeout(refreshIframeContent, 1000)
   }
 
   return (
@@ -85,21 +60,19 @@ Traditional web forms have their place, but with Chatworth, data collection beco
           spacing="4"
           data-aos="fade"
         >
-          {typebot && (
-            <Standard
-              typebot="airtable-real-time"
-              apiHost="https://typebot.io"
-              onAnswer={handleAnswer}
-              style={{
-                borderRadius: '0.375rem',
-                borderWidth: '1px',
-                height: '533px',
-              }}
-            />
-          )}
+          <iframe
+            src="https://bot.chatworth.io/my-typebot-orp4iiy"
+            width="100%"
+            height="533"
+            style={{
+              borderRadius: '0.5rem',
+              border: 'none',
+              backgroundColor: 'white',
+            }}
+          />
           <iframe
             ref={iframeRef}
-            src="https://airtable.com/embed/shr8nkV6DVN88LVIv?backgroundColor=blue"
+            src="https://airtable.com/embed/app19rMMlM3AunNmT/shraPEcx5DKCdudmF?backgroundColor=cyan"
             width="100%"
             height="533"
             style={{
