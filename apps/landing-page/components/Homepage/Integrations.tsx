@@ -112,7 +112,7 @@ Adaptable Integration Options
           fontSize={['lg', 'xl']}
           data-aos="fade-up"
         >
-With Chatworth, you have a wide array of integration choices, designed to fit seamlessly into your chosen platforms, addressing user needs and elevating their experience.
+With Chatworth, you have a wide array of integration choices, designed to fit seamlessly into your chosen platforms, addressing user needs and elevating their experience. 
         </Text>
       </Stack>
     </Stack>
