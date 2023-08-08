@@ -60,6 +60,8 @@ Design your chatbot using Chatworth&apos;s intuitive drag-and-drop interface. Fo
             src="/easy-build.png"
             alt="incomplete results illustration"
             placeholder="blur"
+            borderRadius="10px"  // Added border radius specifically for this image
+            border="2px solid royalPurple.500"  // Added border color specifically for this image
           />
         </Box>
       </Stack>
