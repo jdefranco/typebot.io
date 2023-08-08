@@ -3,11 +3,12 @@ import { Standard } from '@typebot.io/react'; // Corrected import
 import { ArrowRight } from 'assets/icons/ArrowRight';
 import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow';
 import Link from 'next/link';
+import { PublicTypebot, Typebot } from '@typebot.io/schemas'
 import React, { useEffect, useRef, useState } from 'react';
 import { sendRequest } from '@typebot.io/lib';
 
-const nameBlockId = 'shuUtMDMw9P4iAHbz7B5SqJ';
-const messageBlockId = 'sqvXpT1YXE3Htp6BCPvVGv3';
+const nameBlockId = 'cc313ogcesbikz61f5c5scsm';
+const messageBlockId = 'qqbm08tbeorqisluz3g99bq8';
 
 export const RealTimeResults = () => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
