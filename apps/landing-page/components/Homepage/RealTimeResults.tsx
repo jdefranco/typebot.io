@@ -8,22 +8,26 @@ export const RealTimeResults = () => {
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     useEffect(() => {
-    // Listener for the postMessage event
-    window.addEventListener('message', function(event) {
-        console.log("Received message from iframe:", event.data); // Log any received message
+        console.log("Setting up event listener for postMessage.");
 
-        // Check if the received message is the one we're expecting
-        if (event.data && event.data.from === 'chatworth') {
-            console.log("Refreshing Airtable iframe.");
-            // Refresh the Airtable iframe
-            if (iframeRef.current) {
-                const currentSrc = iframeRef.current.src;
-                iframeRef.current.src = '';
-                iframeRef.current.src = currentSrc;
+        window.addEventListener('message', function(event) {
+            // Check if the message is coming from our chatbot's domain
+            if (event.origin !== "https://bot.chatworth.io") return;
+
+            console.log("Received message from iframe:", event.data);
+
+            // Check if the received message is the one we're expecting
+            if (event.data && event.data.from === 'chatworth') {
+                console.log("Refreshing Airtable iframe.");
+                // Refresh the Airtable iframe
+                if (iframeRef.current) {
+                    const currentSrc = iframeRef.current.src;
+                    iframeRef.current.src = '';
+                    iframeRef.current.src = currentSrc;
+                }
             }
-        }
-    });
-}, []);
+        });
+    }, []);
 
 
 
