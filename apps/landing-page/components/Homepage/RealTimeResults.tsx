@@ -13,7 +13,7 @@ export const RealTimeResults = () => {
         console.log("Received message from iframe:", event.data); // Log any received message
 
         // Check if the received message is the one we're expecting
-        if (event.data === 'submission_complete') {
+        if (event.data && event.data.from === 'chatworth') {
             console.log("Refreshing Airtable iframe.");
             // Refresh the Airtable iframe
             if (iframeRef.current) {
@@ -24,6 +24,7 @@ export const RealTimeResults = () => {
         }
     });
 }, []);
+
 
 
 
