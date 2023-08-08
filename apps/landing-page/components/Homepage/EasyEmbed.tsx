@@ -42,7 +42,9 @@ Flexible Integration Across Multiple Platforms
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-Incorporating Chatworth into your digital platforms is straightforward and efficient. With a diverse range of embedding options, from WordPress and Shopify to Wix and Notion, we ensure a seamless experience tailored to your specific needs.          <Flex data-aos="fade">
+Incorporating Chatworth into your digital platforms is straightforward and efficient. With a diverse range of embedding options, from WordPress and Shopify to Wix and Notion, we ensure a seamless experience tailored to your specific needs.          
+</Text>
+<Flex data-aos="fade">
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
