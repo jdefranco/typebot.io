@@ -8,17 +8,20 @@ export const RealTimeResults = () => {
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     useEffect(() => {
-        // Listener for the postMessage event
-        window.addEventListener('message', function(event) {
-            // Check if the received message is the one we're expecting
-            if (event.data === 'submission_complete') {
-                // Refresh the Airtable iframe
-                if (iframeRef.current) {
-                    iframeRef.current.src += '';
-                }
+    // Listener for the postMessage event
+    window.addEventListener('message', function(event) {
+        console.log("Received message:", event.data); // Log any received message
+
+        // Check if the received message is the one we're expecting
+        if (event.data === 'submission_complete') {
+            // Refresh the Airtable iframe
+            if (iframeRef.current) {
+                iframeRef.current.src += '';
             }
-        });
-    }, []);
+        }
+    });
+}, []);
+
 
     return (
         <Flex as="section" justify="center">
