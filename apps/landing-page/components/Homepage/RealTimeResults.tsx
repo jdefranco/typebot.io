@@ -54,8 +54,20 @@ export const RealTimeResults = () => {
         </VStack>
 
         <Stack w="full" direction={['column', 'row']} spacing="4" data-aos="fade">
-          {/* ... rest of your code for the Standard component ... */}
-          <div style={{ position: 'relative' }}>
+          {typebot && (
+            <Standard
+              typebot={typebot.typebotId} // Ensure the typebot ID is passed correctly
+              apiHost="https://bot.chatworth.io"
+              onAnswer={handleAnswer}
+              style={{
+                borderRadius: '0.375rem',
+                borderWidth: '1px',
+                width: '100%', // Ensure full width
+                height: '533px',
+              }}
+            />
+          )}
+          <div style={{ position: 'relative', width: '100%' }}> {/* Ensure full width */}
             <iframe
               ref={iframeRef}
               src="https://airtable.com/embed/app19rMMlM3AunNmT/shraPEcx5DKCdudmF?backgroundColor=cyan"
@@ -104,4 +116,3 @@ export const RealTimeResults = () => {
       </Stack>
     </Flex>
   );
-};
