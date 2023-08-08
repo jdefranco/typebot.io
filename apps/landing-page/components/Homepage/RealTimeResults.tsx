@@ -84,7 +84,7 @@ export const RealTimeResults = () => {
                     data-aos="fade"
                 >
                     <Standard
-                        typebot="airtable-real-time"
+                        typebot="my-typebot-orp4iiy"
                         apiHost="https://bot.chatworth.io" // Update this to the correct Chatworth API endpoint
                         onAnswer={handleAnswer}
                         style={{
