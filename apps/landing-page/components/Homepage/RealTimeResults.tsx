@@ -1,16 +1,32 @@
-import { Flex, Stack, Heading, Text, Button, VStack } from '@chakra-ui/react'
-import { ArrowRight } from 'assets/icons/ArrowRight'
-import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow'
-import Link from 'next/link'
-import React, { useRef } from 'react'
+import { Flex, Stack, Heading, Text, Button, VStack } from '@chakra-ui/react';
+import { ArrowRight } from 'assets/icons/ArrowRight';
+import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow';
+import Link from 'next/link';
+import React, { useEffect, useRef } from 'react';
 
 export const RealTimeResults = () => {
-  const iframeRef = useRef<HTMLIFrameElement | null>(null)
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const chatbotIframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const refreshIframeContent = () => {
-    if (!iframeRef.current) return
-    iframeRef.current.src += ''
-  }
+    if (!iframeRef.current) return;
+    iframeRef.current.src = iframeRef.current.src;
+  };
+
+  useEffect(() => {
+    const handleChatbotMessage = (event: MessageEvent) => {
+      // Check if the message is from the chatbot and indicates a submission
+      if (event.data === 'submission_complete') {
+        refreshIframeContent();
+      }
+    };
+
+    window.addEventListener('message', handleChatbotMessage);
+
+    return () => {
+      window.removeEventListener('message', handleChatbotMessage);
+    };
+  }, []);
 
   return (
     <Flex as="section" justify="center">
@@ -29,7 +45,7 @@ export const RealTimeResults = () => {
             textAlign="center"
             data-aos="fade"
           >
-Conversational Data Capture Beyond Boundaries
+            Conversational Data Capture Beyond Boundaries
           </Heading>
           <Text
             textAlign="center"
@@ -38,7 +54,7 @@ Conversational Data Capture Beyond Boundaries
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-Traditional web forms have their place, but with Chatworth, data collection becomes a dynamic conversation. Seamlessly capture information in real-time and integrate it across a multitude of platforms, ensuring every valuable interaction is effectively utilized.
+            Traditional web forms have their place, but with Chatworth, data collection becomes a dynamic conversation. Seamlessly capture information in real-time and integrate it across a multitude of platforms, ensuring every valuable interaction is effectively utilized.
           </Text>
           <Flex>
             <Button
@@ -61,6 +77,7 @@ Traditional web forms have their place, but with Chatworth, data collection beco
           data-aos="fade"
         >
           <iframe
+            ref={chatbotIframeRef}
             src="https://bot.chatworth.io/my-typebot-orp4iiy"
             width="100%"
             height="533"
@@ -101,5 +118,5 @@ Traditional web forms have their place, but with Chatworth, data collection beco
         </Stack>
       </Stack>
     </Flex>
-  )
-}
+  );
+};
