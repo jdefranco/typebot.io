@@ -54,7 +54,7 @@ export const RealTimeResults = () => {
             textAlign="center"
             data-aos="fade"
           >
-Real-Time Data Collection, Enlightened by AI
+Conversational Data Capture Beyond Boundaries
           </Heading>
           <Text
             textAlign="center"
@@ -63,7 +63,7 @@ Real-Time Data Collection, Enlightened by AI
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-            The power of a chat application lies in its ability to gather data in real-time. With Chatworth, you not only collect data but also gain insights, ensuring no valuable information is lost in the ether.
+Traditional web forms have their place, but with Chatworth, data collection becomes a dynamic conversation. Seamlessly capture information in real-time and integrate it across a multitude of platforms, ensuring every valuable interaction is effectively utilized.
           </Text>
           <Flex>
             <Button
