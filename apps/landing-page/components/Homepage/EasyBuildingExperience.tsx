@@ -55,16 +55,25 @@ Design your chatbot using Chatworth&apos;s intuitive drag-and-drop interface. Fo
             </Button>
           </Flex>
         </Stack>
-        <Box data-aos="fade">
+        <Box 
+    data-aos="fade"
+    position="relative"
+    borderWidth="2px"  // Border width
+    borderColor="royalPurple.200"  // Border color
+    bg="#EFEFEF"  // Background color set to white using hex code
+    rounded="xl"  // Border radius for the box
+>
     <Image
         src="/easy-build.png"
         alt="incomplete results illustration"
         placeholder="blur"
-        rounded="xl"  // Larger border radius
-        borderWidth="2px"  // Border width
-        borderColor="yellow.200"  // Border color
+        rounded="xl"  // Ensure the image border radius matches the box
+        display="block"
+        w="100%"  // Ensure the image takes up the full width
+        h="100%"  // Ensure the image takes up the full height
     />
 </Box>
+
       </Stack>
     </Flex>
   )

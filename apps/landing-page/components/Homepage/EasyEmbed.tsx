@@ -62,6 +62,7 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
     p="2px"  // This will act as the border width
           borderWidth="2px"  // Border width
             borderColor="yellow.200"  // Border color
+            bg="#FFFFFF" 
           rounded="xl"  // Border radius for the box
            >
     <Image
