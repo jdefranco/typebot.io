@@ -26,6 +26,13 @@ type Props = {
   onTypebotChoose: (typebot: Typebot) => void;
 };
 
+type TemplateButtonProps = {
+  template: TemplateProps;
+  fetchTemplate: (template: TemplateProps) => void;
+  selectedTemplate: TemplateProps;
+};
+
+
 export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
   const templateCardBackgroundColor = useColorModeValue('white', 'gray.800');
   const [typebot, setTypebot] = useState<Typebot>();
@@ -218,7 +225,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
   );
 };
 
-const TemplateButton = ({ template, fetchTemplate, selectedTemplate }) => (
+const TemplateButton: React.FC<TemplateButtonProps> = ({ template, fetchTemplate, selectedTemplate }) => (
   <Button
     size="sm"
     key={template.name}
