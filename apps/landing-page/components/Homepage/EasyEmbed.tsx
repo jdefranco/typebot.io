@@ -61,13 +61,14 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
     position="relative"
     p="2px"  // This will act as the border width
           borderWidth="2px"  // Border width
+            borderColor="yellow.200"  // Border color
           rounded="xl"  // Border radius for the box
            >
     <Image
         src="/easy-embed.png"
         alt="incomplete results illustration"
         placeholder="blur"
-        rounded="lg"
+        rounded="xl"
         display="block"
         w="100%"  // Ensure the image takes up the full width
         h="100%"  // Ensure the image takes up the full height
