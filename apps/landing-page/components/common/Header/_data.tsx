@@ -12,7 +12,7 @@ export const links = [
         label: 'About',
         description: 'Learn about Chatworth',
         href: 'https://chatworth.io/about',
-        icon: <GitHubIcon fill="blue.300" />,
+        icon: <GitHubIcon fill="royalPurple.300" />,
       },
       {
         label: 'Documentation',
