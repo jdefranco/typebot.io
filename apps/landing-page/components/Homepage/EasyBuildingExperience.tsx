@@ -58,6 +58,7 @@ Design your chatbot using Chatworth&apos;s intuitive drag-and-drop interface. Fo
         <Box 
     data-aos="fade"
     position="relative"
+    p="3px"
     borderWidth="3px"  // Border width
     borderColor="royalPurple.200"  // Border color
     bg="#EFEFEF"  // Background color set to white using hex code
