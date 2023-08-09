@@ -58,7 +58,8 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
         </Stack>
         <Box 
           data-aos="fade"
-          borderColor="yellow.200"  // Border color
+    position="relative"
+    p="2px"  // This will act as the border width
           borderWidth="2px"  // Border width
           rounded="xl"  // Border radius for the box
            >
@@ -66,9 +67,10 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
         src="/easy-embed.png"
         alt="incomplete results illustration"
         placeholder="blur"
-        rounded="xl"  // Larger border radius
-        display="block"  // Ensures the image takes up the full space of its container
-        
+        rounded="lg"
+        display="block"
+        w="100%"  // Ensure the image takes up the full width
+        h="100%"  // Ensure the image takes up the full height
     />
 </Box>
       </Stack>
