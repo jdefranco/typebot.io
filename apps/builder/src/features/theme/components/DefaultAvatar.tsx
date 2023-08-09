@@ -1,38 +1,19 @@
-import { Icon, IconProps } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Icon, IconProps } from '@chakra-ui/react';
+import React from 'react';
 
 export const DefaultAvatar = (props: IconProps) => {
   return (
-    <Icon
-      viewBox="0 0 75 75"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      boxSize="40px"
-      data-testid="default-avatar"
-      {...props}
-    >
-      <mask id="mask0" x="0" y="0" mask-type="alpha">
-        <circle cx="37.5" cy="37.5" r="37.5" fill="#0042DA" />
-      </mask>
-      <g mask="url(#mask0)">
-        <rect x="-30" y="-43" width="131" height="154" fill="#0042DA" />
-        <rect
-          x="2.50413"
-          y="120.333"
-          width="81.5597"
-          height="86.4577"
-          rx="2.5"
-          transform="rotate(-52.6423 2.50413 120.333)"
-          stroke="#FED23D"
-          strokeWidth="5"
-        />
-        <circle cx="76.5" cy="-1.5" r="29" stroke="#FF8E20" strokeWidth="5" />
-        <path
-          d="M-49.8224 22L-15.5 -40.7879L18.8224 22H-49.8224Z"
-          stroke="#F7F8FF"
-          strokeWidth="5"
-        />
-      </g>
-    </Icon>
-  )
+    <Box cursor="pointer" _hover={{ filter: 'brightness(0.9)' }}>
+      <Icon
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        boxSize="40px"
+        data-testid="default-avatar"
+        {...props}
+      >
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"></path>
+      </Icon>
+    </Box>
+  );
 }
