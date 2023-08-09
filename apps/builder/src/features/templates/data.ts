@@ -10,7 +10,7 @@ export const templates: TemplateProps[] = [
       'You are a marketing agency and this bot allows you generate new leads interested in your services',
   },
   {
-    name: 'Lead Generation - Marketing AI',
+    name: 'Lead Generation - Marketing ChatGPT',
     emoji: '🤝',
     fileName: 'lead-gen-marketing-ai.json',
     category: 'ai',
