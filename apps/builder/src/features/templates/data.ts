@@ -13,7 +13,7 @@ export const templates: TemplateProps[] = [
     name: 'Lead Generation - Marketing AI',
     emoji: '🤝',
     fileName: 'lead-gen-marketing-ai.json',
-    category: 'marketing',
+    category: 'ai',
     description:
       'You are a marketing agency and this bot allows you generate new leads interested in your services',
   },
