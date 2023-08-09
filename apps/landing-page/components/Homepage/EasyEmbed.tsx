@@ -59,7 +59,7 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
         <Box 
           data-aos="fade"
     position="relative"
-    p="2px"  // This will act as the border width
+    p="3px"  // This will act as the border width
           borderWidth="2px"  // Border width
             borderColor="yellow.200"  // Border color
             bg="#FFFFFF" 
