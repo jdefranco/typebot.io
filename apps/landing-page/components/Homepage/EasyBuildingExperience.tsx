@@ -55,13 +55,11 @@ Design your chatbot using Chatworth&apos;s intuitive drag-and-drop interface. Fo
             </Button>
           </Flex>
         </Stack>
-        <Box rounded="md" data-aos="fade">
+        <Box rounded="lg" data-aos="fade" borderWidth="3px" borderColor="royalPurple.500">
           <Image
             src="/easy-build.png"
             alt="incomplete results illustration"
             placeholder="blur"
-            borderRadius="10px"  // Added border radius specifically for this image
-            border="2px solid royalPurple.500"  // Added border color specifically for this image
           />
         </Box>
       </Stack>

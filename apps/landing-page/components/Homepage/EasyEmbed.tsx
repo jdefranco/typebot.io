@@ -56,7 +56,7 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
             </Button>
           </Flex>
         </Stack>
-        <Box rounded="md" data-aos="fade" borderWidth="1px" borderColor="royalPurple.500">
+        <Box rounded="lg" data-aos="fade" borderWidth="3px" borderColor="yellow.500">
           <Image
             src="/easy-embed.png"
             alt="incomplete results illustration"
