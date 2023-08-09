@@ -56,13 +56,16 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
             </Button>
           </Flex>
         </Stack>
-        <Box rounded="lg" data-aos="fade" borderWidth="2px" borderColor="yellow.500">
-          <Image
-            src="/easy-embed.png"
-            alt="incomplete results illustration"
-            placeholder="blur"
-          />
-        </Box>
+        <Box data-aos="fade">
+    <Image
+        src="/easy-embed.png"
+        alt="incomplete results illustration"
+        placeholder="blur"
+        rounded="xl"  // Larger border radius
+        borderWidth="2px"  // Border width
+        borderColor="royalPurple.200"  // Border color
+    />
+</Box>
       </Stack>
     </Flex>
   )
