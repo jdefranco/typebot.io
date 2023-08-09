@@ -9,9 +9,9 @@ export const links = [
     label: 'Resources',
     children: [
       {
-        label: 'GitHub repository',
-        description: 'Check out the entire source code of the project',
-        href: 'https://github.com/josephdefranco/typebot.io',
+        label: 'About',
+        description: 'Learn about Chatworth',
+        href: 'https://chatworth.io/about',
         icon: <GitHubIcon fill="blue.300" />,
       },
       {
@@ -20,20 +20,6 @@ export const links = [
           "Everything you need to know about how to use Chatworth's builder",
         href: 'https://docs.chatworth.io',
         icon: <DocIcon />,
-      },
-      {
-        label: 'Roadmap',
-        description:
-          "Follow the development and make suggestions for which features you'd like to see",
-        href: 'https://feedback.chatworth.io/roadmap',
-        icon: <MapIcon />,
-      },
-      {
-        label: 'Community',
-        description:
-          'Join our facebook community and get insights on how to create high performing surveys',
-        href: 'https://www.facebook.com/groups/chatworth',
-        icon: <PeopleCircleIcon />,
       },
     ],
   },
