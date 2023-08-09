@@ -94,7 +94,12 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                 {templates
                   .filter((template) => template.category === 'marketing')
                   .map((template) => (
-                    <TemplateButton template={template} fetchTemplate={fetchTemplate} selectedTemplate={selectedTemplate} />
+                    <TemplateButton 
+                      key={template.name} 
+                      template={template} 
+                      fetchTemplate={fetchTemplate} 
+                      selectedTemplate={selectedTemplate} 
+                    />
                   ))}
               </Stack>
 
@@ -111,7 +116,12 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                 {templates
                   .filter((template) => template.category === 'product')
                   .map((template) => (
-                    <TemplateButton template={template} fetchTemplate={fetchTemplate} selectedTemplate={selectedTemplate} />
+                    <TemplateButton 
+                      key={template.name} 
+                      template={template} 
+                      fetchTemplate={fetchTemplate} 
+                      selectedTemplate={selectedTemplate} 
+                    />
                   ))}
               </Stack>
 
@@ -128,7 +138,12 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                 {templates
                   .filter((template) => template.category === 'ai')
                   .map((template) => (
-                    <TemplateButton template={template} fetchTemplate={fetchTemplate} selectedTemplate={selectedTemplate} />
+                    <TemplateButton 
+                      key={template.name} 
+                      template={template} 
+                      fetchTemplate={fetchTemplate} 
+                      selectedTemplate={selectedTemplate} 
+                    />
                   ))}
               </Stack>
 
@@ -145,7 +160,12 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                 {templates
                   .filter((template) => template.category === undefined)
                   .map((template) => (
-                    <TemplateButton template={template} fetchTemplate={fetchTemplate} selectedTemplate={selectedTemplate} />
+                    <TemplateButton 
+                      key={template.name} 
+                      template={template} 
+                      fetchTemplate={fetchTemplate} 
+                      selectedTemplate={selectedTemplate} 
+                    />
                   ))}
               </Stack>
             </Stack>
@@ -221,4 +241,5 @@ const TemplateButton = ({ template, fetchTemplate, selectedTemplate }) => (
       )}
     </HStack>
   </Button>
-); 
+);
+
