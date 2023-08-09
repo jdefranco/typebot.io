@@ -16,8 +16,8 @@ test.describe.parallel('Settings page', () => {
       await expect(
         page.locator('a:has-text("Powered by Chatworth")')
       ).toHaveAttribute('href', 'https://www.chatworth.io/?utm_source=litebadge')
-      await page.click('text="Typebot.io branding"')
-      await expect(page.locator('a:has-text("Made with Typebot")')).toBeHidden()
+      await page.click('text="Chatworth.io branding"')
+      await expect(page.locator('a:has-text("Powered by Chatworth")')).toBeHidden()
 
       await page.click('text="Remember user"')
 
@@ -55,8 +55,8 @@ test.describe.parallel('Settings page', () => {
 
   test.describe('Metadata', () => {
     test('should be fillable', async ({ page }) => {
-      const favIconUrl = 'https://www.baptistearno.com/favicon.png'
-      const imageUrl = 'https://www.baptistearno.com/images/site-preview.png'
+      const favIconUrl = 'https://www.chatworth.io/favicon.png'
+      const imageUrl = 'https://www.chatworth.io/logo.png'
       const typebotId = createId()
       await importTypebotInDatabase(getTestAsset('typebots/settings.json'), {
         id: typebotId,
