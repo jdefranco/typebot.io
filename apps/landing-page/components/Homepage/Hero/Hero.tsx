@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react'
 import * as React from 'react'
 import { Header } from '../../common/Header/Header'
-import { BackgroundPolygons } from './BackgroundPolygons'
 import Link from 'next/link'
 
 export const Hero = () => {
@@ -23,7 +22,6 @@ export const Hero = () => {
       >
       <Header />
       <Stack mx="auto" py="10" pos="relative" pb="32" px={[4, 0]}>
-        <BackgroundPolygons />
         <VStack mb="20" spacing={20} alignItems="center">
           <VStack pt={['10', '20']} spacing="6" w="full">
             <Heading
