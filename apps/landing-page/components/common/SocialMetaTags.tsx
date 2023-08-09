@@ -5,7 +5,7 @@ export const SocialMetaTags = ({
   title = 'Chatworth: Sophisticated AI-Powered Chatbot System',
   description = 'Experience the wisdom of Chatworth, a sophisticated AI-powered chatbot system designed to revolutionize customer interactions through intuitive chatbot creation, seamless integration, and real-time data collection. Elevate your customer engagement today.',
   currentUrl,
-  imagePreviewUrl = 'https://s3.typebot.io/preview.png',
+  imagePreviewUrl = 'https://chatworth.io/logo.png',
 }: {
   title?: string
   description?: string

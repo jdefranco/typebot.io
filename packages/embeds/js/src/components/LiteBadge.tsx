@@ -45,7 +45,7 @@ export const LiteBadge = (props: Props) => {
       class="lite-badge"
       id="lite-badge"
     >
-      <img src="https://chatworth.io/favicon.png" alt="Chatworth Logo" width="16px" height="16px" /> 
+      <img src="https://chatworth.io/favicon.png" alt="Chatworth Logo" width="20px" height="20px" /> 
       <span>Powered by Chatworth</span>
     </a>
   );
