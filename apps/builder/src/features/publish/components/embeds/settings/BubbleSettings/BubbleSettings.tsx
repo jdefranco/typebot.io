@@ -11,7 +11,6 @@ import { BubbleProps } from '@typebot.io/js';
 import { isDefined, isSvgSrc } from '@typebot.io/lib';
 import { PreviewMessageSettings } from './PreviewMessageSettings';
 import { ThemeSettings } from './ThemeSettings';
-import { isLight } from '@typebot.io/lib/hexToRgb';
 
 type Props = {
   defaultPreviewMessageAvatar: string;
