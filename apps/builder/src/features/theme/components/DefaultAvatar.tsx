@@ -1,15 +1,14 @@
-import { Image, IconProps } from '@chakra-ui/react'
+import { Image, ImageProps } from '@chakra-ui/react'
 import React from 'react'
 
-export const DefaultAvatar = (props: IconProps) => {
+export const DefaultAvatar = (props: ImageProps) => {
   return (
     <Image
       src="https://www.chatworth.io/chatworth-icon.png"
       alt="Default Avatar"
       boxSize="40px"
-      borderRadius="full" // This makes the image rounded
-      objectFit="cover" // This ensures the image covers the entire container without distortion
-      data-testid="default-avatar"
+      borderRadius="full"
+      objectFit="cover"
       {...props}
     />
   )
