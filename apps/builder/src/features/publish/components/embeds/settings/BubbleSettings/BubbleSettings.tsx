@@ -6,22 +6,22 @@ import {
   Text,
   Image,
   chakra,
-} from '@chakra-ui/react'
-import { BubbleProps } from '@typebot.io/js'
-import { isDefined, isSvgSrc } from '@typebot.io/lib'
-import { PreviewMessageSettings } from './PreviewMessageSettings'
-import { ThemeSettings } from './ThemeSettings'
-import { isLight } from '@typebot.io/lib/hexToRgb'
+} from '@chakra-ui/react';
+import { BubbleProps } from '@typebot.io/js';
+import { isDefined, isSvgSrc } from '@typebot.io/lib';
+import { PreviewMessageSettings } from './PreviewMessageSettings';
+import { ThemeSettings } from './ThemeSettings';
+import { isLight } from '@typebot.io/lib/hexToRgb';
 
 type Props = {
-  defaultPreviewMessageAvatar: string
-  theme: BubbleProps['theme']
-  previewMessage: BubbleProps['previewMessage']
-  onThemeChange: (theme: BubbleProps['theme']) => void
+  defaultPreviewMessageAvatar: string;
+  theme: BubbleProps['theme'];
+  previewMessage: BubbleProps['previewMessage'];
+  onThemeChange: (theme: BubbleProps['theme']) => void;
   onPreviewMessageChange: (
     previewMessage: BubbleProps['previewMessage']
-  ) => void
-}
+  ) => void;
+};
 
 export const BubbleSettings = ({
   defaultPreviewMessageAvatar,
@@ -33,18 +33,18 @@ export const BubbleSettings = ({
   const updatePreviewMessage = (
     previewMessage: BubbleProps['previewMessage']
   ) => {
-    if (!previewMessage) return onPreviewMessageChange(undefined)
+    if (!previewMessage) return onPreviewMessageChange(undefined);
     onPreviewMessageChange({
       ...previewMessage,
       autoShowDelay: previewMessage?.autoShowDelay
         ? previewMessage.autoShowDelay * 1000
         : undefined,
-    })
-  }
+    });
+  };
 
   const updateTheme = (theme: BubbleProps['theme']) => {
-    onThemeChange(theme)
-  }
+    onThemeChange(theme);
+  };
 
   return (
     <Stack spacing="4">
@@ -99,13 +99,13 @@ export const BubbleSettings = ({
         </Stack>
       </Stack>
     </Stack>
-  )
-}
+  );
+};
 
 const BubbleIcon = ({
   buttonTheme,
 }: {
-  buttonTheme: NonNullable<BubbleProps['theme']>['button']
+  buttonTheme: NonNullable<BubbleProps['theme']>['button'];
 }) => {
   if (!buttonTheme?.customIconSrc)
     return (
@@ -114,7 +114,7 @@ const BubbleIcon = ({
         alt="Default Bubble Icon"
         boxSize={buttonTheme?.size === 'large' ? '36px' : '28px'}
       />
-    )
+    );
 
   if (
     buttonTheme.customIconSrc.startsWith('http') ||
@@ -135,7 +135,7 @@ const BubbleIcon = ({
         alt="Bubble button icon"
         objectFit={isSvgSrc(buttonTheme.customIconSrc) ? undefined : 'cover'}
       />
-    )
+    );
   return (
     <chakra.span
       transition="all 0.2s ease-in-out"
@@ -144,5 +144,5 @@ const BubbleIcon = ({
     >
       {buttonTheme.customIconSrc}
     </chakra.span>
-  )
-}
+  );
+};
