@@ -1,121 +1,148 @@
-import { NumberInput } from '@/components/inputs'
-import { FormLabel, HStack, Input, Stack, Switch, Text } from '@chakra-ui/react'
-import { PreviewMessageParams } from '@typebot.io/js/dist/features/bubble/types'
-import { useState } from 'react'
-import { isDefined } from '@typebot.io/lib'
+import {
+  Stack,
+  Heading,
+  HStack,
+  Flex,
+  Text,
+  Image,
+  chakra,
+} from '@chakra-ui/react'
+import { BubbleProps } from '@typebot.io/js'
+import { isDefined, isSvgSrc } from '@typebot.io/lib'
+import { PreviewMessageSettings } from './PreviewMessageSettings'
+import { ThemeSettings } from './ThemeSettings'
+import { isLight } from '@typebot.io/lib/hexToRgb'
 
 type Props = {
-  defaultAvatar: string
-  onChange: (newPreviewMessage?: PreviewMessageParams) => void
+  defaultPreviewMessageAvatar: string
+  theme: BubbleProps['theme']
+  previewMessage: BubbleProps['previewMessage']
+  onThemeChange: (theme: BubbleProps['theme']) => void
+  onPreviewMessageChange: (
+    previewMessage: BubbleProps['previewMessage']
+  ) => void
 }
 
-export const PreviewMessageSettings = ({ defaultAvatar, onChange }: Props) => {
-  const [isPreviewMessageEnabled, setIsPreviewMessageEnabled] = useState(false)
-  const [previewMessage, setPreviewMessage] = useState<PreviewMessageParams>()
-  const [autoShowDelay, setAutoShowDelay] = useState(10)
-
-  const [isAutoShowEnabled, setIsAutoShowEnabled] = useState(false)
-
-  const updatePreviewMessage = (previewMessage: PreviewMessageParams) => {
-    setPreviewMessage(previewMessage)
-    onChange(previewMessage)
-  }
-
-  const updateAutoShowDelay = (autoShowDelay?: number) => {
-    setAutoShowDelay(autoShowDelay ?? 0)
-    updatePreviewMessage({
+export const BubbleSettings = ({
+  defaultPreviewMessageAvatar,
+  theme,
+  previewMessage,
+  onThemeChange,
+  onPreviewMessageChange,
+}: Props) => {
+  const updatePreviewMessage = (
+    previewMessage: BubbleProps['previewMessage']
+  ) => {
+    if (!previewMessage) return onPreviewMessageChange(undefined)
+    onPreviewMessageChange({
       ...previewMessage,
-      message: previewMessage?.message ?? '',
-      autoShowDelay,
+      autoShowDelay: previewMessage?.autoShowDelay
+        ? previewMessage.autoShowDelay * 1000
+        : undefined,
     })
   }
 
-  const updateAvatarUrl = (avatarUrl: string) => {
-    updatePreviewMessage({
-      ...previewMessage,
-      message: previewMessage?.message ?? '',
-      avatarUrl,
-    })
-  }
-
-  const updateMessage = (message: string) => {
-    updatePreviewMessage({ ...previewMessage, message })
-  }
-
-  const updatePreviewMessageCheck = (isChecked: boolean) => {
-    setIsPreviewMessageEnabled(isChecked)
-    const newPreviewMessage = {
-      autoShowDelay: isAutoShowEnabled ? autoShowDelay : undefined,
-      message: previewMessage?.message ?? 'I have a question for you!',
-      avatarUrl: previewMessage?.avatarUrl ?? defaultAvatar,
-    }
-    if (isChecked) setPreviewMessage(newPreviewMessage)
-    onChange(isChecked ? newPreviewMessage : undefined)
-  }
-
-  const updateAutoShowDelayCheck = (isChecked: boolean) => {
-    setIsAutoShowEnabled(isChecked)
-    updatePreviewMessage({
-      ...previewMessage,
-      message: previewMessage?.message ?? '',
-
-      autoShowDelay: isChecked ? autoShowDelay : undefined,
-    })
+  const updateTheme = (theme: BubbleProps['theme']) => {
+    onThemeChange(theme)
   }
 
   return (
-    <Stack spacing={4}>
-      <HStack justifyContent="space-between">
-        <FormLabel htmlFor="preview" mb="0">
-          Preview message
-        </FormLabel>
-        <Switch
-          id="preview"
-          isChecked={isPreviewMessageEnabled}
-          onChange={(e) => updatePreviewMessageCheck(e.target.checked)}
+    <Stack spacing="4">
+      <Heading size="sm">Chat bubble settings</Heading>
+      <Stack pl="4" spacing={4}>
+        <PreviewMessageSettings
+          defaultAvatar={defaultPreviewMessageAvatar}
+          onChange={updatePreviewMessage}
         />
-      </HStack>
-      {isPreviewMessageEnabled && (
-        <Stack pl="4" spacing={4}>
-          <HStack justify="space-between">
-            <Text>Avatar URL</Text>
-            <Input
-              onChange={(e) => updateAvatarUrl(e.target.value)}
-              value={previewMessage?.avatarUrl}
-              placeholder={'Paste image link (.png, .jpg)'}
-            />
-          </HStack>
-          <HStack justify="space-between">
-            <Text>Message</Text>
-            <Input
-              onChange={(e) => updateMessage(e.target.value)}
-              value={previewMessage?.message}
-            />
-          </HStack>
-          <HStack>
-            <Text>Auto show</Text>
-            <Switch
-              isChecked={isAutoShowEnabled}
-              onChange={(e) => updateAutoShowDelayCheck(e.target.checked)}
-            />
-            {isAutoShowEnabled && (
-              <>
-                <Text>After</Text>
-                <NumberInput
-                  size="sm"
-                  w="70px"
-                  defaultValue={autoShowDelay}
-                  onValueChange={(val) =>
-                    isDefined(val) && updateAutoShowDelay(val)
-                  }
-                  withVariableButton={false}
+        <ThemeSettings
+          theme={theme}
+          onChange={updateTheme}
+          isPreviewMessageEnabled={isDefined(previewMessage)}
+        />
+        <Heading size="sm">Preview:</Heading>
+        <Stack alignItems="flex-end">
+          {isDefined(previewMessage) && (
+            <HStack
+              bgColor={theme?.previewMessage?.backgroundColor}
+              shadow="md"
+              rounded="md"
+              p="3"
+              maxW="280px"
+              spacing={4}
+            >
+              {previewMessage.avatarUrl && (
+                <Image
+                  src={previewMessage.avatarUrl}
+                  w="40px"
+                  h="40px"
+                  rounded="full"
+                  alt="Preview message avatar"
+                  objectFit="cover"
                 />
-                <Text>seconds</Text>
-              </>
-            )}
-          </HStack>
+              )}
+              <Text color={theme?.previewMessage?.textColor}>
+                {previewMessage.message}
+              </Text>
+            </HStack>
+          )}
+          <Flex
+            align="center"
+            justifyContent="center"
+            transition="all 0.2s ease-in-out"
+            boxSize={theme?.button?.size === 'large' ? '64px' : '48px'}
+            bgColor={theme?.button?.backgroundColor}
+            rounded="full"
+            boxShadow="0 0 #0000,0 0 #0000,0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)"
+          >
+            <BubbleIcon buttonTheme={theme?.button} />
+          </Flex>
         </Stack>
-      )}
+      </Stack>
     </Stack>
+  )
+}
+
+const BubbleIcon = ({
+  buttonTheme,
+}: {
+  buttonTheme: NonNullable<BubbleProps['theme']>['button']
+}) => {
+  if (!buttonTheme?.customIconSrc)
+    return (
+      <Image
+        src="https://www.chatworth.io/chatworth-icon.png"
+        alt="Default Bubble Icon"
+        boxSize={buttonTheme?.size === 'large' ? '36px' : '28px'}
+      />
+    )
+
+  if (
+    buttonTheme.customIconSrc.startsWith('http') ||
+    buttonTheme.customIconSrc.startsWith('data:image/svg+xml')
+  )
+    return (
+      <Image
+        src={buttonTheme.customIconSrc}
+        transition="all 0.2s ease-in-out"
+        boxSize={
+          isSvgSrc(buttonTheme.customIconSrc)
+            ? buttonTheme?.size === 'large'
+              ? '36px'
+              : '28px'
+            : '90%'
+        }
+        rounded={isSvgSrc(buttonTheme.customIconSrc) ? undefined : 'full'}
+        alt="Bubble button icon"
+        objectFit={isSvgSrc(buttonTheme.customIconSrc) ? undefined : 'cover'}
+      />
+    )
+  return (
+    <chakra.span
+      transition="all 0.2s ease-in-out"
+      fontSize={buttonTheme.size === 'large' ? '36px' : '24px'}
+      lineHeight={buttonTheme.size === 'large' ? '40px' : '32px'}
+    >
+      {buttonTheme.customIconSrc}
+    </chakra.span>
   )
 }
