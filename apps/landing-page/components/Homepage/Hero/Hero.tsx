@@ -15,10 +15,7 @@ import Link from 'next/link'
 
 export const Hero = () => {
   return (
-    <Box as="section" overflow="hidden" 
-    backgroundImage="url('/hero-bg.png')" 
-      backgroundSize="cover"                
-      backgroundPosition="center"            
+    <Box as="section" overflow="hidden"            
       >
       <Header />
       <Stack mx="auto" py="10" pos="relative" pb="32" px={[4, 0]}>
