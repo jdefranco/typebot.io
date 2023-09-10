@@ -3,7 +3,6 @@ import test, { expect } from '@playwright/test'
 import { createId } from '@paralleldrive/cuid2'
 import { defaultTextInputOptions } from '@typebot.io/schemas'
 import { importTypebotInDatabase } from '@typebot.io/lib/playwright/databaseActions'
-import { freeWorkspaceId } from '@typebot.io/lib/playwright/databaseSetup'
 
 test.describe.parallel('Settings page', () => {
   test.describe('General', () => {

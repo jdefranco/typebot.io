@@ -6,6 +6,7 @@ import {
 } from '@typebot.io/prisma'
 import { isDefined } from '@typebot.io/lib'
 import { getChatsLimit } from '@typebot.io/lib/pricing'
+import { getUsage } from '@typebot.io/lib/api/getUsage'
 import { promptAndSetEnvironment } from './utils'
 import { Workspace } from '@typebot.io/schemas'
 import { sendAlmostReachedChatsLimitEmail } from '@typebot.io/emails/src/emails/AlmostReachedChatsLimitEmail'
@@ -123,7 +124,7 @@ const sendAlertIfLimitReached = async (
     if (taggedWorkspaces.includes(workspace.id) || workspace.isQuarantined)
       continue
     taggedWorkspaces.push(workspace.id)
-    const { totalChatsUsed } = await getUsage(workspace.id)
+    const { totalChatsUsed } = await getUsage(prisma)(workspace.id)
     const chatsLimit = getChatsLimit(workspace)
     if (
       chatsLimit > 0 &&
@@ -132,6 +133,7 @@ const sendAlertIfLimitReached = async (
       !workspace.chatsLimitFirstEmailSentAt
     ) {
       const to = workspace.members
+        .filter((member) => member.role === WorkspaceRole.ADMIN)
         .map((member) => member.user.email)
         .filter(isDefined)
       console.log(
@@ -144,7 +146,7 @@ const sendAlertIfLimitReached = async (
           chatsLimit,
           url: `https://app.typebot.io/typebots?workspaceId=${workspace.id}`,
         })
-        await prisma.workspace.update({
+        await prisma.workspace.updateMany({
           where: { id: workspace.id },
           data: { chatsLimitFirstEmailSentAt: new Date() },
         })
@@ -159,6 +161,7 @@ const sendAlertIfLimitReached = async (
       !workspace.chatsLimitSecondEmailSentAt
     ) {
       const to = workspace.members
+        .filter((member) => member.role === WorkspaceRole.ADMIN)
         .map((member) => member.user.email)
         .filter(isDefined)
       try {
@@ -168,7 +171,7 @@ const sendAlertIfLimitReached = async (
           chatsLimit,
           url: `https://app.typebot.io/typebots?workspaceId=${workspace.id}`,
         })
-        await prisma.workspace.update({
+        await prisma.workspace.updateMany({
           where: { id: workspace.id },
           data: { chatsLimitSecondEmailSentAt: new Date() },
         })
@@ -179,7 +182,7 @@ const sendAlertIfLimitReached = async (
 
     if (totalChatsUsed > chatsLimit * 3 && workspace.plan === Plan.FREE) {
       console.log(`Automatically quarantine workspace ${workspace.id}...`)
-      await prisma.workspace.update({
+      await prisma.workspace.updateMany({
         where: { id: workspace.id },
         data: { isQuarantined: true },
       })
@@ -202,52 +205,6 @@ const sendAlertIfLimitReached = async (
     }
   }
   return events
-}
-
-const getUsage = async (workspaceId: string) => {
-  const now = new Date()
-  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
-  const firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1)
-  const typebots = await prisma.typebot.findMany({
-    where: {
-      workspace: {
-        id: workspaceId,
-      },
-    },
-    select: { id: true },
-  })
-
-  const [
-    totalChatsUsed,
-    {
-      _sum: { storageUsed: totalStorageUsed },
-    },
-  ] = await Promise.all([
-    prisma.result.count({
-      where: {
-        typebotId: { in: typebots.map((typebot) => typebot.id) },
-        hasStarted: true,
-        createdAt: {
-          gte: firstDayOfMonth,
-          lt: firstDayOfNextMonth,
-        },
-      },
-    }),
-    prisma.answer.aggregate({
-      where: {
-        storageUsed: { gt: 0 },
-        result: {
-          typebotId: { in: typebots.map((typebot) => typebot.id) },
-        },
-      },
-      _sum: { storageUsed: true },
-    }),
-  ])
-
-  return {
-    totalChatsUsed,
-    totalStorageUsed: totalStorageUsed ?? 0,
-  }
 }
 
 sendTotalResultsDigest().then()

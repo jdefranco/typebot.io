@@ -15,10 +15,11 @@ import { TemplatesModal } from './TemplatesModal'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { useUser } from '@/features/account/hooks/useUser'
 import { useToast } from '@/hooks/useToast'
-import { createTypebotQuery } from '@/features/dashboard/queries/createTypebotQuery'
-import { importTypebotQuery } from '@/features/dashboard/queries/importTypebotQuery'
+import { trpc } from '@/lib/trpc'
+import { useScopedI18n } from '@/locales'
 
 export const CreateNewTypebotButtons = () => {
+  const scopedT = useScopedI18n('templates.buttons')
   const { workspace } = useWorkspace()
   const { user } = useUser()
   const router = useRouter()
@@ -28,40 +29,16 @@ export const CreateNewTypebotButtons = () => {
 
   const { showToast } = useToast()
 
-  const handleCreateSubmit = async (typebot?: Typebot) => {
-    if (!user || !workspace) return
-    setIsLoading(true)
-    const folderId = router.query.folderId?.toString() ?? null
-    const { error, data } = typebot
-      ? await importTypebotQuery(
-          {
-            ...typebot,
-            folderId,
-            workspaceId: workspace.id,
-            theme: {
-              ...typebot.theme,
-              chat: {
-                ...typebot.theme.chat,
-                hostAvatar: {
-                  isEnabled: true,
-                  url:
-                    typebot.theme.chat.hostAvatar?.url ??
-                    user.image ??
-                    undefined,
-                },
-              },
-            },
-          },
-          workspace.plan
-        )
-      : await createTypebotQuery({
-          folderId,
-          workspaceId: workspace.id,
-        })
-    if (error) showToast({ description: error.message })
-    if (data)
+  const { mutate } = trpc.typebot.createTypebot.useMutation({
+    onMutate: () => {
+      setIsLoading(true)
+    },
+    onError: (error) => {
+      showToast({ description: error.message })
+    },
+    onSuccess: (data) => {
       router.push({
-        pathname: `/typebots/${data.id}/edit`,
+        pathname: `/typebots/${data.typebot.id}/edit`,
         query:
           router.query.isFirstBot === 'true'
             ? {
@@ -69,12 +46,33 @@ export const CreateNewTypebotButtons = () => {
               }
             : {},
       })
-    setIsLoading(false)
+    },
+    onSettled: () => {
+      setIsLoading(false)
+    },
+  })
+
+  const handleCreateSubmit = async (typebot?: Typebot) => {
+    if (!user || !workspace) return
+    const folderId = router.query.folderId?.toString() ?? null
+    mutate({
+      workspaceId: workspace.id,
+      typebot: {
+        ...(typebot
+          ? {
+              ...typebot,
+              publicId: undefined,
+              customDomain: undefined,
+            }
+          : {}),
+        folderId,
+      },
+    })
   }
 
   return (
     <VStack maxW="600px" w="full" flex="1" pt="20" spacing={10}>
-      <Heading>Create a new typebot</Heading>
+      <Heading>{scopedT('heading')}</Heading>
       <Stack w="full" spacing={6}>
         <Button
           variant="outline"
@@ -91,7 +89,7 @@ export const CreateNewTypebotButtons = () => {
           onClick={() => handleCreateSubmit()}
           isLoading={isLoading}
         >
-          Start from scratch
+          {scopedT('fromScratchButton.label')}
         </Button>
         <Button
           variant="outline"
@@ -108,7 +106,7 @@ export const CreateNewTypebotButtons = () => {
           onClick={onOpen}
           isLoading={isLoading}
         >
-          Start from a template
+          {scopedT('fromTemplateButton.label')}
         </Button>
         <ImportTypebotFromFileButton
           variant="outline"
@@ -125,7 +123,7 @@ export const CreateNewTypebotButtons = () => {
           isLoading={isLoading}
           onNewTypebot={handleCreateSubmit}
         >
-          Import a file
+          {scopedT('importFileButton.label')}
         </ImportTypebotFromFileButton>
       </Stack>
       <TemplatesModal

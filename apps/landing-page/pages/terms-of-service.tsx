@@ -32,15 +32,6 @@ const PrivacyPolicies = () => {
         </p>
 
         <ul>
-          <li>modify or copy the materials;</li>
-          <li>
-            use the materials for any commercial purpose or for any public
-            display;
-          </li>
-          <li>
-            attempt to reverse engineer any software contained on Typebot&apos;s
-            Website;
-          </li>
           <li>
             remove any copyright or other proprietary notations from the
             materials; or

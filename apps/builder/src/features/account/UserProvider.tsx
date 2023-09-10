@@ -1,12 +1,15 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { createContext, ReactNode, useEffect, useState } from 'react'
-import { env, isDefined, isNotDefined } from '@typebot.io/lib'
+import { isDefined, isNotDefined } from '@typebot.io/lib'
 import { User } from '@typebot.io/prisma'
 import { setUser as setSentryUser } from '@sentry/nextjs'
 import { useToast } from '@/hooks/useToast'
 import { updateUserQuery } from './queries/updateUserQuery'
 import { useDebouncedCallback } from 'use-debounce'
+import { env } from '@typebot.io/env'
+import { identifyUser } from '../telemetry/posthog'
+import { useColorMode } from '@chakra-ui/react'
 
 export const userContext = createContext<{
   user?: User
@@ -28,6 +31,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | undefined>()
   const { showToast } = useToast()
   const [currentWorkspaceId, setCurrentWorkspaceId] = useState<string>()
+  const { setColorMode } = useColorMode()
+
+  useEffect(() => {
+    if (
+      !user?.preferredAppAppearance ||
+      user.preferredAppAppearance === 'system'
+    )
+      return
+    const currentColorScheme = localStorage.getItem('chakra-ui-color-mode') as
+      | 'light'
+      | 'dark'
+      | null
+    if (currentColorScheme === user.preferredAppAppearance) return
+    setColorMode(user.preferredAppAppearance)
+  }, [setColorMode, user?.preferredAppAppearance])
 
   useEffect(() => {
     if (isDefined(user) || isNotDefined(session)) return
@@ -36,27 +54,25 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     )
     const parsedUser = session.user as User
     setUser(parsedUser)
-    if (parsedUser?.id) setSentryUser({ id: parsedUser.id })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+
+    if (parsedUser?.id) {
+      setSentryUser({ id: parsedUser.id })
+      identifyUser(parsedUser.id)
+    }
+  }, [session, user])
 
   useEffect(() => {
     if (!router.isReady) return
     if (status === 'loading') return
+    const isSigningIn = () => ['/signin', '/register'].includes(router.pathname)
     if (!user && status === 'unauthenticated' && !isSigningIn())
       router.replace({
         pathname: '/signin',
-        query:
-          router.pathname !== '/typebots'
-            ? {
-                redirectPath: router.asPath,
-              }
-            : undefined,
+        query: {
+          redirectPath: router.asPath,
+        },
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, router])
-
-  const isSigningIn = () => ['/signin', '/register'].includes(router.pathname)
+  }, [router, status, user])
 
   const updateUser = (updates: Partial<User>) => {
     if (isNotDefined(user)) return
@@ -72,7 +88,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (error) showToast({ title: error.name, description: error.message })
       await refreshUser()
     },
-    env('E2E_TEST') === 'true' ? 0 : debounceTimeout
+    env.NEXT_PUBLIC_E2E_TEST ? 0 : debounceTimeout
   )
 
   useEffect(() => {
