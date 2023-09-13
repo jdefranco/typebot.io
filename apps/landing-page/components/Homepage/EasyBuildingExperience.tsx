@@ -62,7 +62,6 @@ export const EasyBuildingExperience = () => {
             src="/easy-build.png"
             alt="incomplete results illustration"
             placeholder="blur"
-            display="block"
             width={1000}  // Adjust this value to the actual width of your image
             height={1000}  // Adjust this value to the actual height of your image
           />
