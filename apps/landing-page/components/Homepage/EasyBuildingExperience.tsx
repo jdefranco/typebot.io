@@ -54,9 +54,10 @@ With Chatworth, craft dynamic chatbots using a rich set of modules. From text bu
     position="relative"
     p="4px"
     borderWidth="4px"  // Border width
+    style={{ borderRadius: '8px' }} 
     borderColor="royalPurple.300"  // Border color
     bg="#EFEFEF"  // Background color set to white using hex code
-    rounded="xl"  // Border radius for the box
+    rounded="xl"  // Border radius for the box\ 
 >
     <Image
         src="/easy-build.png"
