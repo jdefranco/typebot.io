@@ -107,6 +107,9 @@ importers:
       '@typebot.io/nextjs':
         specifier: workspace:*
         version: link:../../packages/embeds/nextjs
+      '@typebot.io/react':
+        specifier: workspace:^
+        version: link:../../packages/embeds/react
       '@udecode/plate-basic-marks':
         specifier: 21.1.5
         version: 21.1.5(@babel/core@7.22.9)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-react@0.94.2)(slate@0.94.1)
@@ -436,6 +439,9 @@ importers:
       '@typebot.io/prisma':
         specifier: workspace:*
         version: link:../../packages/prisma
+      '@typebot.io/react':
+        specifier: workspace:^
+        version: link:../../packages/embeds/react
       '@typebot.io/schemas':
         specifier: workspace:*
         version: link:../../packages/schemas
@@ -527,6 +533,9 @@ importers:
       '@typebot.io/prisma':
         specifier: workspace:*
         version: link:../../packages/prisma
+      '@typebot.io/react':
+        specifier: workspace:^
+        version: link:../../packages/embeds/react
       '@udecode/plate-common':
         specifier: ^21.1.5
         version: 21.1.5(@babel/core@7.22.9)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-react@0.94.2)(slate@0.94.1)

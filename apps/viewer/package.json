@@ -16,6 +16,7 @@
     "@trpc/server": "10.34.0",
     "@typebot.io/nextjs": "workspace:*",
     "@typebot.io/prisma": "workspace:*",
+    "@typebot.io/react": "workspace:^",
     "@udecode/plate-common": "^21.1.5",
     "ai": "2.1.32",
     "bot-engine": "workspace:*",

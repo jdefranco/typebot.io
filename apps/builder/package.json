@@ -38,6 +38,7 @@
     "@typebot.io/emails": "workspace:*",
     "@typebot.io/env": "workspace:*",
     "@typebot.io/nextjs": "workspace:*",
+    "@typebot.io/react": "workspace:^",
     "@udecode/plate-basic-marks": "21.1.5",
     "@udecode/plate-common": "^21.1.5",
     "@udecode/plate-core": "21.1.5",
