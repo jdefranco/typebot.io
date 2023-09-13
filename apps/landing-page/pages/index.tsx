@@ -9,7 +9,6 @@ import { Hero } from 'components/Homepage/Hero'
 import { Integrations } from 'components/Homepage/Integrations'
 import { IntroducingChatApps } from 'components/Homepage/IntroducingChatApps'
 import { RealTimeResults } from 'components/Homepage/RealTimeResults'
-import { Testimonials } from 'components/Homepage/Testimonials'
 
 const App = () => {
   return (

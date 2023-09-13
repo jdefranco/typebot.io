@@ -1,9 +1,7 @@
 import {
   Box,
   Button,
-  Flex,
   Heading,
-  SimpleGrid,
   Stack,
   Text,
   VStack,

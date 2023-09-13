@@ -1,5 +1,6 @@
 import { chakra } from '@chakra-ui/react'
 import React from 'react'
+import Image from 'next/image';
 
 export const BackgroundPolygons = () => {
   return (
@@ -31,9 +32,9 @@ export const BackgroundPolygons = () => {
 }
 
 const DemiCircle = () => (
-  <img src="/purple-clouds.png" alt="Purple Clouds"  width={450} height={400} />
+  <Image src="/purple-clouds.png" alt="Purple Clouds"  width={450} height={400} />
 )
 const Triangle = () => (
 
-<img src="/yellow-full-moon.png" alt="Yellow Moon"  width={250} height={250} />
+<Image src="/yellow-full-moon.png" alt="Yellow Moon"  width={250} height={250} />
 );

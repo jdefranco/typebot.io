@@ -7,7 +7,6 @@ import {
   HStack,
   SimpleGrid,
   Stack,
-  Text,
 } from '@chakra-ui/react'
 import { Logo } from 'assets/icons/Logo'
 import { TextLink } from './TextLink'
@@ -15,7 +14,6 @@ import { TextLink } from './TextLink'
 const facebookGroupUrl = 'https://www.facebook.com/groups/chatworth'
 const typebotLinkedInUrl = 'https://www.linkedin.com/company/chatworth'
 const typebotTwitterUrl = 'https://twitter.com/chatworth'
-const baptisteTwitterUrl = 'https://twitter.com/chatworth'
 const statusPageUrl = 'https://status.chatworth.io'
 export const contactUrl = 'https://bot.chatworth.io/landing-page-bubble-en'
 export const roadmapLink = 'https://app.chatworth.io/feedback'
