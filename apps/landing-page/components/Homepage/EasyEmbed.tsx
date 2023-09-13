@@ -28,16 +28,16 @@ export const EasyEmbed = () => {
       >
         <Stack spacing="6" maxW="300px" minW={[0, '300px']}>
           <Heading as="h1" data-aos="fade">
-Flexible Integration Across Multiple Platforms
+            Flexible Integration Across Multiple Platforms
           </Heading>
           <Text
             color="gray.400"
             fontSize={{ base: 'lg', xl: 'xl' }}
             data-aos="fade"
           >
-Incorporating Chatworth into your digital platforms is straightforward and efficient. With a diverse range of embedding options, from WordPress and Shopify to Wix and Notion, we ensure a seamless experience tailored to your specific needs.           
-</Text>
-<Flex data-aos="fade">
+            Incorporating Chatworth into your digital platforms is straightforward and efficient. With a diverse range of embedding options, from WordPress and Shopify to Wix and Notion, we ensure a seamless experience tailored to your specific needs.
+          </Text>
+          <Flex data-aos="fade">
             <Button
               as={Link}
               rightIcon={<ArrowRight />}
@@ -51,23 +51,21 @@ Incorporating Chatworth into your digital platforms is straightforward and effic
         </Stack>
         <Box 
           data-aos="fade"
-    position="relative"
-    p="4px"  // This will act as the border width
+          position="relative"
+          p="4px"  // This will act as the border width
           borderWidth="4px"  // Border width
-            borderColor="yellow.200"  // Border color
-            bg="#FFFFFF" 
+          borderColor="yellow.200"  // Border color
+          bg="#FFFFFF" 
           rounded="xl"  // Border radius for the box
-           >
-    <Image
-        src="/easy-embed.png"
-        alt="incomplete results illustration"
-        placeholder="blur"
-        rounded="xl"
-        display="block"
-        w="100%"  // Ensure the image takes up the full width
-        h="100%"  // Ensure the image takes up the full height
-    />
-</Box>
+        >
+          <Image
+            src="/easy-embed.png"
+            alt="incomplete results illustration"
+            placeholder="blur"
+            width={500}  // Adjust this value based on your image's aspect ratio
+            height={500}  // Adjust this value based on your image's aspect ratio
+          />
+        </Box>
       </Stack>
     </Flex>
   )
