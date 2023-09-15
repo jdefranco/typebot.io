@@ -26,7 +26,7 @@ const PrivacyPolicies = () => {
 
         <p>
           Permission is granted to temporarily download one copy of the
-          materials on Typebot&apos;s Website for personal, non-commercial
+          materials on Chatworth&apos;s Website for personal, non-commercial
           transitory viewing only. This is the grant of a license, not a
           transfer of title, and under this license you may not:
         </p>
@@ -61,7 +61,7 @@ const PrivacyPolicies = () => {
         <Heading>3. Disclaimer</Heading>
 
         <p>
-          All the materials on Chatworth’s Website are provided &quot;as is&quot;.
+          All the materials on Chatworth&apos;s Website are provided &quot;as is&quot;.
           Chatworth makes no warranties, may it be expressed or implied, therefore
           negates all other warranties. Furthermore, Chatworth does not make any
           representations concerning the accuracy or reliability of the use of
