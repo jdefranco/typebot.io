@@ -17,15 +17,13 @@
     "locales:push": "tolgee push ./apps/builder/src/i18n",
     "locales:sync": "tolgee sync './apps/builder/src/**/*.ts?(x)' --continue-on-warning --remove-unused",
     "create-new-block": "cd packages/forge/cli && pnpm start",
-    "format:check": "turbo run format:check",
-    "format": "prettier --write \"packages/**/src/**/*.{js,jsx,ts,tsx,css}\""
+    "format:check": "turbo run format:check"
   },
   "devDependencies": {
     "@tolgee/cli": "1.3.2",
     "cross-env": "7.0.3",
     "cz-emoji": "1.3.2-canary.2",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
+    "husky": "8.0.3",
     "prettier": "2.8.8",
     "turbo": "1.11.3"
   },
