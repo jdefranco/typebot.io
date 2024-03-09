@@ -81,7 +81,7 @@ export const ProPlanCard = ({
         fontWeight="extrabold"
         py={{ md: '8' }}
       >
-        Subscribe now
+        Subscribe now!
       </Button>
     }
   />
