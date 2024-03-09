@@ -5,7 +5,6 @@ import React from 'react'
 import { isNotEmpty } from '@typebot.io/lib'
 import { Settings } from '@typebot.io/schemas'
 
-
 type SEOProps = {
   url: string
   typebotName: string
@@ -55,9 +54,7 @@ export const SEO = ({
       <meta
         property="og:image"
         itemProp="image"
-        content={
-          imageUrl ?? 'https://bot.chatworth.io/site-preview.png'
-        }
+        content={imageUrl ?? 'https://bot.chatworth.io/site-preview.png'}
       />
 
       <meta property="twitter:card" content="summary_large_image" />
@@ -75,9 +72,7 @@ export const SEO = ({
       />
       <meta
         property="twitter:image"
-        content={
-          imageUrl ?? 'https://bot.chatworth.io/site-preview.png'
-        }
+        content={imageUrl ?? 'https://bot.chatworth.io/site-preview.png'}
       />
     </Head>
     {isNotEmpty(googleTagManagerId) && (

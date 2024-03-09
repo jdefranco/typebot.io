@@ -13,7 +13,6 @@ export const Seo = ({
   title,
   description = 'Create and publish conversational forms that collect 4 times more answers and feel native to your product',
   imagePreviewUrl = `${getOrigin()}/images/og.png`,
-
 }: {
   title: string
   description?: string
@@ -28,7 +27,10 @@ export const Seo = ({
       <meta name="title" content={title} />
       <meta property="og:title" content={title} />
       <meta property="twitter:title" content={title} />
-<meta name="google-site-verification" content="J3xNT6mxZKsTbgkoAGkvVk0BLrMHD5de2c_icciYj7g" />
+      <meta
+        name="google-site-verification"
+        content="J3xNT6mxZKsTbgkoAGkvVk0BLrMHD5de2c_icciYj7g"
+      />
       <meta name="description" content={description} />
       <meta property="twitter:description" content={description} />
       <meta property="og:description" content={description} />

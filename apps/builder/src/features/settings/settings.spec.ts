@@ -14,9 +14,14 @@ test.describe.parallel('Settings page', () => {
       await page.goto(`/typebots/${typebotId}/settings`)
       await expect(
         page.locator('a:has-text("Powered by Chatworth")')
-      ).toHaveAttribute('href', 'https://www.chatworth.io/?utm_source=litebadge')
+      ).toHaveAttribute(
+        'href',
+        'https://www.chatworth.io/?utm_source=litebadge'
+      )
       await page.click('text="Chatworth.io branding"')
-      await expect(page.locator('a:has-text("Powered by Chatworth")')).toBeHidden()
+      await expect(
+        page.locator('a:has-text("Powered by Chatworth")')
+      ).toBeHidden()
 
       await page.click('text="Remember user"')
 
@@ -42,7 +47,10 @@ test.describe.parallel('Settings page', () => {
       await page.goto(`/typebots/${typebotId}/settings`)
       await expect(
         page.locator('a:has-text("Powered by Chatworth")')
-      ).toHaveAttribute('href', 'https://www.chatworth.io/?utm_source=litebadge')
+      ).toHaveAttribute(
+        'href',
+        'https://www.chatworth.io/?utm_source=litebadge'
+      )
       await page.click('button:has-text("Typing emulation")')
       await page.fill('[data-testid="speed"] input', '350')
       await page.fill('[data-testid="max-delay"] input', '1.5')
