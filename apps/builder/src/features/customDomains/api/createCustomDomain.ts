@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma'
+import prisma from '@typebot.io/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
@@ -6,12 +6,13 @@ import { customDomainSchema } from '@typebot.io/schemas/features/customDomains'
 import got, { HTTPError } from 'got'
 import { env } from '@typebot.io/env'
 import { isWriteWorkspaceForbidden } from '@/features/workspace/helpers/isWriteWorkspaceForbidden'
+import { trackEvents } from '@typebot.io/lib/telemetry/trackEvents'
 
 export const createCustomDomain = authenticatedProcedure
   .meta({
     openapi: {
       method: 'POST',
-      path: '/custom-domains',
+      path: '/v1/custom-domains',
       protect: true,
       summary: 'Create custom domain',
       tags: ['Custom domains'],
@@ -74,6 +75,17 @@ export const createCustomDomain = authenticatedProcedure
         workspaceId,
       },
     })
+
+    await trackEvents([
+      {
+        name: 'Custom domain added',
+        userId: user.id,
+        workspaceId,
+        data: {
+          domain: name,
+        },
+      },
+    ])
 
     return { customDomain }
   })

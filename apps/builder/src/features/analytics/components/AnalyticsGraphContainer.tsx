@@ -11,24 +11,41 @@ import { StatsCards } from './StatsCards'
 import { ChangePlanModal } from '@/features/billing/components/ChangePlanModal'
 import { Graph } from '@/features/graph/components/Graph'
 import { GraphProvider } from '@/features/graph/providers/GraphProvider'
-import { GroupsCoordinatesProvider } from '@/features/graph/providers/GroupsCoordinateProvider'
-import { useI18n } from '@/locales'
+import { useTranslate } from '@tolgee/react'
 import { trpc } from '@/lib/trpc'
 import { isDefined } from '@typebot.io/lib'
+import { EventsCoordinatesProvider } from '@/features/graph/providers/EventsCoordinateProvider'
+import { timeFilterValues } from '../constants'
 
-export const AnalyticsGraphContainer = ({ stats }: { stats?: Stats }) => {
-  const t = useI18n()
+type Props = {
+  timeFilter: (typeof timeFilterValues)[number]
+  onTimeFilterChange: (timeFilter: (typeof timeFilterValues)[number]) => void
+  stats?: Stats
+}
+
+export const AnalyticsGraphContainer = ({
+  timeFilter,
+  onTimeFilterChange,
+  stats,
+}: Props) => {
+  const { t } = useTranslate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { typebot, publishedTypebot } = useTypebot()
-  const { data } = trpc.analytics.getTotalAnswersInBlocks.useQuery(
+  const { data } = trpc.analytics.getTotalAnswers.useQuery(
     {
       typebotId: typebot?.id as string,
+      timeFilter,
     },
     { enabled: isDefined(publishedTypebot) }
   )
-  const startBlockId = publishedTypebot?.groups
-    .find((group) => group.blocks.at(0)?.type === 'start')
-    ?.blocks.at(0)?.id
+
+  const { data: edgesData } = trpc.analytics.getTotalVisitedEdges.useQuery(
+    {
+      typebotId: typebot?.id as string,
+      timeFilter,
+    },
+    { enabled: isDefined(publishedTypebot) }
+  )
 
   return (
     <Flex
@@ -44,29 +61,17 @@ export const AnalyticsGraphContainer = ({ stats }: { stats?: Stats }) => {
       h="full"
       justifyContent="center"
     >
-      {publishedTypebot &&
-      data?.totalAnswersInBlocks &&
-      stats &&
-      startBlockId ? (
-        <GraphProvider isReadOnly>
-          <GroupsCoordinatesProvider groups={publishedTypebot?.groups}>
+      {publishedTypebot && stats ? (
+        <GraphProvider isReadOnly isAnalytics>
+          <EventsCoordinatesProvider events={publishedTypebot?.events}>
             <Graph
               flex="1"
               typebot={publishedTypebot}
               onUnlockProPlanClick={onOpen}
-              totalAnswersInBlocks={
-                startBlockId
-                  ? [
-                      {
-                        blockId: startBlockId,
-                        total: stats.totalViews,
-                      },
-                      ...data.totalAnswersInBlocks,
-                    ]
-                  : []
-              }
+              totalAnswers={data?.totalAnswers}
+              totalVisitedEdges={edgesData?.totalVisitedEdges}
             />
-          </GroupsCoordinatesProvider>
+          </EventsCoordinatesProvider>
         </GraphProvider>
       ) : (
         <Flex
@@ -82,8 +87,14 @@ export const AnalyticsGraphContainer = ({ stats }: { stats?: Stats }) => {
         onClose={onClose}
         isOpen={isOpen}
         type={t('billing.limitMessage.analytics')}
+        excludedPlans={['STARTER']}
       />
-      <StatsCards stats={stats} pos="absolute" />
+      <StatsCards
+        stats={stats}
+        pos="absolute"
+        timeFilter={timeFilter}
+        onTimeFilterChange={onTimeFilterChange}
+      />
     </Flex>
   )
 }

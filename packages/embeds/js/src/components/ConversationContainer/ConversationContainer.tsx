@@ -1,15 +1,18 @@
-import { ChatReply, SendMessageInput, Theme } from '@typebot.io/schemas'
-import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/enums'
+import {
+  ContinueChatResponse,
+  InputBlock,
+  Theme,
+  ChatLog,
+} from '@typebot.io/schemas'
 import {
   createEffect,
   createSignal,
-  createUniqueId,
   For,
   onCleanup,
   onMount,
   Show,
 } from 'solid-js'
-import { sendMessageQuery } from '@/queries/sendMessageQuery'
+import { continueChatQuery } from '@/queries/continueChatQuery'
 import { ChatChunk } from './ChatChunk'
 import {
   BotContext,
@@ -26,51 +29,62 @@ import {
   formattedMessages,
   setFormattedMessages,
 } from '@/utils/formattedMessagesSignal'
+import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/constants'
+import { saveClientLogsQuery } from '@/queries/saveClientLogsQuery'
+import { HTTPError } from 'ky'
+import { persist } from '@/utils/persist'
 
 const parseDynamicTheme = (
   initialTheme: Theme,
-  dynamicTheme: ChatReply['dynamicTheme']
+  dynamicTheme: ContinueChatResponse['dynamicTheme']
 ): Theme => ({
   ...initialTheme,
   chat: {
     ...initialTheme.chat,
     hostAvatar:
-      initialTheme.chat.hostAvatar && dynamicTheme?.hostAvatarUrl
+      initialTheme.chat?.hostAvatar && dynamicTheme?.hostAvatarUrl
         ? {
             ...initialTheme.chat.hostAvatar,
             url: dynamicTheme.hostAvatarUrl,
           }
-        : initialTheme.chat.hostAvatar,
+        : initialTheme.chat?.hostAvatar,
     guestAvatar:
-      initialTheme.chat.guestAvatar && dynamicTheme?.guestAvatarUrl
+      initialTheme.chat?.guestAvatar && dynamicTheme?.guestAvatarUrl
         ? {
             ...initialTheme.chat.guestAvatar,
             url: dynamicTheme?.guestAvatarUrl,
           }
-        : initialTheme.chat.guestAvatar,
+        : initialTheme.chat?.guestAvatar,
   },
 })
 
 type Props = {
   initialChatReply: InitialChatReply
   context: BotContext
-  onNewInputBlock?: (ids: { id: string; groupId: string }) => void
+  onNewInputBlock?: (inputBlock: InputBlock) => void
   onAnswer?: (answer: { message: string; blockId: string }) => void
   onEnd?: () => void
   onNewLogs?: (logs: OutgoingLog[]) => void
+  onProgressUpdate?: (progress: number) => void
 }
 
 export const ConversationContainer = (props: Props) => {
   let chatContainer: HTMLDivElement | undefined
-  const [chatChunks, setChatChunks] = createSignal<ChatChunkType[]>([
+  const [chatChunks, setChatChunks] = persist(
+    createSignal<ChatChunkType[]>([
+      {
+        input: props.initialChatReply.input,
+        messages: props.initialChatReply.messages,
+        clientSideActions: props.initialChatReply.clientSideActions,
+      },
+    ]),
     {
-      input: props.initialChatReply.input,
-      messages: props.initialChatReply.messages,
-      clientSideActions: props.initialChatReply.clientSideActions,
-    },
-  ])
+      key: `typebot-${props.context.typebot.id}-chatChunks`,
+      storage: props.context.storage,
+    }
+  )
   const [dynamicTheme, setDynamicTheme] = createSignal<
-    ChatReply['dynamicTheme']
+    ContinueChatResponse['dynamicTheme']
   >(props.initialChatReply.dynamicTheme)
   const [theme, setTheme] = createSignal(props.initialChatReply.typebot.theme)
   const [isSending, setIsSending] = createSignal(false)
@@ -80,41 +94,19 @@ export const ConversationContainer = (props: Props) => {
   onMount(() => {
     ;(async () => {
       const initialChunk = chatChunks()[0]
-      if (initialChunk.clientSideActions) {
-        const actionsBeforeFirstBubble = initialChunk.clientSideActions.filter(
-          (action) => isNotDefined(action.lastBubbleBlockId)
-        )
-        for (const action of actionsBeforeFirstBubble) {
-          if (
-            'streamOpenAiChatCompletion' in action ||
-            'webhookToExecute' in action
-          )
-            setIsSending(true)
-          const response = await executeClientSideAction({
-            clientSideAction: action,
-            context: {
-              apiHost: props.context.apiHost,
-              sessionId: props.initialChatReply.sessionId,
-            },
-            onMessageStream: streamMessage,
-          })
-          if (response && 'replyToSend' in response) {
-            sendMessage(response.replyToSend, response.logs)
-            return
-          }
-          if (response && 'blockedPopupUrl' in response)
-            setBlockedPopupUrl(response.blockedPopupUrl)
-        }
-      }
+      if (!initialChunk.clientSideActions) return
+      const actionsBeforeFirstBubble = initialChunk.clientSideActions.filter(
+        (action) => isNotDefined(action.lastBubbleBlockId)
+      )
+      processClientSideActions(actionsBeforeFirstBubble)
     })()
   })
 
-  const streamMessage = (content: string) => {
+  const streamMessage = ({ id, message }: { id: string; message: string }) => {
     setIsSending(false)
     const lastChunk = [...chatChunks()].pop()
     if (!lastChunk) return
-    const id = lastChunk.streamingMessageId ?? createUniqueId()
-    if (!lastChunk.streamingMessageId)
+    if (lastChunk.streamingMessageId !== id)
       setChatChunks((displayedChunks) => [
         ...displayedChunks,
         {
@@ -122,7 +114,7 @@ export const ConversationContainer = (props: Props) => {
           streamingMessageId: id,
         },
       ])
-    setStreamingMessage({ id, content })
+    setStreamingMessage({ id, content: message })
   }
 
   createEffect(() => {
@@ -133,9 +125,16 @@ export const ConversationContainer = (props: Props) => {
 
   const sendMessage = async (
     message: string | undefined,
-    clientLogs?: SendMessageInput['clientLogs']
+    clientLogs?: ChatLog[]
   ) => {
-    if (clientLogs) props.onNewLogs?.(clientLogs)
+    if (clientLogs) {
+      props.onNewLogs?.(clientLogs)
+      await saveClientLogsQuery({
+        apiHost: props.context.apiHost,
+        sessionId: props.initialChatReply.sessionId,
+        clientLogs,
+      })
+    }
     setHasError(false)
     const currentInputBlock = [...chatChunks()].pop()?.input
     if (currentInputBlock?.id && props.onAnswer && message)
@@ -150,75 +149,63 @@ export const ConversationContainer = (props: Props) => {
     const longRequest = setTimeout(() => {
       setIsSending(true)
     }, 1000)
-    const { data, error } = await sendMessageQuery({
+    const { data, error } = await continueChatQuery({
       apiHost: props.context.apiHost,
       sessionId: props.initialChatReply.sessionId,
       message,
-      clientLogs,
     })
     clearTimeout(longRequest)
     setIsSending(false)
     if (error) {
       setHasError(true)
-      props.onNewLogs?.([
+      const errorLogs = [
         {
           description: 'Failed to send the reply',
-          details: error,
+          details:
+            error instanceof HTTPError
+              ? {
+                  status: error.response.status,
+                  body: await error.response.json(),
+                }
+              : error,
           status: 'error',
         },
-      ])
+      ]
+      await saveClientLogsQuery({
+        apiHost: props.context.apiHost,
+        sessionId: props.initialChatReply.sessionId,
+        clientLogs: errorLogs,
+      })
+      props.onNewLogs?.(errorLogs)
+      return
     }
     if (!data) return
+    if (data.progress) props.onProgressUpdate?.(data.progress)
     if (data.lastMessageNewFormat) {
       setFormattedMessages([
         ...formattedMessages(),
         {
-          inputId: [...chatChunks()].pop()?.input?.id ?? '',
+          inputIndex: [...chatChunks()].length - 1,
           formattedMessage: data.lastMessageNewFormat as string,
         },
       ])
     }
     if (data.logs) props.onNewLogs?.(data.logs)
     if (data.dynamicTheme) setDynamicTheme(data.dynamicTheme)
-    if (data.input?.id && props.onNewInputBlock) {
-      props.onNewInputBlock({
-        id: data.input.id,
-        groupId: data.input.groupId,
-      })
+    if (data.input && props.onNewInputBlock) {
+      props.onNewInputBlock(data.input)
     }
     if (data.clientSideActions) {
       const actionsBeforeFirstBubble = data.clientSideActions.filter((action) =>
         isNotDefined(action.lastBubbleBlockId)
       )
-      for (const action of actionsBeforeFirstBubble) {
-        if (
-          'streamOpenAiChatCompletion' in action ||
-          'webhookToExecute' in action
-        )
-          setIsSending(true)
-        const response = await executeClientSideAction({
-          clientSideAction: action,
-          context: {
-            apiHost: props.context.apiHost,
-            sessionId: props.initialChatReply.sessionId,
-          },
-          onMessageStream: streamMessage,
-        })
-        if (response && 'replyToSend' in response) {
-          sendMessage(response.replyToSend, response.logs)
-          return
-        }
-        if (response && 'blockedPopupUrl' in response)
-          setBlockedPopupUrl(response.blockedPopupUrl)
-      }
+      processClientSideActions(actionsBeforeFirstBubble)
     }
     setChatChunks((displayedChunks) => [
       ...displayedChunks,
       {
         input: data.input,
-        messages: [...chatChunks()].pop()?.streamingMessageId
-          ? data.messages.slice(1)
-          : data.messages,
+        messages: data.messages,
         clientSideActions: data.clientSideActions,
       },
     ])
@@ -249,27 +236,35 @@ export const ConversationContainer = (props: Props) => {
       const actionsToExecute = lastChunk.clientSideActions.filter(
         (action) => action.lastBubbleBlockId === blockId
       )
-      for (const action of actionsToExecute) {
-        if (
-          'streamOpenAiChatCompletion' in action ||
-          'webhookToExecute' in action
-        )
-          setIsSending(true)
-        const response = await executeClientSideAction({
-          clientSideAction: action,
-          context: {
-            apiHost: props.context.apiHost,
-            sessionId: props.initialChatReply.sessionId,
-          },
-          onMessageStream: streamMessage,
-        })
-        if (response && 'replyToSend' in response) {
-          sendMessage(response.replyToSend, response.logs)
-          return
-        }
-        if (response && 'blockedPopupUrl' in response)
-          setBlockedPopupUrl(response.blockedPopupUrl)
+      await processClientSideActions(actionsToExecute)
+    }
+  }
+
+  const processClientSideActions = async (
+    actions: NonNullable<ContinueChatResponse['clientSideActions']>
+  ) => {
+    for (const action of actions) {
+      if (
+        'streamOpenAiChatCompletion' in action ||
+        'webhookToExecute' in action ||
+        'stream' in action
+      )
+        setIsSending(true)
+      const response = await executeClientSideAction({
+        clientSideAction: action,
+        context: {
+          apiHost: props.context.apiHost,
+          sessionId: props.initialChatReply.sessionId,
+        },
+        onMessageStream: streamMessage,
+      })
+      if (response && 'replyToSend' in response) {
+        setIsSending(false)
+        sendMessage(response.replyToSend, response.logs)
+        return
       }
+      if (response && 'blockedPopupUrl' in response)
+        setBlockedPopupUrl(response.blockedPopupUrl)
     }
   }
 
@@ -283,12 +278,12 @@ export const ConversationContainer = (props: Props) => {
   return (
     <div
       ref={chatContainer}
-      class="flex flex-col overflow-y-scroll w-full min-h-full px-3 pt-10 relative scrollable-container typebot-chat-view scroll-smooth gap-2"
+      class="flex flex-col overflow-y-auto w-full min-h-full px-3 pt-10 relative scrollable-container typebot-chat-view scroll-smooth gap-2"
     >
       <For each={chatChunks()}>
         {(chatChunk, index) => (
           <ChatChunk
-            inputIndex={index()}
+            index={index()}
             messages={chatChunk.messages}
             input={chatChunk.input}
             theme={theme()}
@@ -297,10 +292,12 @@ export const ConversationContainer = (props: Props) => {
             context={props.context}
             hideAvatar={
               !chatChunk.input &&
-              !chatChunk.streamingMessageId &&
-              index() < chatChunks().length - 1
+              ((chatChunks()[index() + 1]?.messages ?? 0).length > 0 ||
+                chatChunks()[index() + 1]?.streamingMessageId !== undefined ||
+                (chatChunk.messages.length > 0 && isSending()))
             }
             hasError={hasError() && index() === chatChunks().length - 1}
+            isTransitionDisabled={index() !== chatChunks().length - 1}
             onNewBubbleDisplayed={handleNewBubbleDisplayed}
             onAllBubblesDisplayed={handleAllBubblesDisplayed}
             onSubmit={sendMessage}

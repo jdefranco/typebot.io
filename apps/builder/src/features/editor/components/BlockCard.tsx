@@ -1,41 +1,49 @@
-import { Flex, HStack, Tooltip, useColorModeValue } from '@chakra-ui/react'
-import {
-  BubbleBlockType,
-  DraggableBlockType,
-  InputBlockType,
-  IntegrationBlockType,
-  LogicBlockType,
-} from '@typebot.io/schemas'
-import { useBlockDnd } from '@/features/graph/providers/GraphDndProvider'
-import React, { useEffect, useState } from 'react'
+import { HStack } from '@chakra-ui/react'
+import React from 'react'
 import { BlockIcon } from './BlockIcon'
 import { isFreePlan } from '@/features/billing/helpers/isFreePlan'
 import { Plan } from '@typebot.io/prisma'
 import { useWorkspace } from '@/features/workspace/WorkspaceProvider'
 import { BlockLabel } from './BlockLabel'
 import { LockTag } from '@/features/billing/components/LockTag'
-import { useScopedI18n } from '@/locales'
+import { useTranslate } from '@tolgee/react'
+import { BubbleBlockType } from '@typebot.io/schemas/features/blocks/bubbles/constants'
+import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/constants'
+import { IntegrationBlockType } from '@typebot.io/schemas/features/blocks/integrations/constants'
+import { LogicBlockType } from '@typebot.io/schemas/features/blocks/logic/constants'
+import { BlockV6 } from '@typebot.io/schemas'
+import { enabledBlocks } from '@typebot.io/forge-repository'
+import { BlockCardLayout } from './BlockCardLayout'
+import { ForgedBlockCard } from '@/features/forge/ForgedBlockCard'
 
 type Props = {
-  type: DraggableBlockType
+  type: BlockV6['type']
   tooltip?: string
   isDisabled?: boolean
   children: React.ReactNode
-  onMouseDown: (e: React.MouseEvent, type: DraggableBlockType) => void
+  onMouseDown: (e: React.MouseEvent, type: BlockV6['type']) => void
 }
 
 export const BlockCard = (
   props: Pick<Props, 'type' | 'onMouseDown'>
 ): JSX.Element => {
-  const scopedT = useScopedI18n('editor.blockCard')
+  const { t } = useTranslate()
   const { workspace } = useWorkspace()
 
+  if (enabledBlocks.includes(props.type as (typeof enabledBlocks)[number])) {
+    return (
+      <ForgedBlockCard
+        type={props.type as (typeof enabledBlocks)[number]}
+        onMouseDown={props.onMouseDown}
+      />
+    )
+  }
   switch (props.type) {
     case BubbleBlockType.EMBED:
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('bubbleBlock.tooltip.label')}
+          tooltip={t('blocks.bubbles.embed.blockCard.tooltip')}
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -45,7 +53,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('inputBlock.tooltip.files.label')}
+          tooltip={t('blocks.inputs.fileUpload.blockCard.tooltip')}
         >
           <BlockIcon type={props.type} />
           <HStack>
@@ -58,7 +66,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('logicBlock.tooltip.code.label')}
+          tooltip={t('editor.blockCard.logicBlock.tooltip.code.label')}
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -68,7 +76,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('logicBlock.tooltip.typebotLink.label')}
+          tooltip={t('editor.blockCard.logicBlock.tooltip.typebotLink.label')}
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -78,7 +86,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('logicBlock.tooltip.jump.label')}
+          tooltip={t('editor.blockCard.logicBlock.tooltip.jump.label')}
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -88,7 +96,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('integrationBlock.tooltip.googleSheets.label')}
+          tooltip={t('blocks.integrations.googleSheets.blockCard.tooltip')}
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -98,7 +106,7 @@ export const BlockCard = (
       return (
         <BlockCardLayout
           {...props}
-          tooltip={scopedT('integrationBlock.tooltip.googleAnalytics.label')}
+          tooltip={t('blocks.integrations.googleAnalytics.blockCard.tooltip')}
         >
           <BlockIcon type={props.type} />
           <BlockLabel type={props.type} />
@@ -112,38 +120,4 @@ export const BlockCard = (
         </BlockCardLayout>
       )
   }
-}
-
-const BlockCardLayout = ({ type, onMouseDown, tooltip, children }: Props) => {
-  const { draggedBlockType } = useBlockDnd()
-  const [isMouseDown, setIsMouseDown] = useState(false)
-
-  useEffect(() => {
-    setIsMouseDown(draggedBlockType === type)
-  }, [draggedBlockType, type])
-
-  const handleMouseDown = (e: React.MouseEvent) => onMouseDown(e, type)
-
-  return (
-    <Tooltip label={tooltip}>
-      <Flex pos="relative">
-        <HStack
-          borderWidth="1px"
-          borderColor={useColorModeValue('gray.200', 'gray.800')}
-          rounded="lg"
-          flex="1"
-          cursor={'grab'}
-          opacity={isMouseDown ? '0.4' : '1'}
-          onMouseDown={handleMouseDown}
-          bgColor={useColorModeValue('gray.50', 'gray.850')}
-          px="4"
-          py="2"
-          _hover={useColorModeValue({ shadow: 'md' }, { bgColor: 'gray.800' })}
-          transition="box-shadow 200ms, background-color 200ms"
-        >
-          {!isMouseDown ? children : null}
-        </HStack>
-      </Flex>
-    </Tooltip>
-  )
 }

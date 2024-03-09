@@ -1,6 +1,10 @@
 import { router } from '@/helpers/server/trpc'
-import { getTotalAnswersInBlocks } from './getTotalAnswersInBlocks'
+import { getTotalAnswers } from './getTotalAnswers'
+import { getTotalVisitedEdges } from './getTotalVisitedEdges'
+import { getStats } from './getStats'
 
 export const analyticsRouter = router({
-  getTotalAnswersInBlocks,
+  getTotalAnswers,
+  getTotalVisitedEdges,
+  getStats,
 })

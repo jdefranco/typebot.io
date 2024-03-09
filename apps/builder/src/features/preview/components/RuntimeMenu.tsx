@@ -10,7 +10,6 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { runtimes } from '../data'
-import { isWhatsAppAvailable } from '@/features/telemetry/posthog'
 
 type Runtime = (typeof runtimes)[number]
 
@@ -29,7 +28,8 @@ export const RuntimeMenu = ({ selectedRuntime, onSelectRuntime }: Props) => {
       >
         <HStack justifyContent="space-between">
           <Text>{selectedRuntime.name}</Text>
-          {'status' in selectedRuntime ? (
+          {'status' in selectedRuntime &&
+          typeof selectedRuntime.status === 'string' ? (
             <Tag colorScheme="orange">{selectedRuntime.status}</Tag>
           ) : null}
         </HStack>
@@ -37,9 +37,6 @@ export const RuntimeMenu = ({ selectedRuntime, onSelectRuntime }: Props) => {
       <MenuList w="100px">
         {runtimes
           .filter((runtime) => runtime.name !== selectedRuntime.name)
-          .filter((runtime) =>
-            runtime.name === 'WhatsApp' ? isWhatsAppAvailable() : true
-          )
           .map((runtime) => (
             <MenuItem
               key={runtime.name}
@@ -48,7 +45,7 @@ export const RuntimeMenu = ({ selectedRuntime, onSelectRuntime }: Props) => {
             >
               <HStack justifyContent="space-between">
                 <Text>{runtime.name}</Text>
-                {'status' in runtime ? (
+                {'status' in runtime && typeof runtime.status === 'string' ? (
                   <Tag colorScheme="orange">{runtime.status}</Tag>
                 ) : null}
               </HStack>

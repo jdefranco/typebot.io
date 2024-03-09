@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-
 import {
   Box,
   Container,
@@ -11,14 +10,12 @@ import {
 import { Logo } from 'assets/icons/Logo'
 import { TextLink } from './TextLink'
 
-const facebookGroupUrl = 'https://www.facebook.com/groups/chatworth'
 const typebotLinkedInUrl = 'https://www.linkedin.com/company/chatworth'
 const typebotTwitterUrl = 'https://twitter.com/chatworth'
 const statusPageUrl = 'https://status.chatworth.io'
-export const contactUrl = 'https://bot.chatworth.io/landing-page-bubble-en'
-export const roadmapLink = 'https://app.chatworth.io/feedback'
-export const documentationLink = 'https://docs.chatworth.io'
-export const githubRepoLink = 'https://github.com/jdefranco/typebot.io'
+const roadmapLink = 'https://app.chatworth.io/feedback'
+const documentationLink = 'https://docs.chatworth.io'
+const githubRepoLink = 'https://github.com/jdefranco/typebot.io'
 
 export const Footer = () => {
   return (
@@ -27,12 +24,11 @@ export const Footer = () => {
         <SimpleGrid columns={[1, 2, 4]} spacing={8} px={2}>
           <Stack spacing={6}>
             <HStack>
-  <Logo />
-  <Heading as="p" fontSize="lg">
-    Chatworth
-  </Heading>
-</HStack>
-            
+              <Logo />
+              <Heading as="p" fontSize="lg">
+                Chatworth
+              </Heading>
+            </HStack>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Product</ListHeader>
@@ -49,11 +45,11 @@ export const Footer = () => {
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Community</ListHeader>
-            <TextLink href={githubRepoLink} isExternal>
-              GitHub repository
-            </TextLink>
             <TextLink href={facebookGroupUrl} isExternal>
               Facebook Group
+            </TextLink>
+            <TextLink href={githubRepoLink} isExternal>
+              GitHub repository
             </TextLink>
             <TextLink href={typebotTwitterUrl} isExternal>
               Twitter
@@ -61,7 +57,6 @@ export const Footer = () => {
             <TextLink href={typebotLinkedInUrl} isExternal>
               LinkedIn
             </TextLink>
-            
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>

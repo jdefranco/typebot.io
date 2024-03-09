@@ -5,6 +5,7 @@ import { InputSubmitContent } from '@/types'
 import { isMobile } from '@/utils/isMobileSignal'
 import type { UrlInputBlock } from '@typebot.io/schemas'
 import { createSignal, onCleanup, onMount } from 'solid-js'
+import { defaultUrlInputOptions } from '@typebot.io/schemas/features/blocks/inputs/url/constants'
 
 type Props = {
   block: UrlInputBlock
@@ -29,6 +30,7 @@ export const UrlInput = (props: Props) => {
 
   const submit = () => {
     if (checkIfInputIsValid()) props.onSubmit({ value: inputValue() })
+    else inputRef?.focus()
   }
 
   const submitWhenEnter = (e: KeyboardEvent) => {
@@ -63,19 +65,16 @@ export const UrlInput = (props: Props) => {
         ref={inputRef as HTMLInputElement}
         value={inputValue()}
         placeholder={
-          props.block.options?.labels?.placeholder ?? 'Type your URL...'
+          props.block.options?.labels?.placeholder ??
+          defaultUrlInputOptions.labels.placeholder
         }
         onInput={handleInput}
         type="url"
         autocomplete="url"
       />
-      <SendButton
-        type="button"
-        isDisabled={inputValue() === ''}
-        class="my-2 ml-2"
-        on:click={submit}
-      >
-        {props.block.options?.labels?.button ?? 'Send'}
+      <SendButton type="button" class="my-2 ml-2" on:click={submit}>
+        {props.block.options?.labels?.button ??
+          defaultUrlInputOptions.labels.button}
       </SendButton>
     </div>
   )

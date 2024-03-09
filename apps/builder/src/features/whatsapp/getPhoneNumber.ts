@@ -1,11 +1,11 @@
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { z } from 'zod'
 import got from 'got'
-import prisma from '@/lib/prisma'
-import { decrypt } from '@typebot.io/lib/api'
+import prisma from '@typebot.io/lib/prisma'
+import { decrypt } from '@typebot.io/lib/api/encryption/decrypt'
 import { TRPCError } from '@trpc/server'
 import { WhatsAppCredentials } from '@typebot.io/schemas/features/whatsapp'
-import { parsePhoneNumber } from 'libphonenumber-js'
+import { env } from '@typebot.io/env'
 
 const inputSchema = z.object({
   credentialsId: z.string().optional(),
@@ -14,20 +14,7 @@ const inputSchema = z.object({
 })
 
 export const getPhoneNumber = authenticatedProcedure
-  .meta({
-    openapi: {
-      method: 'GET',
-      path: '/whatsapp/phoneNumber',
-      protect: true,
-    },
-  })
   .input(inputSchema)
-  .output(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-    })
-  )
   .query(async ({ input, ctx: { user } }) => {
     const credentials = await getCredentials(user.id, input)
     if (!credentials)
@@ -36,7 +23,7 @@ export const getPhoneNumber = authenticatedProcedure
         message: 'Credentials not found',
       })
     const { display_phone_number } = (await got(
-      `https://graph.facebook.com/v17.0/${credentials.phoneNumberId}`,
+      `${env.WHATSAPP_CLOUD_API_URL}/v17.0/${credentials.phoneNumberId}`,
       {
         headers: {
           Authorization: `Bearer ${credentials.systemUserAccessToken}`,
@@ -46,18 +33,13 @@ export const getPhoneNumber = authenticatedProcedure
       display_phone_number: string
     }
 
-    const parsedPhoneNumber = parsePhoneNumber(display_phone_number)
-
-    if (!parsedPhoneNumber.isValid())
-      throw new TRPCError({
-        code: 'BAD_REQUEST',
-        message:
-          "Phone number is not valid. Make sure you don't provide a WhatsApp test number.",
-      })
+    const formattedPhoneNumber = `${
+      display_phone_number.startsWith('+') ? '' : '+'
+    }${display_phone_number.replace(/[\s-]/g, '')}`
 
     return {
       id: credentials.phoneNumberId,
-      name: parsedPhoneNumber.formatInternational().replace(/\s/g, ''),
+      name: formattedPhoneNumber,
     }
   })
 

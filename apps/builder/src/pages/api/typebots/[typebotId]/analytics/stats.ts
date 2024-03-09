@@ -1,10 +1,11 @@
-import prisma from '@/lib/prisma'
+import prisma from '@typebot.io/lib/prisma'
 import { Stats } from '@typebot.io/schemas'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { canReadTypebots } from '@/helpers/databaseRules'
 import { getAuthenticatedUser } from '@/features/auth/helpers/getAuthenticatedUser'
 import { methodNotAllowed, notAuthenticated } from '@typebot.io/lib/api'
 
+// TODO: Delete, as it has been migrated to tRPC
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getAuthenticatedUser(req, res)
   if (!user) return notAuthenticated(res)

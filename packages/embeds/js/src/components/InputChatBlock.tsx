@@ -1,11 +1,9 @@
 import type {
-  ChatReply,
+  ContinueChatResponse,
   ChoiceInputBlock,
-  DateInputOptions,
   EmailInputBlock,
   FileInputBlock,
   NumberInputBlock,
-  PaymentInputOptions,
   PhoneNumberInputBlock,
   RatingInputBlock,
   RuntimeOptions,
@@ -13,8 +11,9 @@ import type {
   Theme,
   UrlInputBlock,
   PictureChoiceBlock,
+  PaymentInputBlock,
+  DateInputBlock,
 } from '@typebot.io/schemas'
-import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/enums'
 import { GuestBubble } from './bubbles/GuestBubble'
 import { BotContext, InputSubmitContent } from '@/types'
 import { TextInput } from '@/features/blocks/inputs/textInput'
@@ -34,22 +33,30 @@ import { Buttons } from '@/features/blocks/inputs/buttons/components/Buttons'
 import { SinglePictureChoice } from '@/features/blocks/inputs/pictureChoice/SinglePictureChoice'
 import { MultiplePictureChoice } from '@/features/blocks/inputs/pictureChoice/MultiplePictureChoice'
 import { formattedMessages } from '@/utils/formattedMessagesSignal'
+import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/constants'
+import { defaultPaymentInputOptions } from '@typebot.io/schemas/features/blocks/inputs/payment/constants'
+import { defaultTheme } from '@typebot.io/schemas/features/typebot/theme/constants'
+import { persist } from '@/utils/persist'
 
 type Props = {
   ref: HTMLDivElement | undefined
-  block: NonNullable<ChatReply['input']>
+  block: NonNullable<ContinueChatResponse['input']>
   hasHostAvatar: boolean
-  guestAvatar?: Theme['chat']['guestAvatar']
-  inputIndex: number
+  guestAvatar?: NonNullable<Theme['chat']>['guestAvatar']
+  chunkIndex: number
   context: BotContext
   isInputPrefillEnabled: boolean
   hasError: boolean
+  onTransitionEnd: () => void
   onSubmit: (answer: string) => void
   onSkip: () => void
 }
 
 export const InputChatBlock = (props: Props) => {
-  const [answer, setAnswer] = createSignal<string>()
+  const [answer, setAnswer] = persist(createSignal<string>(), {
+    key: `typebot-${props.context.typebot.id}-input-${props.chunkIndex}`,
+    storage: props.context.storage,
+  })
   const [formattedMessage, setFormattedMessage] = createSignal<string>()
 
   const handleSubmit = async ({ label, value }: InputSubmitContent) => {
@@ -63,8 +70,8 @@ export const InputChatBlock = (props: Props) => {
   }
 
   createEffect(() => {
-    const formattedMessage = formattedMessages().find(
-      (message) => message.inputId === props.block.id
+    const formattedMessage = formattedMessages().findLast(
+      (message) => props.chunkIndex === message.inputIndex
     )?.formattedMessage
     if (formattedMessage) setFormattedMessage(formattedMessage)
   })
@@ -74,7 +81,10 @@ export const InputChatBlock = (props: Props) => {
       <Match when={answer() && !props.hasError}>
         <GuestBubble
           message={formattedMessage() ?? (answer() as string)}
-          showAvatar={props.guestAvatar?.isEnabled ?? false}
+          showAvatar={
+            props.guestAvatar?.isEnabled ??
+            defaultTheme.chat.guestAvatar.isEnabled
+          }
           avatarSrc={props.guestAvatar?.url && props.guestAvatar.url}
         />
       </Match>
@@ -95,8 +105,10 @@ export const InputChatBlock = (props: Props) => {
           <Input
             context={props.context}
             block={props.block}
-            inputIndex={props.inputIndex}
+            chunkIndex={props.chunkIndex}
             isInputPrefillEnabled={props.isInputPrefillEnabled}
+            existingAnswer={props.hasError ? answer() : undefined}
+            onTransitionEnd={props.onTransitionEnd}
             onSubmit={handleSubmit}
             onSkip={handleSkip}
           />
@@ -108,22 +120,25 @@ export const InputChatBlock = (props: Props) => {
 
 const Input = (props: {
   context: BotContext
-  block: NonNullable<ChatReply['input']>
-  inputIndex: number
+  block: NonNullable<ContinueChatResponse['input']>
+  chunkIndex: number
   isInputPrefillEnabled: boolean
+  existingAnswer?: string
+  onTransitionEnd: () => void
   onSubmit: (answer: InputSubmitContent) => void
   onSkip: (label: string) => void
 }) => {
   const onSubmit = (answer: InputSubmitContent) => props.onSubmit(answer)
 
   const getPrefilledValue = () =>
-    props.isInputPrefillEnabled ? props.block.prefilledValue : undefined
+    props.existingAnswer ??
+    (props.isInputPrefillEnabled ? props.block.prefilledValue : undefined)
 
   const submitPaymentSuccess = () =>
     props.onSubmit({
       value:
-        (props.block.options as PaymentInputOptions).labels.success ??
-        'Success',
+        (props.block.options as PaymentInputBlock['options'])?.labels
+          ?.success ?? defaultPaymentInputOptions.labels.success,
     })
 
   return (
@@ -158,9 +173,9 @@ const Input = (props: {
       </Match>
       <Match when={props.block.type === InputBlockType.PHONE}>
         <PhoneInput
-          labels={(props.block as PhoneNumberInputBlock).options.labels}
+          labels={(props.block as PhoneNumberInputBlock).options?.labels}
           defaultCountryCode={
-            (props.block as PhoneNumberInputBlock).options.defaultCountryCode
+            (props.block as PhoneNumberInputBlock).options?.defaultCountryCode
           }
           defaultValue={getPrefilledValue()}
           onSubmit={onSubmit}
@@ -168,7 +183,7 @@ const Input = (props: {
       </Match>
       <Match when={props.block.type === InputBlockType.DATE}>
         <DateForm
-          options={props.block.options as DateInputOptions}
+          options={props.block.options as DateInputBlock['options']}
           defaultValue={getPrefilledValue()}
           onSubmit={onSubmit}
         />
@@ -176,17 +191,16 @@ const Input = (props: {
       <Match when={isButtonsBlock(props.block)} keyed>
         {(block) => (
           <Switch>
-            <Match when={!block.options.isMultipleChoice}>
+            <Match when={!block.options?.isMultipleChoice}>
               <Buttons
-                inputIndex={props.inputIndex}
+                chunkIndex={props.chunkIndex}
                 defaultItems={block.items}
                 options={block.options}
                 onSubmit={onSubmit}
               />
             </Match>
-            <Match when={block.options.isMultipleChoice}>
+            <Match when={block.options?.isMultipleChoice}>
               <MultipleChoicesForm
-                inputIndex={props.inputIndex}
                 defaultItems={block.items}
                 options={block.options}
                 onSubmit={onSubmit}
@@ -198,18 +212,20 @@ const Input = (props: {
       <Match when={isPictureChoiceBlock(props.block)} keyed>
         {(block) => (
           <Switch>
-            <Match when={!block.options.isMultipleChoice}>
+            <Match when={!block.options?.isMultipleChoice}>
               <SinglePictureChoice
                 defaultItems={block.items}
                 options={block.options}
                 onSubmit={onSubmit}
+                onTransitionEnd={props.onTransitionEnd}
               />
             </Match>
-            <Match when={block.options.isMultipleChoice}>
+            <Match when={block.options?.isMultipleChoice}>
               <MultiplePictureChoice
                 defaultItems={block.items}
                 options={block.options}
                 onSubmit={onSubmit}
+                onTransitionEnd={props.onTransitionEnd}
               />
             </Match>
           </Switch>
@@ -237,9 +253,10 @@ const Input = (props: {
             {
               ...props.block.options,
               ...props.block.runtimeOptions,
-            } as PaymentInputOptions & RuntimeOptions
+            } as PaymentInputBlock['options'] & RuntimeOptions
           }
           onSuccess={submitPaymentSuccess}
+          onTransitionEnd={props.onTransitionEnd}
         />
       </Match>
     </Switch>
@@ -247,11 +264,11 @@ const Input = (props: {
 }
 
 const isButtonsBlock = (
-  block: ChatReply['input']
+  block: ContinueChatResponse['input']
 ): ChoiceInputBlock | undefined =>
   block?.type === InputBlockType.CHOICE ? block : undefined
 
 const isPictureChoiceBlock = (
-  block: ChatReply['input']
+  block: ContinueChatResponse['input']
 ): PictureChoiceBlock | undefined =>
   block?.type === InputBlockType.PICTURE_CHOICE ? block : undefined

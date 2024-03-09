@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Stack,
   Text,
@@ -10,23 +11,29 @@ import {
   Fade,
   useColorModeValue,
 } from '@chakra-ui/react'
-import {
-  BubbleBlockType,
-  DraggableBlockType,
-  InputBlockType,
-  IntegrationBlockType,
-  LogicBlockType,
-} from '@typebot.io/schemas'
 import { useBlockDnd } from '@/features/graph/providers/GraphDndProvider'
 import React, { useState } from 'react'
 import { BlockCard } from './BlockCard'
 import { LockedIcon, UnlockedIcon } from '@/components/icons'
 import { BlockCardOverlay } from './BlockCardOverlay'
 import { headerHeight } from '../constants'
-import { useScopedI18n } from '@/locales'
+import { useTranslate } from '@tolgee/react'
+import { BubbleBlockType } from '@typebot.io/schemas/features/blocks/bubbles/constants'
+import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/constants'
+import { IntegrationBlockType } from '@typebot.io/schemas/features/blocks/integrations/constants'
+import { LogicBlockType } from '@typebot.io/schemas/features/blocks/logic/constants'
+import { BlockV6 } from '@typebot.io/schemas'
+import { enabledBlocks } from '@typebot.io/forge-repository'
+import { useDebouncedCallback } from 'use-debounce'
+
+// Integration blocks migrated to forged blocks
+const legacyIntegrationBlocks = [
+  IntegrationBlockType.OPEN_AI,
+  IntegrationBlockType.ZEMANTIC_AI,
+]
 
 export const BlocksSideBar = () => {
-  const scopedT = useScopedI18n('editor.sidebarBlocks')
+  const { t } = useTranslate()
   const { setDraggedBlockType, draggedBlockType } = useBlockDnd()
   const [position, setPosition] = useState({
     x: 0,
@@ -35,6 +42,8 @@ export const BlocksSideBar = () => {
   const [relativeCoordinates, setRelativeCoordinates] = useState({ x: 0, y: 0 })
   const [isLocked, setIsLocked] = useState(true)
   const [isExtended, setIsExtended] = useState(true)
+
+  const closeSideBar = useDebouncedCallback(() => setIsExtended(false), 200)
 
   const handleMouseMove = (event: MouseEvent) => {
     if (!draggedBlockType) return
@@ -47,7 +56,7 @@ export const BlocksSideBar = () => {
   }
   useEventListener('mousemove', handleMouseMove)
 
-  const handleMouseDown = (e: React.MouseEvent, type: DraggableBlockType) => {
+  const handleMouseDown = (e: React.MouseEvent, type: BlockV6['type']) => {
     const element = e.currentTarget as HTMLDivElement
     const rect = element.getBoundingClientRect()
     setPosition({ x: rect.left, y: rect.top })
@@ -69,11 +78,14 @@ export const BlocksSideBar = () => {
 
   const handleLockClick = () => setIsLocked(!isLocked)
 
-  const handleDockBarEnter = () => setIsExtended(true)
+  const handleDockBarEnter = () => {
+    closeSideBar.flush()
+    setIsExtended(true)
+  }
 
   const handleMouseLeave = () => {
     if (isLocked) return
-    setIsExtended(false)
+    closeSideBar()
   }
 
   return (
@@ -100,23 +112,22 @@ export const BlocksSideBar = () => {
         bgColor={useColorModeValue('white', 'gray.900')}
         spacing={6}
         userSelect="none"
-        overflowY="scroll"
-        className="hide-scrollbar"
+        overflowY="auto"
       >
         <Flex justifyContent="flex-end">
           <Tooltip
             label={
               isLocked
-                ? scopedT('sidebar.unlock.label')
-                : scopedT('sidebar.lock.label')
+                ? t('editor.sidebarBlocks.sidebar.unlock.label')
+                : t('editor.sidebarBlocks.sidebar.lock.label')
             }
           >
             <IconButton
               icon={isLocked ? <LockedIcon /> : <UnlockedIcon />}
               aria-label={
                 isLocked
-                  ? scopedT('sidebar.icon.unlock.label')
-                  : scopedT('sidebar.icon.lock.label')
+                  ? t('editor.sidebarBlocks.sidebar.icon.unlock.label')
+                  : t('editor.sidebarBlocks.sidebar.icon.lock.label')
               }
               size="sm"
               onClick={handleLockClick}
@@ -126,7 +137,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            {scopedT('blockType.bubbles.heading')}
+            {t('editor.sidebarBlocks.blockType.bubbles.heading')}
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(BubbleBlockType).map((type) => (
@@ -137,7 +148,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            {scopedT('blockType.inputs.heading')}
+            {t('editor.sidebarBlocks.blockType.inputs.heading')}
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(InputBlockType).map((type) => (
@@ -148,7 +159,7 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            {scopedT('blockType.logic.heading')}
+            {t('editor.sidebarBlocks.blockType.logic.heading')}
           </Text>
           <SimpleGrid columns={2} spacing="3">
             {Object.values(LogicBlockType).map((type) => (
@@ -159,12 +170,19 @@ export const BlocksSideBar = () => {
 
         <Stack>
           <Text fontSize="sm" fontWeight="semibold">
-            {scopedT('blockType.integrations.heading')}
+            {t('editor.sidebarBlocks.blockType.integrations.heading')}
           </Text>
           <SimpleGrid columns={2} spacing="3">
-            {Object.values(IntegrationBlockType).map((type) => (
-              <BlockCard key={type} type={type} onMouseDown={handleMouseDown} />
-            ))}
+            {Object.values(IntegrationBlockType)
+              .concat(enabledBlocks as any)
+              .filter((type) => !legacyIntegrationBlocks.includes(type))
+              .map((type) => (
+                <BlockCard
+                  key={type}
+                  type={type}
+                  onMouseDown={handleMouseDown}
+                />
+              ))}
           </SimpleGrid>
         </Stack>
 
@@ -187,12 +205,14 @@ export const BlocksSideBar = () => {
         <Flex
           pos="absolute"
           h="100%"
-          right="-50px"
-          w="50px"
+          right="-70px"
+          w="450px"
           top="0"
-          justify="center"
+          justify="flex-end"
+          pr="10"
           align="center"
           onMouseEnter={handleDockBarEnter}
+          zIndex={-1}
         >
           <Flex w="5px" h="20px" bgColor="gray.400" rounded="md" />
         </Flex>

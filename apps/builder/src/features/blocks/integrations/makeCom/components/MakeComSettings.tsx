@@ -1,27 +1,26 @@
 import { Alert, AlertIcon, Button, Link, Stack, Text } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@/components/icons'
-import { MakeComBlock, Webhook, WebhookOptions } from '@typebot.io/schemas'
+import { MakeComBlock, HttpRequest } from '@typebot.io/schemas'
 import React from 'react'
-import { WebhookAdvancedConfigForm } from '../../webhook/components/WebhookAdvancedConfigForm'
+import { HttpRequestAdvancedConfigForm } from '../../webhook/components/HttpRequestAdvancedConfigForm'
 
 type Props = {
   block: MakeComBlock
-  onOptionsChange: (options: WebhookOptions) => void
+  onOptionsChange: (options: MakeComBlock['options']) => void
 }
 
 export const MakeComSettings = ({
   block: { id: blockId, options },
   onOptionsChange,
 }: Props) => {
-  const setLocalWebhook = async (newLocalWebhook: Webhook) => {
-    if (!options.webhook) return
+  const setLocalWebhook = async (newLocalWebhook: HttpRequest) => {
     onOptionsChange({
       ...options,
       webhook: newLocalWebhook,
     })
   }
 
-  const url = options.webhook?.url
+  const url = options?.webhook?.url
 
   return (
     <Stack spacing={4}>
@@ -43,15 +42,13 @@ export const MakeComSettings = ({
           </Stack>
         )}
       </Alert>
-      {options.webhook && (
-        <WebhookAdvancedConfigForm
-          blockId={blockId}
-          webhook={options.webhook as Webhook}
-          options={options}
-          onWebhookChange={setLocalWebhook}
-          onOptionsChange={onOptionsChange}
-        />
-      )}
+      <HttpRequestAdvancedConfigForm
+        blockId={blockId}
+        webhook={options?.webhook}
+        options={options}
+        onWebhookChange={setLocalWebhook}
+        onOptionsChange={onOptionsChange}
+      />
     </Stack>
   )
 }

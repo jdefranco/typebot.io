@@ -1,17 +1,20 @@
 import { useToast } from '@/hooks/useToast'
 import {
-  LogicBlockType,
   ResultHeaderCell,
   ResultWithAnswers,
+  TableData,
+  Typebot,
 } from '@typebot.io/schemas'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { parseResultHeader } from '@typebot.io/lib/results'
 import { useTypebot } from '../editor/providers/TypebotProvider'
 import { useResultsQuery } from './hooks/useResultsQuery'
-import { TableData } from './types'
-import { convertResultsToTableData } from './helpers/convertResultsToTableData'
 import { trpc } from '@/lib/trpc'
 import { isDefined } from '@typebot.io/lib/utils'
+import { LogicBlockType } from '@typebot.io/schemas/features/blocks/logic/constants'
+import { parseResultHeader } from '@typebot.io/lib/results/parseResultHeader'
+import { convertResultsToTableData } from '@typebot.io/lib/results/convertResultsToTableData'
+import { parseCellContent } from './helpers/parseCellContent'
+import { timeFilterValues } from '../analytics/constants'
 
 const resultsContext = createContext<{
   resultsList: { results: ResultWithAnswers[] }[] | undefined
@@ -28,11 +31,13 @@ const resultsContext = createContext<{
 }>({})
 
 export const ResultsProvider = ({
+  timeFilter,
   children,
   typebotId,
   totalResults,
   onDeleteResults,
 }: {
+  timeFilter: (typeof timeFilterValues)[number]
   children: ReactNode
   typebotId: string
   totalResults: number
@@ -41,6 +46,7 @@ export const ResultsProvider = ({
   const { publishedTypebot } = useTypebot()
   const { showToast } = useToast()
   const { data, fetchNextPage, hasNextPage, refetch } = useResultsQuery({
+    timeFilter,
     typebotId,
     onError: (error) => {
       showToast({ description: error })
@@ -50,16 +56,15 @@ export const ResultsProvider = ({
   const linkedTypebotIds =
     publishedTypebot?.groups
       .flatMap((group) => group.blocks)
-      .reduce<string[]>(
-        (typebotIds, block) =>
-          block.type === LogicBlockType.TYPEBOT_LINK &&
-          isDefined(block.options.typebotId) &&
-          !typebotIds.includes(block.options.typebotId) &&
-          block.options.mergeResults !== false
-            ? [...typebotIds, block.options.typebotId]
-            : typebotIds,
-        []
-      ) ?? []
+      .reduce<string[]>((typebotIds, block) => {
+        if (block.type !== LogicBlockType.TYPEBOT_LINK) return typebotIds
+        const typebotId = block.options?.typebotId
+        return isDefined(typebotId) &&
+          !typebotIds.includes(typebotId) &&
+          block.options?.mergeResults !== false
+          ? [...typebotIds, typebotId]
+          : typebotIds
+      }, []) ?? []
 
   const { data: linkedTypebotsData } = trpc.getLinkedTypebots.useQuery(
     {
@@ -78,7 +83,13 @@ export const ResultsProvider = ({
   const resultHeader = useMemo(
     () =>
       publishedTypebot
-        ? parseResultHeader(publishedTypebot, linkedTypebotsData?.typebots)
+        ? parseResultHeader(
+            publishedTypebot,
+            linkedTypebotsData?.typebots as Pick<
+              Typebot,
+              'groups' | 'variables'
+            >[]
+          )
         : [],
     [linkedTypebotsData?.typebots, publishedTypebot]
   )
@@ -88,7 +99,8 @@ export const ResultsProvider = ({
       publishedTypebot
         ? convertResultsToTableData(
             data?.flatMap((d) => d.results) ?? [],
-            resultHeader
+            resultHeader,
+            parseCellContent
           )
         : [],
     [publishedTypebot, data, resultHeader]

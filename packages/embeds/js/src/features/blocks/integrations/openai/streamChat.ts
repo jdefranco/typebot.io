@@ -1,6 +1,7 @@
 import { ClientSideActionContext } from '@/types'
 import { guessApiHost } from '@/utils/guessApiHost'
 import { isNotEmpty } from '@typebot.io/lib/utils'
+import { createUniqueId } from 'solid-js'
 
 let abortController: AbortController | null = null
 const secondsToWaitBeforeRetries = 3
@@ -8,13 +9,16 @@ const maxRetryAttempts = 3
 
 export const streamChat =
   (context: ClientSideActionContext & { retryAttempt?: number }) =>
-  async (
-    messages: {
+  async ({
+    messages,
+    onMessageStream,
+  }: {
+    messages?: {
       content?: string | undefined
       role?: 'system' | 'user' | 'assistant' | undefined
-    }[],
-    { onMessageStream }: { onMessageStream?: (message: string) => void }
-  ): Promise<{ message?: string; error?: object }> => {
+    }[]
+    onMessageStream?: (props: { id: string; message: string }) => void
+  }): Promise<{ message?: string; error?: object }> => {
     try {
       abortController = new AbortController()
 
@@ -48,7 +52,7 @@ export const streamChat =
           return streamChat({
             ...context,
             retryAttempt: (context.retryAttempt ?? 0) + 1,
-          })(messages, { onMessageStream })
+          })({ messages, onMessageStream })
         }
         return {
           error: (await res.json()) || 'Failed to fetch the chat response.',
@@ -64,6 +68,8 @@ export const streamChat =
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
 
+      const id = createUniqueId()
+
       // eslint-disable-next-line no-constant-condition
       while (true) {
         const { done, value } = await reader.read()
@@ -72,7 +78,7 @@ export const streamChat =
         }
         const chunk = decoder.decode(value)
         message += chunk
-        if (onMessageStream) onMessageStream(message)
+        if (onMessageStream) onMessageStream({ id, message })
         if (abortController === null) {
           reader.cancel()
           break

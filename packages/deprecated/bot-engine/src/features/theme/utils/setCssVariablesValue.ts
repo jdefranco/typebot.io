@@ -1,12 +1,12 @@
 import {
   Background,
-  BackgroundType,
   ChatTheme,
   ContainerColors,
   GeneralTheme,
   InputColors,
   Theme,
 } from '@typebot.io/schemas'
+import { BackgroundType } from '@typebot.io/schemas/features/typebot/theme/constants'
 
 const cssVariableNames = {
   general: {
@@ -50,7 +50,8 @@ const setGeneralTheme = (
 ) => {
   const { background, font } = generalTheme
   if (background) setTypebotBackground
-  if (font) documentStyle.setProperty(cssVariableNames.general.fontFamily, font)
+  if (font && typeof font === 'string')
+    documentStyle.setProperty(cssVariableNames.general.fontFamily, font)
 }
 
 const setChatTheme = (

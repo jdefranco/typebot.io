@@ -5,7 +5,7 @@ import {
   User,
   WorkspaceRole,
 } from '@typebot.io/prisma'
-import prisma from '@/lib/prisma'
+import prisma from '@typebot.io/lib/prisma'
 import { NextApiResponse } from 'next'
 import { forbidden } from '@typebot.io/lib/api'
 import { env } from '@typebot.io/env'
@@ -40,7 +40,8 @@ export const canReadTypebots = (
 ) => ({
   id: typeof typebotIds === 'string' ? typebotIds : { in: typebotIds },
   workspace:
-    user.email === env.ADMIN_EMAIL || env.NEXT_PUBLIC_E2E_TEST
+    env.ADMIN_EMAIL?.some((email) => email === user.email) ||
+    env.NEXT_PUBLIC_E2E_TEST
       ? undefined
       : {
           members: {

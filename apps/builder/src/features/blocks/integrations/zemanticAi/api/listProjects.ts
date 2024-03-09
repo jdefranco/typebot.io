@@ -1,36 +1,17 @@
-import prisma from '@/lib/prisma'
+import prisma from '@typebot.io/lib/prisma'
 import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { isReadWorkspaceFobidden } from '@/features/workspace/helpers/isReadWorkspaceFobidden'
-import { decrypt } from '@typebot.io/lib/api'
+import { decrypt } from '@typebot.io/lib/api/encryption/decrypt'
 import { ZemanticAiCredentials } from '@typebot.io/schemas/features/blocks/integrations/zemanticAi'
 import got from 'got'
 
 export const listProjects = authenticatedProcedure
-  .meta({
-    openapi: {
-      method: 'GET',
-      path: '/zemantic-ai/projects',
-      protect: true,
-      summary: 'List Zemantic AI projects',
-      tags: ['ZemanticAi'],
-    },
-  })
   .input(
     z.object({
       credentialsId: z.string(),
       workspaceId: z.string(),
-    })
-  )
-  .output(
-    z.object({
-      projects: z.array(
-        z.object({
-          label: z.string(),
-          value: z.string(),
-        })
-      ),
     })
   )
   .query(async ({ input: { credentialsId, workspaceId }, ctx: { user } }) => {

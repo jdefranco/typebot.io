@@ -23,14 +23,14 @@ import { byId, isDefined } from '@typebot.io/lib'
 import { CreateTokenModal } from './CreateTokenModal'
 import { useApiTokens } from '../hooks/useApiTokens'
 import { ApiTokenFromServer } from '../types'
-import { parseTimeSince } from '@/helpers/parseTimeSince'
 import { deleteApiTokenQuery } from '../queries/deleteApiTokenQuery'
-import { useScopedI18n } from '@/locales'
+import { T, useTranslate } from '@tolgee/react'
+import { TimeSince } from '@/components/TimeSince'
 
 type Props = { user: User }
 
 export const ApiTokensList = ({ user }: Props) => {
-  const scopedT = useScopedI18n('account.apiTokens')
+  const { t } = useTranslate()
   const { showToast } = useToast()
   const { apiTokens, isLoading, mutate } = useApiTokens({
     userId: user.id,
@@ -57,10 +57,12 @@ export const ApiTokensList = ({ user }: Props) => {
 
   return (
     <Stack spacing={4}>
-      <Heading fontSize="2xl">{scopedT('heading')}</Heading>
-      <Text>{scopedT('description')}</Text>
+      <Heading fontSize="2xl">{t('account.apiTokens.heading')}</Heading>
+      <Text>{t('account.apiTokens.description')}</Text>
       <Flex justifyContent="flex-end">
-        <Button onClick={onCreateOpen}>{scopedT('createButton.label')}</Button>
+        <Button onClick={onCreateOpen}>
+          {t('account.apiTokens.createButton.label')}
+        </Button>
         <CreateTokenModal
           userId={user.id}
           isOpen={isCreateOpen}
@@ -73,8 +75,8 @@ export const ApiTokensList = ({ user }: Props) => {
         <Table>
           <Thead>
             <Tr>
-              <Th>{scopedT('table.nameHeader')}</Th>
-              <Th w="130px">{scopedT('table.createdHeader')}</Th>
+              <Th>{t('account.apiTokens.table.nameHeader')}</Th>
+              <Th w="130px">{t('account.apiTokens.table.createdHeader')}</Th>
               <Th w="0" />
             </Tr>
           </Thead>
@@ -82,7 +84,9 @@ export const ApiTokensList = ({ user }: Props) => {
             {apiTokens?.map((token) => (
               <Tr key={token.id}>
                 <Td>{token.name}</Td>
-                <Td>{parseTimeSince(token.createdAt)} ago</Td>
+                <Td>
+                  <TimeSince date={token.createdAt} />
+                </Td>
                 <Td>
                   <Button
                     size="xs"
@@ -90,7 +94,7 @@ export const ApiTokensList = ({ user }: Props) => {
                     variant="outline"
                     onClick={() => setDeletingId(token.id)}
                   >
-                    {scopedT('deleteButton.label')}
+                    {t('account.apiTokens.deleteButton.label')}
                   </Button>
                 </Td>
               </Tr>
@@ -118,14 +122,17 @@ export const ApiTokensList = ({ user }: Props) => {
         onClose={() => setDeletingId(undefined)}
         message={
           <Text>
-            {scopedT('deleteConfirmationMessage', {
-              tokenName: (
-                <strong>{apiTokens?.find(byId(deletingId))?.name}</strong>
-              ),
-            })}
+            <T
+              keyName="account.apiTokens.deleteConfirmationMessage"
+              params={{
+                strong: (
+                  <strong>{apiTokens?.find(byId(deletingId))?.name}</strong>
+                ),
+              }}
+            />
           </Text>
         }
-        confirmButtonLabel={scopedT('deleteButton.label')}
+        confirmButtonLabel={t('account.apiTokens.deleteButton.label')}
       />
     </Stack>
   )

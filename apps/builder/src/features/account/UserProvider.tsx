@@ -1,26 +1,25 @@
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { isDefined, isNotDefined } from '@typebot.io/lib'
-import { User } from '@typebot.io/prisma'
+import { User } from '@typebot.io/schemas'
 import { setUser as setSentryUser } from '@sentry/nextjs'
 import { useToast } from '@/hooks/useToast'
 import { updateUserQuery } from './queries/updateUserQuery'
 import { useDebouncedCallback } from 'use-debounce'
 import { env } from '@typebot.io/env'
-import { identifyUser } from '../telemetry/posthog'
 import { useColorMode } from '@chakra-ui/react'
 
 export const userContext = createContext<{
   user?: User
   isLoading: boolean
   currentWorkspaceId?: string
+  logOut: () => void
   updateUser: (newUser: Partial<User>) => void
 }>({
   isLoading: false,
-  updateUser: () => {
-    console.log('updateUser not implemented')
-  },
+  logOut: () => {},
+  updateUser: () => {},
 })
 
 const debounceTimeout = 1000
@@ -34,17 +33,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { setColorMode } = useColorMode()
 
   useEffect(() => {
-    if (
-      !user?.preferredAppAppearance ||
-      user.preferredAppAppearance === 'system'
-    )
-      return
     const currentColorScheme = localStorage.getItem('chakra-ui-color-mode') as
       | 'light'
       | 'dark'
       | null
-    if (currentColorScheme === user.preferredAppAppearance) return
-    setColorMode(user.preferredAppAppearance)
+    if (!currentColorScheme) return
+    const systemColorScheme = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
+      ? 'dark'
+      : 'light'
+    const userPrefersSystemMode =
+      !user?.preferredAppAppearance || user.preferredAppAppearance === 'system'
+    const computedColorMode = userPrefersSystemMode
+      ? systemColorScheme
+      : user?.preferredAppAppearance
+    if (computedColorMode === currentColorScheme) return
+    setColorMode(computedColorMode)
   }, [setColorMode, user?.preferredAppAppearance])
 
   useEffect(() => {
@@ -57,15 +61,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     if (parsedUser?.id) {
       setSentryUser({ id: parsedUser.id })
-      identifyUser(parsedUser.id)
     }
   }, [session, user])
 
   useEffect(() => {
     if (!router.isReady) return
     if (status === 'loading') return
-    const isSigningIn = () => ['/signin', '/register'].includes(router.pathname)
-    if (!user && status === 'unauthenticated' && !isSigningIn())
+    const isSignInPath = ['/signin', '/register'].includes(router.pathname)
+    const isPathPublicFriendly = /\/typebots\/.+\/(edit|theme|settings)/.test(
+      router.pathname
+    )
+    if (isSignInPath || isPathPublicFriendly) return
+    if (!user && status === 'unauthenticated')
       router.replace({
         pathname: '/signin',
         query: {
@@ -78,18 +85,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (isNotDefined(user)) return
     const newUser = { ...user, ...updates }
     setUser(newUser)
-    saveUser(newUser)
+    saveUser(updates)
   }
 
   const saveUser = useDebouncedCallback(
-    async (newUser?: Partial<User>) => {
+    async (updates: Partial<User>) => {
       if (isNotDefined(user)) return
-      const { error } = await updateUserQuery(user.id, { ...user, ...newUser })
+      const { error } = await updateUserQuery(user.id, updates)
       if (error) showToast({ title: error.name, description: error.message })
       await refreshUser()
     },
     env.NEXT_PUBLIC_E2E_TEST ? 0 : debounceTimeout
   )
+
+  const logOut = () => {
+    signOut()
+    setUser(undefined)
+  }
 
   useEffect(() => {
     return () => {
@@ -103,6 +115,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         user,
         isLoading: status === 'loading',
         currentWorkspaceId,
+        logOut,
         updateUser,
       }}
     >

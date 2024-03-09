@@ -1,20 +1,27 @@
 import { gtmHeadSnippet } from '@/lib/google-tag-manager'
-import { Metadata } from '@typebot.io/schemas'
 import Head from 'next/head'
 import Script from 'next/script'
 import React from 'react'
 import { isNotEmpty } from '@typebot.io/lib'
+import { Settings } from '@typebot.io/schemas'
+
 
 type SEOProps = {
   url: string
   typebotName: string
-  metadata: Metadata
+  metadata?: Settings['metadata']
 }
 
 export const SEO = ({
   url,
   typebotName,
-  metadata: { title, description, favIconUrl, imageUrl, googleTagManagerId },
+  metadata: {
+    title,
+    description,
+    favIconUrl,
+    imageUrl,
+    googleTagManagerId,
+  } = {},
 }: SEOProps) => (
   <>
     <Head key="seo">
@@ -30,7 +37,7 @@ export const SEO = ({
         name="description"
         content={
           description ??
-          'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form.'
+          'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that have more value compared to a traditional form.'
         }
       />
 
@@ -42,28 +49,35 @@ export const SEO = ({
         property="og:description"
         content={
           description ??
-          'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form.'
+          'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that have more value compared to a traditional form.'
         }
       />
       <meta
         property="og:image"
         itemProp="image"
-        content={imageUrl ?? 'https://bot.chatworth.io/site-preview.png'}
+        content={
+          imageUrl ?? 'https://bot.chatworth.io/site-preview.png'
+        }
       />
 
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={url ?? 'https://bot.chatworth.io'} />
+      <meta
+        property="twitter:url"
+        content={url ?? 'https://bot.chatworth.io'}
+      />
       <meta property="twitter:title" content={title ?? typebotName} />
       <meta
         property="twitter:description"
         content={
           description ??
-          'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that has more value compared to a traditional form.'
+          'Build beautiful conversational forms and embed them directly in your applications without a line of code. Triple your response rate and collect answers that have more value compared to a traditional form.'
         }
       />
       <meta
         property="twitter:image"
-        content={imageUrl ?? 'https://bot.chatworth.io/site-preview.png'}
+        content={
+          imageUrl ?? 'https://bot.chatworth.io/site-preview.png'
+        }
       />
     </Head>
     {isNotEmpty(googleTagManagerId) && (

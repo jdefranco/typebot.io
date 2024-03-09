@@ -1,19 +1,19 @@
-import { Heading, VStack, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Heading, VStack, Stack, Text, SimpleGrid } from '@chakra-ui/react'
 
 export const Faq = () => (
   <VStack w="full" spacing="10">
     <Heading textAlign="center">Frequently asked questions</Heading>
+
     <SimpleGrid columns={[1, 2]} spacing={10}>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
           What is considered a monthly chat?
         </Heading>
         <Text>
-  A chat is counted whenever a user initiates a conversation. This count is independent of the number of messages sent and received. For instance, if a user starts a chat and sends 10 messages to the bot, it will count as 1 chat. If the user chats again later and their session is remembered, it won&apos;t be counted as a new chat. <br />
-  <br />
-  Think of it this way: 1 chat equals to a row in your Results table.  
-</Text>
-
+          A chat is counted whenever a user initiates a conversation. This count is independent of the number of messages sent and received. For instance, if a user starts a chat and sends 10 messages to the bot, it will count as 1 chat. If the user chats again later and their session is remembered, it won&apos;t be counted as a new chat. <br />
+          <br />
+          Think of it this way: 1 chat equals to a row in your Results table.  
+        </Text>
       </Stack>
       <Stack borderWidth={1} p="8" rounded="lg" spacing={4}>
         <Heading as="h2" fontSize="2xl">
@@ -64,3 +64,5 @@ export const Faq = () => (
     </SimpleGrid>
   </VStack>
 )
+
+export default Faq;

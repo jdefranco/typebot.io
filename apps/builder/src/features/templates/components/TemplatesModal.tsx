@@ -15,27 +15,33 @@ import {
 import { Standard } from '@typebot.io/nextjs'
 import { Typebot } from '@typebot.io/schemas'
 import React, { useCallback, useEffect, useState } from 'react'
-import { templates } from '../data'
+import { useTemplates } from '../hooks/useTemplates'
 import { TemplateProps } from '../types'
 import { useToast } from '@/hooks/useToast'
 import { sendRequest } from '@typebot.io/lib'
-import { useScopedI18n } from '@/locales'
+import { useTranslate } from '@tolgee/react'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
   onTypebotChoose: (typebot: Typebot) => void
+  isLoading: boolean
 }
 
-export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
-  const scopedT = useScopedI18n('templates.modal')
+export const TemplatesModal = ({
+  isOpen,
+  onClose,
+  onTypebotChoose,
+  isLoading,
+}: Props) => {
+  const { t } = useTranslate()
   const templateCardBackgroundColor = useColorModeValue('white', 'gray.800')
   const [typebot, setTypebot] = useState<Typebot>()
+  const templates = useTemplates()
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateProps>(
     templates[0]
   )
-  const [isLoading, setIsLoading] = useState(false)
-
+  const [isFirstTemplateLoaded, setIsFirstTemplateLoaded] = useState(false)
   const { showToast } = useToast()
 
   const fetchTemplate = useCallback(
@@ -46,19 +52,20 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
       )
       if (error)
         return showToast({ title: error.name, description: error.message })
-      setTypebot(data as Typebot)
+      setTypebot({ ...(data as Typebot), name: template.name })
     },
     [showToast]
   )
 
   useEffect(() => {
+    if (isFirstTemplateLoaded) return
+    setIsFirstTemplateLoaded(true)
     fetchTemplate(templates[0])
-  }, [fetchTemplate])
+  }, [fetchTemplate, templates, isFirstTemplateLoaded])
 
-  const onUseThisTemplateClick = () => {
+  const onUseThisTemplateClick = async () => {
     if (!typebot) return
     onTypebotChoose(typebot)
-    setIsLoading(true)
   }
 
   return (
@@ -79,8 +86,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
             borderRightWidth={1}
             justify="space-between"
             flexShrink={0}
-            overflowY="scroll"
-            className="hide-scrollbar"
+            overflowY="auto"
           >
             <Stack spacing={5}>
               <Stack spacing={2}>
@@ -90,7 +96,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                   pl="1"
                   color="gray.500"
                 >
-                  {scopedT('menuHeading.marketing')}
+                  {t('templates.modal.menuHeading.marketing')}
                 </Text>
                 {templates
                   .filter((template) => template.category === 'marketing')
@@ -112,7 +118,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                         <Text>{template.name}</Text>
                         {template.isNew && (
                           <Tag colorScheme="orange" size="sm" flexShrink={0}>
-                            {scopedT('menuHeading.new.tag')}
+                            {t('templates.modal.menuHeading.new.tag')}
                           </Tag>
                         )}
                       </HStack>
@@ -126,7 +132,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                   pl="1"
                   color="gray.500"
                 >
-                  {scopedT('menuHeading.product')}
+                  {t('templates.modal.menuHeading.product')}
                 </Text>
                 {templates
                   .filter((template) => template.category === 'product')
@@ -148,7 +154,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                         <Text>{template.name}</Text>
                         {template.isNew && (
                           <Tag colorScheme="orange" size="sm" flexShrink={0}>
-                            {scopedT('menuHeading.new.tag')}
+                            {t('templates.modal.menuHeading.new.tag')}
                           </Tag>
                         )}
                       </HStack>
@@ -162,7 +168,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                   pl="1"
                   color="gray.500"
                 >
-                  {scopedT('menuHeading.other')}
+                  {t('templates.modal.menuHeading.other')}
                 </Text>
                 {templates
                   .filter((template) => template.category === undefined)
@@ -184,7 +190,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                         <Text>{template.name}</Text>
                         {template.isNew && (
                           <Tag colorScheme="orange" size="sm" flexShrink={0}>
-                            {scopedT('menuHeading.new.tag')}
+                            {t('templates.modal.menuHeading.new.tag')}
                           </Tag>
                         )}
                       </HStack>
@@ -231,7 +237,7 @@ export const TemplatesModal = ({ isOpen, onClose, onTypebotChoose }: Props) => {
                 onClick={onUseThisTemplateClick}
                 isLoading={isLoading}
               >
-                {scopedT('useTemplateButton.label')}
+                {t('templates.modal.useTemplateButton.label')}
               </Button>
             </HStack>
           </Stack>

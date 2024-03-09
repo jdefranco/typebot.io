@@ -11,7 +11,7 @@ RUN apt-get -qy update \
 RUN npm --global install pnpm
 
 FROM base AS pruner
-RUN npm --global install turbo
+RUN npm --global install turbo@1.11.3
 WORKDIR /app
 COPY . .
 RUN turbo prune --scope=${SCOPE} --docker
@@ -27,8 +27,7 @@ RUN pnpm install
 COPY --from=pruner /app/out/full/ .
 COPY turbo.json turbo.json
 
-ENV ENCRYPTION_SECRET=encryption_secret_placeholder123 DATABASE_URL=postgresql://postgres:typebot@typebot-db:5432/typebot NEXTAUTH_URL=http://localhost:3000 NEXT_PUBLIC_VIEWER_URL=http://localhost:3001
-RUN pnpm turbo run build --filter=${SCOPE}...
+RUN SKIP_ENV_CHECK=true pnpm turbo run build --filter=${SCOPE}...
 
 FROM base AS runner
 WORKDIR /app
@@ -46,16 +45,18 @@ COPY --from=builder /app/node_modules/.pnpm/next-runtime-env@1.6.2/node_modules/
 
 ## Copy prisma package and its dependencies and generate schema
 COPY ./packages/prisma/postgresql ./packages/prisma/postgresql
-COPY --from=builder /app/node_modules/.pnpm/@prisma+client@5.0.0_prisma@5.0.0/node_modules/@prisma/client ./node_modules/@prisma/client
-COPY --from=builder /app/node_modules/.pnpm/@prisma+engines@5.0.0/node_modules/@prisma/engines ./node_modules/@prisma/engines
-COPY --from=builder /app/node_modules/.pnpm/prisma@5.0.0/node_modules/prisma ./node_modules/prisma
+COPY --from=builder /app/node_modules/.pnpm/@prisma+client@5.8.0_prisma@5.8.0/node_modules/@prisma/client ./node_modules/@prisma/client
+COPY --from=builder /app/node_modules/.pnpm/@prisma+engines@5.8.0/node_modules/@prisma/engines ./node_modules/@prisma/engines
+COPY --from=builder /app/node_modules/.pnpm/@prisma+debug@5.8.0/node_modules/@prisma/debug ./node_modules/@prisma/debug
+COPY --from=builder /app/node_modules/.pnpm/@prisma+get-platform@5.8.0/node_modules/@prisma/get-platform ./node_modules/@prisma/get-platform
+COPY --from=builder /app/node_modules/.pnpm/@prisma+fetch-engine@5.8.0/node_modules/@prisma/fetch-engine ./node_modules/@prisma/fetch-engine
+COPY --from=builder /app/node_modules/.pnpm/@prisma+engines-version@5.8.0-37.0a83d8541752d7582de2ebc1ece46519ce72a848/node_modules/@prisma/engines-version ./node_modules/@prisma/engines-version
+COPY --from=builder /app/node_modules/.pnpm/prisma@5.8.0/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/node_modules/.bin/prisma ./node_modules/.bin/prisma
 RUN ./node_modules/.bin/prisma generate --schema=packages/prisma/postgresql/schema.prisma;
 
 COPY scripts/${SCOPE}-entrypoint.sh ./
-COPY scripts/wait-for-it.sh ./
 RUN chmod +x ./${SCOPE}-entrypoint.sh
-RUN chmod +x ./wait-for-it.sh
 ENTRYPOINT ./${SCOPE}-entrypoint.sh
 
 EXPOSE 3000

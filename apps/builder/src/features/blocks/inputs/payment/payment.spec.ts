@@ -1,10 +1,10 @@
 import test, { expect } from '@playwright/test'
 import { createTypebots } from '@typebot.io/lib/playwright/databaseActions'
 import { parseDefaultGroupWithBlock } from '@typebot.io/lib/playwright/databaseHelpers'
-import { defaultPaymentInputOptions, InputBlockType } from '@typebot.io/schemas'
 import { createId } from '@paralleldrive/cuid2'
 import { stripePaymentForm } from '@/test/utils/selectorUtils'
 import { env } from '@typebot.io/env'
+import { InputBlockType } from '@typebot.io/schemas/features/blocks/inputs/constants'
 
 test.describe('Payment input block', () => {
   test('Can configure Stripe account', async ({ page }) => {
@@ -14,7 +14,6 @@ test.describe('Payment input block', () => {
         id: typebotId,
         ...parseDefaultGroupWithBlock({
           type: InputBlockType.PAYMENT,
-          options: defaultPaymentInputOptions,
         }),
       },
     ])
@@ -41,10 +40,10 @@ test.describe('Payment input block', () => {
     await page.selectOption('select', 'EUR')
     await page.click('text=Additional information')
     await page.fill('[placeholder="John Smith"]', 'Baptiste')
-    await page.fill('[placeholder="john@gmail.com"]', 'baptiste@typebot.io')
+    await page.fill('[placeholder="john@gmail.com"]', 'test@typebot.io')
     await expect(page.locator('text="Phone number:"')).toBeVisible()
 
-    await page.click('text=Preview')
+    await page.click('text=Test')
     await stripePaymentForm(page)
       .locator(`[placeholder="1234 1234 1234 1234"]`)
       .fill('4000000000000002')

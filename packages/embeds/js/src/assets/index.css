@@ -31,6 +31,13 @@
 
   --typebot-border-radius: 6px;
 
+  --typebot-progress-bar-position: fixed;
+  --typebot-progress-bar-bg-color: #f7f8ff;
+  --typebot-progress-bar-color: #0042da;
+  --typebot-progress-bar-height: 6px;
+  --typebot-progress-bar-top: 0;
+  --typebot-progress-bar-bottom: auto;
+
   /* Phone input */
   --PhoneInputCountryFlag-borderColor: transparent;
   --PhoneInput-color--focus: transparent;
@@ -94,12 +101,36 @@ textarea {
   font-weight: 300;
 }
 
-.slate-a {
+a {
   text-decoration: underline;
 }
 
-.slate-html-container > div {
-  min-height: 24px;
+ul,
+ol {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+li:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: auto;
 }
 
 .slate-bold {
@@ -211,12 +242,6 @@ textarea {
   border-radius: 6px;
 }
 
-.typebot-host-bubble img,
-.typebot-host-bubble iframe,
-.typebot-host-bubble video {
-  border-radius: var(--typebot-border-radius);
-}
-
 .typebot-guest-bubble {
   color: var(--typebot-guest-bubble-color);
   background-color: var(--typebot-guest-bubble-bg-color);
@@ -239,7 +264,7 @@ textarea {
 }
 
 .typebot-chat-view {
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .ping span {
@@ -309,17 +334,6 @@ textarea {
   border-radius: var(--typebot-border-radius);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
 .typebot-picture-button {
   color: var(--typebot-button-color);
   background-color: var(--typebot-button-bg-color);
@@ -386,4 +400,26 @@ textarea {
 select option {
   color: var(--typebot-input-color);
   background-color: var(--typebot-input-bg-color);
+}
+
+.typebot-progress-bar-container {
+  background-color: rgba(
+    var(--typebot-button-bg-color-rgb),
+    calc(var(--selectable-base-alpha) + 0.12)
+  );
+
+  height: var(--typebot-progress-bar-height);
+  position: var(--typebot-progress-bar-position);
+  top: var(--typebot-progress-bar-top);
+  bottom: var(--typebot-progress-bar-bottom);
+  left: 0;
+  width: 100%;
+  z-index: 42424242;
+}
+
+.typebot-progress-bar-container > .typebot-progress-bar {
+  background-color: var(--typebot-progress-bar-color);
+  position: absolute;
+  height: 100%;
+  transition: width 0.25s ease;
 }

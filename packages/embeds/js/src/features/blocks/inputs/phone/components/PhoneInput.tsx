@@ -3,14 +3,15 @@ import { ChevronDownIcon } from '@/components/icons/ChevronDownIcon'
 import { SendButton } from '@/components/SendButton'
 import { InputSubmitContent } from '@/types'
 import { isMobile } from '@/utils/isMobileSignal'
-import type { PhoneNumberInputOptions } from '@typebot.io/schemas'
 import { createSignal, For, onCleanup, onMount } from 'solid-js'
 import { isEmpty } from '@typebot.io/lib'
 import { phoneCountries } from '@typebot.io/lib/phoneCountries'
 import { CommandData } from '@/features/commands/types'
+import { PhoneNumberInputBlock } from '@typebot.io/schemas'
+import { defaultPhoneInputOptions } from '@typebot.io/schemas/features/blocks/inputs/phone/constants'
 
 type PhoneInputProps = Pick<
-  PhoneNumberInputOptions,
+  NonNullable<PhoneNumberInputBlock['options']>,
   'labels' | 'defaultCountryCode'
 > & {
   defaultValue?: string
@@ -68,6 +69,7 @@ export const PhoneInput = (props: PhoneInputProps) => {
           ? inputValue()
           : `${selectedCountryDialCode ?? ''}${inputValue()}`,
       })
+    else inputRef?.focus()
   }
 
   const submitWhenEnter = (e: KeyboardEvent) => {
@@ -146,18 +148,16 @@ export const PhoneInput = (props: PhoneInputProps) => {
           ref={inputRef}
           value={inputValue()}
           onInput={handleInput}
-          placeholder={props.labels.placeholder ?? 'Your phone number...'}
+          placeholder={
+            props.labels?.placeholder ??
+            defaultPhoneInputOptions.labels.placeholder
+          }
           autofocus={!isMobile()}
         />
       </div>
 
-      <SendButton
-        type="button"
-        isDisabled={inputValue() === ''}
-        class="my-2 ml-2"
-        on:click={submit}
-      >
-        {props.labels?.button ?? 'Send'}
+      <SendButton type="button" class="my-2 ml-2" on:click={submit}>
+        {props.labels?.button ?? defaultPhoneInputOptions.labels.button}
       </SendButton>
     </div>
   )

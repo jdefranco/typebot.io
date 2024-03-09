@@ -6,9 +6,12 @@ import {
   InputColors,
   Theme,
 } from '@typebot.io/schemas'
-import { BackgroundType } from '@typebot.io/schemas/features/typebot/theme/enums'
 import { isLight, hexToRgb } from '@typebot.io/lib/hexToRgb'
 import { isNotEmpty } from '@typebot.io/lib'
+import {
+  BackgroundType,
+  defaultTheme,
+} from '@typebot.io/schemas/features/typebot/theme/constants'
 
 const cssVariableNames = {
   general: {
@@ -16,6 +19,14 @@ const cssVariableNames = {
     bgColor: '--typebot-container-bg-color',
     fontFamily: '--typebot-container-font-family',
     color: '--typebot-container-color',
+    progressBar: {
+      position: '--typebot-progress-bar-position',
+      color: '--typebot-progress-bar-color',
+      colorRgb: '--typebot-progress-bar-color-rgb',
+      height: '--typebot-progress-bar-height',
+      top: '--typebot-progress-bar-top',
+      bottom: '--typebot-progress-bar-bottom',
+    },
   },
   chat: {
     hostBubbles: {
@@ -46,103 +57,164 @@ const cssVariableNames = {
 
 export const setCssVariablesValue = (
   theme: Theme | undefined,
-  container: HTMLDivElement
+  container: HTMLDivElement,
+  isPreview?: boolean
 ) => {
   if (!theme) return
   const documentStyle = container?.style
   if (!documentStyle) return
-  if (theme.general) setGeneralTheme(theme.general, documentStyle)
-  if (theme.chat) setChatTheme(theme.chat, documentStyle)
+  setGeneralTheme(
+    theme.general ?? defaultTheme.general,
+    documentStyle,
+    isPreview
+  )
+  setChatTheme(theme.chat ?? defaultTheme.chat, documentStyle)
 }
 
 const setGeneralTheme = (
   generalTheme: GeneralTheme,
-  documentStyle: CSSStyleDeclaration
+  documentStyle: CSSStyleDeclaration,
+  isPreview?: boolean
 ) => {
-  const { background, font } = generalTheme
-  if (background) setTypebotBackground(background, documentStyle)
-  if (font) documentStyle.setProperty(cssVariableNames.general.fontFamily, font)
+  setTypebotBackground(
+    generalTheme.background ?? defaultTheme.general.background,
+    documentStyle
+  )
+  documentStyle.setProperty(
+    cssVariableNames.general.fontFamily,
+    (typeof generalTheme.font === 'string'
+      ? generalTheme.font
+      : generalTheme.font?.family) ?? defaultTheme.general.font.family
+  )
+  setProgressBar(
+    generalTheme.progressBar ?? defaultTheme.general.progressBar,
+    documentStyle,
+    isPreview
+  )
+}
+
+const setProgressBar = (
+  progressBar: NonNullable<GeneralTheme['progressBar']>,
+  documentStyle: CSSStyleDeclaration,
+  isPreview?: boolean
+) => {
+  const position =
+    progressBar.position ?? defaultTheme.general.progressBar.position
+
+  documentStyle.setProperty(
+    cssVariableNames.general.progressBar.position,
+    position === 'fixed' ? (isPreview ? 'absolute' : 'fixed') : position
+  )
+  documentStyle.setProperty(
+    cssVariableNames.general.progressBar.color,
+    progressBar.color ?? defaultTheme.general.progressBar.color
+  )
+  documentStyle.setProperty(
+    cssVariableNames.general.progressBar.colorRgb,
+    hexToRgb(
+      progressBar.backgroundColor ??
+        defaultTheme.general.progressBar.backgroundColor
+    ).join(', ')
+  )
+  documentStyle.setProperty(
+    cssVariableNames.general.progressBar.height,
+    `${progressBar.thickness ?? defaultTheme.general.progressBar.thickness}px`
+  )
+
+  const placement =
+    progressBar.placement ?? defaultTheme.general.progressBar.placement
+
+  documentStyle.setProperty(
+    cssVariableNames.general.progressBar.top,
+    placement === 'Top' ? '0' : 'auto'
+  )
+
+  documentStyle.setProperty(
+    cssVariableNames.general.progressBar.bottom,
+    placement === 'Bottom' ? '0' : 'auto'
+  )
 }
 
 const setChatTheme = (
   chatTheme: ChatTheme,
   documentStyle: CSSStyleDeclaration
 ) => {
-  const { hostBubbles, guestBubbles, buttons, inputs, roundness } = chatTheme
-  if (hostBubbles) setHostBubbles(hostBubbles, documentStyle)
-  if (guestBubbles) setGuestBubbles(guestBubbles, documentStyle)
-  if (buttons) setButtons(buttons, documentStyle)
-  if (inputs) setInputs(inputs, documentStyle)
-  if (roundness) setRoundness(roundness, documentStyle)
+  setHostBubbles(
+    chatTheme.hostBubbles ?? defaultTheme.chat.hostBubbles,
+    documentStyle
+  )
+  setGuestBubbles(
+    chatTheme.guestBubbles ?? defaultTheme.chat.guestBubbles,
+    documentStyle
+  )
+  setButtons(chatTheme.buttons ?? defaultTheme.chat.buttons, documentStyle)
+  setInputs(chatTheme.inputs ?? defaultTheme.chat.inputs, documentStyle)
+  setRoundness(
+    chatTheme.roundness ?? defaultTheme.chat.roundness,
+    documentStyle
+  )
 }
 
 const setHostBubbles = (
   hostBubbles: ContainerColors,
   documentStyle: CSSStyleDeclaration
 ) => {
-  if (hostBubbles.backgroundColor)
-    documentStyle.setProperty(
-      cssVariableNames.chat.hostBubbles.bgColor,
-      hostBubbles.backgroundColor
-    )
-  if (hostBubbles.color)
-    documentStyle.setProperty(
-      cssVariableNames.chat.hostBubbles.color,
-      hostBubbles.color
-    )
+  documentStyle.setProperty(
+    cssVariableNames.chat.hostBubbles.bgColor,
+    hostBubbles.backgroundColor ?? defaultTheme.chat.hostBubbles.backgroundColor
+  )
+  documentStyle.setProperty(
+    cssVariableNames.chat.hostBubbles.color,
+    hostBubbles.color ?? defaultTheme.chat.hostBubbles.color
+  )
 }
 
 const setGuestBubbles = (
   guestBubbles: ContainerColors,
   documentStyle: CSSStyleDeclaration
 ) => {
-  if (guestBubbles.backgroundColor)
-    documentStyle.setProperty(
-      cssVariableNames.chat.guestBubbles.bgColor,
-      guestBubbles.backgroundColor
-    )
-  if (guestBubbles.color)
-    documentStyle.setProperty(
-      cssVariableNames.chat.guestBubbles.color,
-      guestBubbles.color
-    )
+  documentStyle.setProperty(
+    cssVariableNames.chat.guestBubbles.bgColor,
+    guestBubbles.backgroundColor ??
+      defaultTheme.chat.guestBubbles.backgroundColor
+  )
+  documentStyle.setProperty(
+    cssVariableNames.chat.guestBubbles.color,
+    guestBubbles.color ?? defaultTheme.chat.guestBubbles.color
+  )
 }
 
 const setButtons = (
   buttons: ContainerColors,
   documentStyle: CSSStyleDeclaration
 ) => {
-  if (buttons.backgroundColor) {
-    documentStyle.setProperty(
-      cssVariableNames.chat.buttons.bgColor,
-      buttons.backgroundColor
-    )
-    documentStyle.setProperty(
-      cssVariableNames.chat.buttons.bgColorRgb,
-      hexToRgb(buttons.backgroundColor).join(', ')
-    )
-  }
+  const bgColor =
+    buttons.backgroundColor ?? defaultTheme.chat.buttons.backgroundColor
+  documentStyle.setProperty(cssVariableNames.chat.buttons.bgColor, bgColor)
+  documentStyle.setProperty(
+    cssVariableNames.chat.buttons.bgColorRgb,
+    hexToRgb(bgColor).join(', ')
+  )
 
-  if (buttons.color)
-    documentStyle.setProperty(
-      cssVariableNames.chat.buttons.color,
-      buttons.color
-    )
+  documentStyle.setProperty(
+    cssVariableNames.chat.buttons.color,
+    buttons.color ?? defaultTheme.chat.buttons.color
+  )
 }
 
 const setInputs = (inputs: InputColors, documentStyle: CSSStyleDeclaration) => {
-  if (inputs.backgroundColor)
-    documentStyle.setProperty(
-      cssVariableNames.chat.inputs.bgColor,
-      inputs.backgroundColor
-    )
-  if (inputs.color)
-    documentStyle.setProperty(cssVariableNames.chat.inputs.color, inputs.color)
-  if (inputs.placeholderColor)
-    documentStyle.setProperty(
-      cssVariableNames.chat.inputs.placeholderColor,
-      inputs.placeholderColor
-    )
+  documentStyle.setProperty(
+    cssVariableNames.chat.inputs.bgColor,
+    inputs.backgroundColor ?? defaultTheme.chat.inputs.backgroundColor
+  )
+  documentStyle.setProperty(
+    cssVariableNames.chat.inputs.color,
+    inputs.color ?? defaultTheme.chat.inputs.color
+  )
+  documentStyle.setProperty(
+    cssVariableNames.chat.inputs.placeholderColor,
+    inputs.placeholderColor ?? defaultTheme.chat.inputs.placeholderColor
+  )
 }
 
 const setTypebotBackground = (
@@ -183,12 +255,13 @@ const setTypebotBackground = (
   }
 }
 
-const parseBackgroundValue = ({ type, content }: Background) => {
+const parseBackgroundValue = ({ type, content }: Background = {}) => {
   switch (type) {
     case BackgroundType.NONE:
       return 'transparent'
+    case undefined:
     case BackgroundType.COLOR:
-      return content ?? '#ffffff'
+      return content ?? defaultTheme.general.background.content
     case BackgroundType.IMAGE:
       return `url(${content})`
   }

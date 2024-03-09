@@ -12,6 +12,11 @@ import { isDefined, isNotDefined } from '@typebot.io/lib'
 import { PopupParams } from '../types'
 import { Bot, BotProps } from '../../../components/Bot'
 import { getPaymentInProgressInStorage } from '@/features/blocks/inputs/payment/helpers/paymentInProgressStorage'
+import {
+  getBotOpenedStateFromStorage,
+  removeBotOpenedStateInStorage,
+  setBotOpenedStateInStorage,
+} from '@/utils/storage'
 
 export type PopupProps = BotProps &
   PopupParams & {
@@ -32,18 +37,18 @@ export const Popup = (props: PopupProps) => {
   ])
 
   const [prefilledVariables, setPrefilledVariables] = createSignal(
-    // eslint-disable-next-line solid/reactivity
     botProps.prefilledVariables
   )
 
-  const [isBotOpened, setIsBotOpened] = createSignal(
-    // eslint-disable-next-line solid/reactivity
-    popupProps.isOpen ?? false
-  )
+  const [isBotOpened, setIsBotOpened] = createSignal(popupProps.isOpen ?? false)
 
   onMount(() => {
-    const paymentInProgress = getPaymentInProgressInStorage()
-    if (popupProps.defaultOpen || paymentInProgress) openBot()
+    if (
+      popupProps.defaultOpen ||
+      getPaymentInProgressInStorage() ||
+      getBotOpenedStateFromStorage()
+    )
+      openBot()
     window.addEventListener('message', processIncomingEvent)
     const autoShowDelay = popupProps.autoShowDelay
     if (isDefined(autoShowDelay)) {
@@ -90,7 +95,7 @@ export const Popup = (props: PopupProps) => {
   const openBot = () => {
     setIsBotOpened(true)
     popupProps.onOpen?.()
-    document.body.style.overflow = 'hidden'
+    document.body.style.setProperty('overflow', 'hidden', 'important')
     document.addEventListener('pointerdown', closeBot)
   }
 
@@ -99,10 +104,16 @@ export const Popup = (props: PopupProps) => {
     popupProps.onClose?.()
     document.body.style.overflow = 'auto'
     document.removeEventListener('pointerdown', closeBot)
+    removeBotOpenedStateInStorage()
   }
 
   const toggleBot = () => {
     isBotOpened() ? closeBot() : openBot()
+  }
+
+  const handleOnChatStatePersisted = (isPersisted: boolean) => {
+    botProps.onChatStatePersisted?.(isPersisted)
+    if (isPersisted) setBotOpenedStateInStorage()
   }
 
   return (
@@ -126,16 +137,21 @@ export const Popup = (props: PopupProps) => {
           <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <div
               class={
-                'relative h-[80vh] transform overflow-hidden rounded-lg text-left transition-all sm:my-8 sm:w-full sm:max-w-lg' +
+                'relative h-[80vh] transform overflow-hidden rounded-lg text-left transition-all sm:my-8 w-full max-w-lg' +
                 (props.theme?.backgroundColor ? ' shadow-xl' : '')
               }
               style={{
                 'background-color':
                   props.theme?.backgroundColor ?? 'transparent',
+                'max-width': props.theme?.width ?? '512px',
               }}
               on:pointerdown={stopPropagation}
             >
-              <Bot {...botProps} prefilledVariables={prefilledVariables()} />
+              <Bot
+                {...botProps}
+                prefilledVariables={prefilledVariables()}
+                onChatStatePersisted={handleOnChatStatePersisted}
+              />
             </div>
           </div>
         </div>

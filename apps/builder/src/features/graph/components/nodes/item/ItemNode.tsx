@@ -1,20 +1,15 @@
 import { Flex, useColorModeValue, Stack } from '@chakra-ui/react'
 import { useTypebot } from '@/features/editor/providers/TypebotProvider'
-import {
-  ChoiceInputBlock,
-  Item,
-  ItemIndices,
-  ItemType,
-} from '@typebot.io/schemas'
+import { BlockWithItems, Item, ItemIndices } from '@typebot.io/schemas'
 import React, { useRef, useState } from 'react'
-import { SourceEndpoint } from '../../endpoints/SourceEndpoint'
+import { BlockSourceEndpoint } from '../../endpoints/BlockSourceEndpoint'
 import { ItemNodeContent } from './ItemNodeContent'
 import { ItemNodeContextMenu } from './ItemNodeContextMenu'
 import { ContextMenu } from '@/components/ContextMenu'
 import { isDefined } from '@typebot.io/lib'
 import { Coordinates } from '@/features/graph/types'
 import {
-  DraggabbleItem,
+  DraggableItem,
   NodePosition,
   useDragDistance,
 } from '@/features/graph/providers/GraphDndProvider'
@@ -22,19 +17,22 @@ import { useGraph } from '@/features/graph/providers/GraphProvider'
 import { setMultipleRefs } from '@/helpers/setMultipleRefs'
 import { ConditionContent } from '@/features/blocks/logic/condition/components/ConditionContent'
 import { useRouter } from 'next/router'
+import { LogicBlockType } from '@typebot.io/schemas/features/blocks/logic/constants'
 
 type Props = {
   item: Item
+  block: BlockWithItems
   indices: ItemIndices
   onMouseDown?: (
     blockNodePosition: { absolute: Coordinates; relative: Coordinates },
-    item: DraggabbleItem
+    item: DraggableItem
   ) => void
   connectionDisabled?: boolean
 }
 
 export const ItemNode = ({
   item,
+  block,
   indices,
   onMouseDown,
   connectionDisabled,
@@ -47,18 +45,21 @@ export const ItemNode = ({
   const { pathname } = useRouter()
   const [isMouseOver, setIsMouseOver] = useState(false)
   const itemRef = useRef<HTMLDivElement | null>(null)
-  const isPreviewing = previewingEdge?.from.itemId === item.id
+  const isPreviewing =
+    previewingEdge &&
+    'itemId' in previewingEdge.from &&
+    previewingEdge.from.itemId === item.id
   const isConnectable =
     isDefined(typebot) &&
     !connectionDisabled &&
     !(
-      typebot.groups[indices.groupIndex].blocks[indices.blockIndex] as
-        | ChoiceInputBlock
-        | undefined
-    )?.options?.isMultipleChoice
+      block.options &&
+      'isMultipleChoice' in block.options &&
+      block.options.isMultipleChoice
+    )
   const onDrag = (position: NodePosition) => {
-    if (!onMouseDown || item.type === ItemType.AB_TEST) return
-    onMouseDown(position, item)
+    if (!onMouseDown || block.type === LogicBlockType.AB_TEST) return
+    onMouseDown(position, { ...item, type: block.type, blockId: block.id })
   }
   useDragDistance({
     ref: itemRef,
@@ -68,6 +69,8 @@ export const ItemNode = ({
 
   const handleMouseEnter = () => setIsMouseOver(true)
   const handleMouseLeave = () => setIsMouseOver(false)
+
+  const groupId = typebot?.groups.at(indices.groupIndex)?.id
 
   return (
     <ContextMenu<HTMLDivElement>
@@ -108,27 +111,27 @@ export const ItemNode = ({
             w="full"
           >
             <ItemNodeContent
+              blockType={block.type}
               item={item}
               isMouseOver={isMouseOver}
               indices={indices}
             />
-            {typebot && (isConnectable || pathname.endsWith('analytics')) && (
-              <SourceEndpoint
-                source={{
-                  groupId: typebot.groups[indices.groupIndex].id,
-                  blockId:
-                    typebot.groups[indices.groupIndex]?.blocks[
-                      indices.blockIndex
-                    ]?.id,
-                  itemId: item.id,
-                }}
-                pos="absolute"
-                right="-49px"
-                bottom="9px"
-                pointerEvents="all"
-                isHidden={!isConnectable}
-              />
-            )}
+            {typebot &&
+              (isConnectable || pathname.endsWith('analytics')) &&
+              groupId && (
+                <BlockSourceEndpoint
+                  source={{
+                    blockId: block.id,
+                    itemId: item.id,
+                  }}
+                  groupId={groupId}
+                  pos="absolute"
+                  right="-49px"
+                  bottom="9px"
+                  pointerEvents="all"
+                  isHidden={!isConnectable}
+                />
+              )}
           </Flex>
         </Stack>
       )}

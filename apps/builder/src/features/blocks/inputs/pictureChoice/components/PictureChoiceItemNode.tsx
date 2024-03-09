@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { ImageIcon, PlusIcon } from '@/components/icons'
 import { useTypebot } from '@/features/editor/providers/TypebotProvider'
-import { ItemIndices, ItemType } from '@typebot.io/schemas'
+import { ItemIndices } from '@typebot.io/schemas'
 import React, { useRef } from 'react'
 import { PictureChoiceItem } from '@typebot.io/schemas/features/blocks/inputs/pictureChoice'
 import { useGraph } from '@/features/graph/providers/GraphProvider'
@@ -40,7 +40,7 @@ export const PictureChoiceItemNode = ({
   const handlePlusClick = (e: React.MouseEvent) => {
     e.stopPropagation()
     const itemIndex = indices.itemIndex + 1
-    createItem({ type: ItemType.PICTURE_CHOICE }, { ...indices, itemIndex })
+    createItem({}, { ...indices, itemIndex })
   }
 
   const handleMouseDown = (e: React.MouseEvent) => e.stopPropagation()
@@ -57,6 +57,10 @@ export const PictureChoiceItemNode = ({
     e.stopPropagation()
   }
   useEventListener('wheel', handleMouseWheel, ref.current)
+
+  const blockId = typebot
+    ? typebot.groups.at(indices.groupIndex)?.blocks?.at(indices.blockIndex)?.id
+    : undefined
 
   return (
     <Popover
@@ -127,20 +131,17 @@ export const PictureChoiceItemNode = ({
           <PopoverArrow />
           <PopoverBody
             py="6"
-            overflowY="scroll"
+            overflowY="auto"
             maxH="400px"
             shadow="lg"
             ref={ref}
           >
-            {typebot && (
+            {typebot && blockId && (
               <PictureChoiceItemSettings
                 workspaceId={typebot.workspaceId}
                 typebotId={typebot.id}
                 item={item}
-                blockId={
-                  typebot.groups[indices.groupIndex].blocks[indices.blockIndex]
-                    .id
-                }
+                blockId={blockId}
                 onItemChange={handleItemChange}
               />
             )}

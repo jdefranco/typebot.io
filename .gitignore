@@ -4,6 +4,7 @@ node_modules
 workspace.code-workspace
 .DS_Store
 .turbo
+.idea
 authenticatedState.json
 playwright-report
 dist
@@ -29,6 +30,7 @@ dump.sql
 dump.tar
 
 __env.js
+__ENV.js
 
 typebotsToFix.json
 **/scripts/logs

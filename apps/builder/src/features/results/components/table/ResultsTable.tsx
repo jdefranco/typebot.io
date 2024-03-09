@@ -8,8 +8,13 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { AlignLeftTextIcon } from '@/components/icons'
-import { ResultHeaderCell, ResultsTablePreferences } from '@typebot.io/schemas'
-import React, { useEffect, useRef, useState } from 'react'
+import {
+  CellValueType,
+  ResultHeaderCell,
+  ResultsTablePreferences,
+  TableData,
+} from '@typebot.io/schemas'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { LoadingRows } from './LoadingRows'
 import {
   useReactTable,
@@ -22,18 +27,20 @@ import { useTypebot } from '@/features/editor/providers/TypebotProvider'
 import { SelectionToolbar } from './SelectionToolbar'
 import { Row } from './Row'
 import { HeaderRow } from './HeaderRow'
-import { CellValueType, TableData } from '../../types'
 import { IndeterminateCheckbox } from './IndeterminateCheckbox'
 import { colors } from '@/lib/theme'
-import { parseColumnOrder } from '../../helpers/parseColumnsOrder'
-import { parseAccessor } from '../../helpers/parseAccessor'
 import { HeaderIcon } from '../HeaderIcon'
+import { parseColumnsOrder } from '@typebot.io/lib/results/parseColumnsOrder'
+import { TimeFilterDropdown } from '@/features/analytics/components/TimeFilterDropdown'
+import { timeFilterValues } from '@/features/analytics/constants'
 
 type ResultsTableProps = {
   resultHeader: ResultHeaderCell[]
   data: TableData[]
   hasMore?: boolean
   preferences?: ResultsTablePreferences
+  timeFilter: (typeof timeFilterValues)[number]
+  onTimeFilterChange: (timeFilter: (typeof timeFilterValues)[number]) => void
   onScrollToBottom: () => void
   onLogOpenIndex: (index: number) => () => void
   onResultExpandIndex: (index: number) => () => void
@@ -44,12 +51,14 @@ export const ResultsTable = ({
   data,
   hasMore,
   preferences,
+  timeFilter,
+  onTimeFilterChange,
   onScrollToBottom,
   onLogOpenIndex,
   onResultExpandIndex,
 }: ResultsTableProps) => {
   const background = useColorModeValue('white', colors.gray[900])
-  const { updateTypebot } = useTypebot()
+  const { updateTypebot, currentUserMode } = useTypebot()
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({})
   const [isTableScrolled, setIsTableScrolled] = useState(false)
   const bottomElement = useRef<HTMLDivElement | null>(null)
@@ -61,7 +70,7 @@ export const ResultsTable = ({
     columnsWidth = {},
   } = {
     ...preferences,
-    columnsOrder: parseColumnOrder(preferences?.columnsOrder, resultHeader),
+    columnsOrder: parseColumnsOrder(preferences?.columnsOrder, resultHeader),
   }
 
   const changeColumnOrder = (newColumnOrder: string[]) => {
@@ -136,7 +145,7 @@ export const ResultsTable = ({
       },
       ...resultHeader.map<ColumnDef<TableData>>((header) => ({
         id: header.id,
-        accessorKey: parseAccessor(header.label),
+        accessorKey: header.id,
         size: 200,
         header: () => (
           <HStack overflow="hidden" data-testid={`${header.label} header`}>
@@ -186,6 +195,14 @@ export const ResultsTable = ({
     getCoreRowModel: getCoreRowModel(),
   })
 
+  const handleObserver = useCallback(
+    (entities: IntersectionObserverEntry[]) => {
+      const target = entities[0]
+      if (target.isIntersecting) onScrollToBottom()
+    },
+    [onScrollToBottom]
+  )
+
   useEffect(() => {
     if (!bottomElement.current) return
     const options: IntersectionObserverInit = {
@@ -198,20 +215,23 @@ export const ResultsTable = ({
     return () => {
       observer.disconnect()
     }
+    // We need to rerun this effect when the bottomElement changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bottomElement.current])
-
-  const handleObserver = (entities: IntersectionObserverEntry[]) => {
-    const target = entities[0]
-    if (target.isIntersecting) onScrollToBottom()
-  }
+  }, [handleObserver, bottomElement.current])
 
   return (
     <Stack maxW="1600px" px="4" overflowY="hidden" spacing={6}>
       <HStack w="full" justifyContent="flex-end">
-        <SelectionToolbar
-          selectedResultsId={Object.keys(rowSelection)}
-          onClearSelection={() => setRowSelection({})}
+        {currentUserMode === 'write' && (
+          <SelectionToolbar
+            selectedResultsId={Object.keys(rowSelection)}
+            onClearSelection={() => setRowSelection({})}
+          />
+        )}
+        <TimeFilterDropdown
+          timeFilter={timeFilter}
+          onTimeFilterChange={onTimeFilterChange}
+          size="sm"
         />
         <TableSettingsButton
           resultHeader={resultHeader}
@@ -223,7 +243,7 @@ export const ResultsTable = ({
       </HStack>
       <Box
         ref={tableWrapper}
-        overflow="scroll"
+        overflow="auto"
         rounded="md"
         data-testid="results-table"
         backgroundImage={`linear-gradient(to right, ${background}, ${background}), linear-gradient(to right, ${background}, ${background}),linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0)),linear-gradient(to left, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0));`}

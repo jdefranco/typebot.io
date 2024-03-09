@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { byId, isNotDefined } from '@typebot.io/lib'
+import { byId } from '@typebot.io/lib'
 import { WorkspaceRole } from '@typebot.io/prisma'
 import { useRouter } from 'next/router'
 import { trpc } from '@/lib/trpc'
@@ -17,9 +17,21 @@ import { useTypebot } from '../editor/providers/TypebotProvider'
 import { setWorkspaceIdInLocalStorage } from './helpers/setWorkspaceIdInLocalStorage'
 import { parseNewName } from './helpers/parseNewName'
 
+export type WorkspaceInApp = Omit<
+  Workspace,
+  | 'chatsLimitFirstEmailSentAt'
+  | 'chatsLimitSecondEmailSentAt'
+  | 'storageLimitFirstEmailSentAt'
+  | 'storageLimitSecondEmailSentAt'
+  | 'customStorageLimit'
+  | 'additionalChatsIndex'
+  | 'additionalStorageIndex'
+  | 'isQuarantined'
+>
+
 const workspaceContext = createContext<{
   workspaces: Pick<Workspace, 'id' | 'name' | 'icon' | 'plan'>[]
-  workspace?: Workspace
+  workspace?: WorkspaceInApp
   currentRole?: WorkspaceRole
   switchWorkspace: (workspaceId: string) => void
   createWorkspace: (name?: string) => Promise<void>
@@ -38,7 +50,7 @@ export const WorkspaceProvider = ({
   typebotId,
   children,
 }: WorkspaceContextProps) => {
-  const { pathname, query, push } = useRouter()
+  const { pathname, query, push, isReady: isRouterReady, replace } = useRouter()
   const { user } = useUser()
   const userId = user?.id
   const [workspaceId, setWorkspaceId] = useState<string | undefined>()
@@ -102,6 +114,8 @@ export const WorkspaceProvider = ({
 
   useEffect(() => {
     if (
+      pathname === '/signin' ||
+      !isRouterReady ||
       !workspaces ||
       workspaces.length === 0 ||
       workspaceId ||
@@ -122,7 +136,9 @@ export const WorkspaceProvider = ({
     setWorkspaceIdInLocalStorage(newWorkspaceId)
     setWorkspaceId(newWorkspaceId)
   }, [
+    isRouterReady,
     members,
+    pathname,
     query.workspaceId,
     typebot?.workspaceId,
     typebotId,
@@ -132,17 +148,22 @@ export const WorkspaceProvider = ({
   ])
 
   useEffect(() => {
-    if (isNotDefined(workspace?.isSuspended)) return
-    if (workspace?.isSuspended && pathname !== '/suspended') push('/suspended')
-  }, [pathname, push, workspace?.isSuspended])
+    if (workspace?.isSuspended) {
+      if (pathname === '/suspended') return
+      push('/suspended')
+      return
+    }
+    if (workspace?.isPastDue) {
+      if (pathname === '/past-due') return
+      push('/past-due')
+      return
+    }
+  }, [pathname, push, workspace?.isPastDue, workspace?.isSuspended])
 
   const switchWorkspace = (workspaceId: string) => {
     setWorkspaceIdInLocalStorage(workspaceId)
-    if (pathname === '/suspended') {
-      window.location.href = '/typebots'
-      return
-    }
     setWorkspaceId(workspaceId)
+    replace('/typebots')
   }
 
   const createWorkspace = async (userFullName?: string) => {

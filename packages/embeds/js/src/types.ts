@@ -1,4 +1,4 @@
-import type { ChatReply } from '@typebot.io/schemas'
+import { ContinueChatResponse, StartChatResponse } from '@typebot.io/schemas'
 
 export type InputSubmitContent = {
   label?: string
@@ -11,11 +11,12 @@ export type BotContext = {
   isPreview: boolean
   apiHost?: string
   sessionId: string
+  storage: 'local' | 'session' | undefined
 }
 
-export type InitialChatReply = ChatReply & {
-  typebot: NonNullable<ChatReply['typebot']>
-  sessionId: NonNullable<ChatReply['sessionId']>
+export type InitialChatReply = StartChatResponse & {
+  typebot: NonNullable<StartChatResponse['typebot']>
+  sessionId: NonNullable<StartChatResponse['sessionId']>
 }
 
 export type OutgoingLog = {
@@ -30,7 +31,7 @@ export type ClientSideActionContext = {
 }
 
 export type ChatChunk = Pick<
-  ChatReply,
+  ContinueChatResponse,
   'messages' | 'input' | 'clientSideActions'
 > & {
   streamingMessageId?: string

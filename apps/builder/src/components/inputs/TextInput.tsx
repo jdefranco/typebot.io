@@ -8,6 +8,7 @@ import {
   HStack,
   Input as ChakraInput,
   InputProps,
+  Stack,
 } from '@chakra-ui/react'
 import { Variable } from '@typebot.io/schemas'
 import React, {
@@ -33,6 +34,8 @@ export type TextInputProps = {
   isRequired?: boolean
   placeholder?: string
   isDisabled?: boolean
+  direction?: 'row' | 'column'
+  width?: 'full'
 } & Pick<
   InputProps,
   | 'autoComplete'
@@ -42,6 +45,7 @@ export type TextInputProps = {
   | 'autoFocus'
   | 'size'
   | 'maxWidth'
+  | 'flexShrink'
 >
 
 export const TextInput = forwardRef(function TextInput(
@@ -63,6 +67,9 @@ export const TextInput = forwardRef(function TextInput(
     onKeyUp,
     size,
     maxWidth,
+    direction = 'column',
+    width,
+    flexShrink,
   }: TextInputProps,
   ref
 ) {
@@ -134,9 +141,16 @@ export const TextInput = forwardRef(function TextInput(
   )
 
   return (
-    <FormControl isRequired={isRequired}>
+    <FormControl
+      isRequired={isRequired}
+      as={direction === 'column' ? Stack : HStack}
+      justifyContent="space-between"
+      width={label || width === 'full' ? 'full' : 'auto'}
+      spacing={direction === 'column' ? 2 : 3}
+      flexShrink={flexShrink}
+    >
       {label && (
-        <FormLabel>
+        <FormLabel display="flex" flexShrink={0} gap="1" mb="0" mr="0">
           {label}{' '}
           {moreInfoTooltip && (
             <MoreInfoTooltip>{moreInfoTooltip}</MoreInfoTooltip>
@@ -151,7 +165,7 @@ export const TextInput = forwardRef(function TextInput(
       ) : (
         Input
       )}
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText mt="0">{helperText}</FormHelperText>}
     </FormControl>
   )
 })

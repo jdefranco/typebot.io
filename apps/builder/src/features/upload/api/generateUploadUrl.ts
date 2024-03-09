@@ -2,8 +2,8 @@ import { authenticatedProcedure } from '@/helpers/server/trpc'
 import { z } from 'zod'
 import { env } from '@typebot.io/env'
 import { TRPCError } from '@trpc/server'
-import { generatePresignedUrl } from '@typebot.io/lib/s3/generatePresignedUrl'
-import prisma from '@/lib/prisma'
+import { generatePresignedPostPolicy } from '@typebot.io/lib/s3/generatePresignedPostPolicy'
+import prisma from '@typebot.io/lib/prisma'
 import { isWriteWorkspaceForbidden } from '@/features/workspace/helpers/isWriteWorkspaceForbidden'
 import { isWriteTypebotForbidden } from '@/features/typebot/helpers/isWriteTypebotForbidden'
 
@@ -42,21 +42,7 @@ export type FilePathUploadProps = z.infer<
 >
 
 export const generateUploadUrl = authenticatedProcedure
-  .meta({
-    openapi: {
-      method: 'POST',
-      path: '/generate-upload-url',
-      summary: 'Generate upload URL',
-      description: 'Generate the needed URL to upload a file from the client',
-    },
-  })
   .input(inputSchema)
-  .output(
-    z.object({
-      presignedUrl: z.string(),
-      fileUrl: z.string(),
-    })
-  )
   .mutation(async ({ input: { filePathProps, fileType }, ctx: { user } }) => {
     if (!env.S3_ENDPOINT || !env.S3_ACCESS_KEY || !env.S3_SECRET_KEY)
       throw new TRPCError({
@@ -76,16 +62,17 @@ export const generateUploadUrl = authenticatedProcedure
       uploadProps: filePathProps,
     })
 
-    const presignedUrl = await generatePresignedUrl({
+    const presignedPostPolicy = await generatePresignedPostPolicy({
       fileType,
       filePath,
     })
 
     return {
-      presignedUrl,
+      presignedUrl: presignedPostPolicy.postURL,
+      formData: presignedPostPolicy.formData,
       fileUrl: env.S3_PUBLIC_CUSTOM_DOMAIN
         ? `${env.S3_PUBLIC_CUSTOM_DOMAIN}/${filePath}`
-        : presignedUrl.split('?')[0],
+        : `${presignedPostPolicy.postURL}/${presignedPostPolicy.formData.key}`,
     }
   })
 
@@ -145,7 +132,19 @@ const parseFilePath = async ({
       id: input.typebotId,
     },
     select: {
-      workspaceId: true,
+      workspace: {
+        select: {
+          plan: true,
+          isSuspended: true,
+          isPastDue: true,
+          members: {
+            select: {
+              userId: true,
+              role: true,
+            },
+          },
+        },
+      },
       collaborators: {
         select: {
           userId: true,

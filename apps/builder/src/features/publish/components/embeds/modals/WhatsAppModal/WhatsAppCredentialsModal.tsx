@@ -41,8 +41,8 @@ import {
 } from '@chakra-ui/react'
 import { env } from '@typebot.io/env'
 import { isEmpty, isNotEmpty } from '@typebot.io/lib/utils'
-import { getViewerUrl } from '@typebot.io/lib/getViewerUrl'
 import React, { useState } from 'react'
+import { createId } from '@paralleldrive/cuid2'
 
 const steps = [
   { title: 'Requirements' },
@@ -56,6 +56,8 @@ type Props = {
   onClose: () => void
   onNewCredentials: (id: string) => void
 }
+
+const credentialsId = createId()
 
 export const WhatsAppCredentialsModal = ({
   isOpen,
@@ -98,12 +100,13 @@ export const WhatsAppCredentialsModal = ({
     },
   })
 
-  const { data: tokenInfoData } = trpc.whatsApp.getSystemTokenInfo.useQuery(
-    {
-      token: systemUserAccessToken,
-    },
-    { enabled: isNotEmpty(systemUserAccessToken) }
-  )
+  const { data: tokenInfoData } =
+    trpc.whatsAppInternal.getSystemTokenInfo.useQuery(
+      {
+        token: systemUserAccessToken,
+      },
+      { enabled: isNotEmpty(systemUserAccessToken) }
+    )
 
   const resetForm = () => {
     setActiveStep(0)
@@ -115,6 +118,7 @@ export const WhatsAppCredentialsModal = ({
     if (!workspace) return
     mutate({
       credentials: {
+        id: credentialsId,
         type: 'whatsApp',
         workspaceId: workspace.id,
         name: phoneNumberName,
@@ -130,7 +134,7 @@ export const WhatsAppCredentialsModal = ({
     setIsVerifying(true)
     try {
       const { expiresAt, scopes } =
-        await trpcVanilla.whatsApp.getSystemTokenInfo.query({
+        await trpcVanilla.whatsAppInternal.getSystemTokenInfo.query({
           token: systemUserAccessToken,
         })
       if (expiresAt !== 0) {
@@ -164,16 +168,18 @@ export const WhatsAppCredentialsModal = ({
   const isPhoneNumberAvailable = async () => {
     setIsVerifying(true)
     try {
-      const { name } = await trpcVanilla.whatsApp.getPhoneNumber.query({
+      const { name } = await trpcVanilla.whatsAppInternal.getPhoneNumber.query({
         systemToken: systemUserAccessToken,
         phoneNumberId,
       })
       setPhoneNumberName(name)
       try {
         const { message } =
-          await trpcVanilla.whatsApp.verifyIfPhoneNumberAvailable.query({
-            phoneNumberDisplayName: name,
-          })
+          await trpcVanilla.whatsAppInternal.verifyIfPhoneNumberAvailable.query(
+            {
+              phoneNumberDisplayName: name,
+            }
+          )
 
         if (message === 'taken') {
           setIsVerifying(false)
@@ -183,7 +189,7 @@ export const WhatsAppCredentialsModal = ({
           return false
         }
         const { verificationToken } =
-          await trpcVanilla.whatsApp.generateVerificationToken.mutate()
+          await trpcVanilla.whatsAppInternal.generateVerificationToken.mutate()
         setVerificationToken(verificationToken)
       } catch (err) {
         console.error(err)
@@ -198,6 +204,7 @@ export const WhatsAppCredentialsModal = ({
       setIsVerifying(false)
       showToast({
         description: 'Could not get phone number info',
+        details: { content: JSON.stringify(err), lang: 'json' },
       })
       return false
     }
@@ -269,7 +276,7 @@ export const WhatsAppCredentialsModal = ({
             <Webhook
               appId={tokenInfoData?.appId}
               verificationToken={verificationToken}
-              phoneNumberId={phoneNumberId}
+              credentialsId={credentialsId}
             />
           )}
         </ModalBody>
@@ -296,10 +303,10 @@ const Requirements = () => (
     <Text>
       Make sure you have{' '}
       <TextLink
-        href="https://developers.facebook.com/docs/whatsapp/cloud-api/get-started#set-up-developer-assets"
+        href="https://docs.typebot.io/deploy/whatsapp/create-meta-app"
         isExternal
       >
-        created a WhatsApp Business Account
+        created a WhatsApp Meta app
       </TextLink>
       . You should be able to get to this page:
     </Text>
@@ -308,13 +315,6 @@ const Requirements = () => (
       alt="WhatsApp quickstart page"
       rounded="md"
     />
-    <Text>
-      You can find your Meta apps here:{' '}
-      <TextLink href="https://developers.facebook.com/apps" isExternal>
-        https://developers.facebook.com/apps
-      </TextLink>
-      .
-    </Text>
   </Stack>
 )
 
@@ -400,12 +400,15 @@ const PhoneNumber = ({
       <HStack>
         <Text>
           Go to your{' '}
-          <TextLink
+          <Button
+            as={Link}
             href={`https://developers.facebook.com/apps/${appId}/whatsapp-business/wa-dev-console`}
             isExternal
+            rightIcon={<ExternalLinkIcon />}
+            size="sm"
           >
-            WhatsApp Dev Console
-          </TextLink>
+            WhatsApp Dev Console{' '}
+          </Button>
         </Text>
       </HStack>
     </ListItem>
@@ -442,29 +445,30 @@ const PhoneNumber = ({
 const Webhook = ({
   appId,
   verificationToken,
-  phoneNumberId,
+  credentialsId,
 }: {
   appId?: string
   verificationToken: string
-  phoneNumberId: string
+  credentialsId: string
 }) => {
   const { workspace } = useWorkspace()
   const webhookUrl = `${
-    env.NEXT_PUBLIC_VIEWER_INTERNAL_URL ?? getViewerUrl()
-  }/api/v1/workspaces/${
-    workspace?.id
-  }/whatsapp/phoneNumbers/${phoneNumberId}/webhook`
+    env.NEXT_PUBLIC_VIEWER_URL.at(1) ?? env.NEXT_PUBLIC_VIEWER_URL[0]
+  }/api/v1/workspaces/${workspace?.id}/whatsapp/${credentialsId}/webhook`
 
   return (
     <Stack spacing={6}>
       <Text>
         In your{' '}
-        <TextLink
+        <Button
+          as={Link}
           href={`https://developers.facebook.com/apps/${appId}/whatsapp-business/wa-settings`}
+          rightIcon={<ExternalLinkIcon />}
           isExternal
+          size="sm"
         >
           WhatsApp Settings page
-        </TextLink>
+        </Button>
         , click on the Edit button and insert the following values:
       </Text>
       <UnorderedList spacing={6}>

@@ -1,7 +1,7 @@
 import { parseVariables } from '@/features/variables'
 import { IntegrationState } from '@/types'
 import {
-  WebhookBlock,
+  HttpRequestBlock,
   ZapierBlock,
   MakeComBlock,
   PabblyConnectBlock,
@@ -11,7 +11,7 @@ import { stringify } from 'qs'
 import { sendRequest, byId } from '@typebot.io/lib'
 
 export const executeWebhook = async (
-  block: WebhookBlock | ZapierBlock | MakeComBlock | PabblyConnectBlock,
+  block: HttpRequestBlock | ZapierBlock | MakeComBlock | PabblyConnectBlock,
   {
     blockId,
     variables,
@@ -48,7 +48,7 @@ export const executeWebhook = async (
       : 'Webhook successfuly executed',
     details: JSON.stringify(error ?? data, null, 2).substring(0, 1000),
   })
-  const newVariables = block.options.responseVariableMapping.reduce<
+  const newVariables = block.options?.responseVariableMapping?.reduce<
     VariableWithUnknowValue[]
   >((newVariables, varMapping) => {
     if (!varMapping?.bodyPath || !varMapping.variableId) return newVariables
@@ -66,6 +66,6 @@ export const executeWebhook = async (
       return newVariables
     }
   }, [])
-  updateVariables(newVariables)
+  if (newVariables) updateVariables(newVariables)
   return block.outgoingEdgeId
 }
