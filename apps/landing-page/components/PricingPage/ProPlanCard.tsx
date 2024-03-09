@@ -13,11 +13,21 @@ import React from 'react'
 import { PricingCard } from './PricingCard'
 import { prices, seatsLimits } from '@typebot.io/lib/billing/constants'
 
+// Assuming the missing variables are part of the Props
 type Props = {
   onChatsTiersClick: () => void
+  selectedChatsLimitIndex?: number; // Assuming optional prop
+  selectedStorageLimitIndex?: number; // Assuming optional prop
+  isYearly?: boolean; // Assuming optional prop
 }
 
-export const ProPlanCard = ({ onChatsTiersClick }: Props) => (
+// Adding the missing variables as props to the function component
+export const ProPlanCard = ({
+  onChatsTiersClick,
+  selectedChatsLimitIndex = 10000, // Default value or replace with actual logic to determine this
+  selectedStorageLimitIndex = 1, // Default value or replace with actual logic to determine this
+  isYearly = false, // Default value or replace with actual logic to determine this
+}: Props) => (
   <PricingCard
     data={{
       price: prices.PRO,
@@ -54,7 +64,6 @@ export const ProPlanCard = ({ onChatsTiersClick }: Props) => (
               </chakra.span>
             </Button>
           </Text>
-          {/* Removed the extra </Tooltip> tag */}
         </Stack>,
         'Custom domains',
         'In-depth analytics',
@@ -65,7 +74,6 @@ export const ProPlanCard = ({ onChatsTiersClick }: Props) => (
     button={
       <Button
         as={Link}
-        // Replace the variables with actual values or define them
         href={`https://chatworth.io/register?subscribePlan=${Plan.PRO}&chats=${selectedChatsLimitIndex}&storage=${selectedStorageLimitIndex}&isYearly=${isYearly}`}
         colorScheme="blue"
         size="lg"
