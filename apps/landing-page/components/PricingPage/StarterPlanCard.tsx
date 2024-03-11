@@ -1,12 +1,23 @@
-import { chakra, Tooltip, Text, HStack, Button, Stack } from '@chakra-ui/react'
-import { HelpCircleIcon } from 'assets/icons/HelpCircleIcon'
-import { Plan } from '@typebot.io/prisma'
-import Link from 'next/link'
-import React from 'react'
-import { PricingCard } from './PricingCard'
-import { prices, seatsLimits } from '@typebot.io/lib/billing/constants'
+import { chakra, Tooltip, Text, HStack, Button, Stack } from '@chakra-ui/react';
+import { HelpCircleIcon } from 'assets/icons/HelpCircleIcon';
+import { Plan } from '@typebot.io/prisma';
+import React from 'react';
+import { PricingCard } from './PricingCard';
+import { prices, seatsLimits } from '@typebot.io/lib/billing/constants';
 
-export const StarterPlanCard = () => {
+// Define the Props type to include the new props
+type Props = {
+  selectedChatsLimitIndex?: number; // Assuming optional prop
+  selectedStorageLimitIndex?: number; // Assuming optional prop
+  isYearly?: boolean; // Assuming optional prop
+};
+
+// Update the component to accept props
+export const StarterPlanCard = ({
+  selectedChatsLimitIndex = 2000, // Default value or replace with actual logic
+  selectedStorageLimitIndex = 1, // Default value or replace with actual logic
+  isYearly = false, // Default value or replace with actual logic
+}: Props) => {
   return (
     <PricingCard
       data={{
@@ -15,10 +26,7 @@ export const StarterPlanCard = () => {
         featureLabel: 'Everything in Personal, plus:',
         features: [
           <Text key="seats">
-            <chakra.span fontWeight="bold">
-              {seatsLimits.STARTER} seats
-            </chakra.span>{' '}
-            included
+            <chakra.span fontWeight="bold">{seatsLimits.STARTER} seats</chakra.span> included
           </Text>,
           <Stack key="chats" spacing={0}>
             <HStack spacing={1.5}>
@@ -26,8 +34,7 @@ export const StarterPlanCard = () => {
               <Tooltip
                 hasArrow
                 placement="top"
-                label="A chat is counted whenever a user starts a discussion. It is
-    independant of the number of messages he sends and receives."
+                label="A chat is counted whenever a user starts a discussion. It is independent of the number of messages he sends and receives."
               >
                 <chakra.span cursor="pointer" h="7">
                   <HelpCircleIcon />
@@ -48,10 +55,8 @@ export const StarterPlanCard = () => {
       borderColor="orange.200"
       button={
         <Button
-          as={Link}
-
+          as="a" // Use 'a' tag for external links
           href={`https://chatworth.io/register?subscribePlan=${Plan.STARTER}&chats=${selectedChatsLimitIndex}&storage=${selectedStorageLimitIndex}&isYearly=${isYearly}`}
-
           colorScheme="orange"
           size="lg"
           w="full"
@@ -63,5 +68,7 @@ export const StarterPlanCard = () => {
         </Button>
       }
     />
-  )
-}
+  );
+};
+
+export default StarterPlanCard;
