@@ -15,14 +15,20 @@ export const RealTimeResults = () => {
   const [, setTypebot] = useState<PublicTypebot>();
 
   const fetchTemplate = async () => {
-    const { data, error } = await sendRequest(`/typebots/realtime-airtable.json`);
-    if (error) return;
-    const typebot = data as PublicTypebot;
-    setTypebot({ ...typebot, typebotId: typebot.id } as PublicTypebot);
+    // Ensure this runs only in the browser
+    if (typeof window !== 'undefined') {
+      const { data, error } = await sendRequest(`/typebots/realtime-airtable.json`);
+      if (error) return;
+      const typebot = data as PublicTypebot;
+      setTypebot({ ...typebot, typebotId: typebot.id } as PublicTypebot);
+    }
   };
 
   useEffect(() => {
-    fetchTemplate();
+    // This already runs client-side, but good practice to double-check
+    if (typeof window !== 'undefined') {
+      fetchTemplate();
+    }
   }, []);
 
   const refreshIframeContent = () => {
