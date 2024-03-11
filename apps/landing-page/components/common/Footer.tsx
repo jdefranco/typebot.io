@@ -45,9 +45,6 @@ export const Footer = () => {
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Community</ListHeader>
-            <TextLink href={facebookGroupUrl} isExternal>
-              Facebook Group
-            </TextLink>
             <TextLink href={githubRepoLink} isExternal>
               GitHub repository
             </TextLink>
