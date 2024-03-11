@@ -34,7 +34,7 @@ export const StarterPlanCard = ({
               <Tooltip
                 hasArrow
                 placement="top"
-                label="A chat is counted whenever a user starts a discussion. It is independent of the number of messages he sends and receives."
+                label="A chat is counted whenever a user starts a discussion. It is independent of the number of messages he sends and receives. "
               >
                 <chakra.span cursor="pointer" h="7">
                   <HelpCircleIcon />
