@@ -25,12 +25,12 @@
   "topbarLinks": [
     {
       "name": "Github",
-      "url": "https://github.com/baptisteArno/typebot.io"
+      "url": "https://www.chatworth.io/"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://app.typebot.io"
+    "url": "https://www.chatworth.io/"
   },
   "primaryTab": {
     "name": "Learn"
@@ -53,7 +53,7 @@
     {
       "name": "Community",
       "icon": "discord",
-      "url": "https://typebot.io/discord"
+      "url": "https://www.chatworth.io/"
     }
   ],
   "navigation": [
@@ -321,9 +321,9 @@
     }
   ],
   "footerSocials": {
-    "website": "https://typebot.io",
-    "discord": "https://typebot.io/discord",
-    "twitter": "https://twitter.com/Typebot_io",
-    "github": "https://github.com/baptisteArno/typebot.io"
+    "website": "https://www.chatworth.io/",
+    "discord": "https://www.chatworth.io/",
+    "twitter": "https://www.chatworth.io/",
+    "github": "https://www.chatworth.io/"
   }
 }

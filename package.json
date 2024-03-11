@@ -32,5 +32,10 @@
       "path": "node_modules/cz-emoji"
     }
   },
-  "packageManager": "pnpm@8.14.1"
+  "packageManager": "pnpm@8.14.1",
+  "pnpm": {
+    "overrides": {
+      "@codemirror/state": "6.4.1"
+    }
+  }
 }
