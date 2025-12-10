@@ -9,13 +9,17 @@ import {
   Input,
   Checkbox,
   Textarea,
+  Box,
+  Spinner,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { DontIcon } from 'assets/icons/DontIcon';
 import { DoIcon } from 'assets/icons/DoIcon';
 import { HandDrawnArrow } from 'assets/illustrations/HandDrawnArrow';
 
 export const IntroducingChatApps = () => {
+  const [isChatLoaded, setIsChatLoaded] = useState(false);
+
   return (
     <Flex as="section" justify="center">
       <Stack
@@ -41,7 +45,8 @@ export const IntroducingChatApps = () => {
             color="gray.400"
             data-aos="fade"
           >
-            Our AI-powered chatbot system not only enhances customer satisfaction and retention but also triples your conversion rate compared to conventional forms.
+            Our AI-powered chatbot system not only enhances customer satisfaction and
+            retention but also triples your conversion rate compared to conventional forms.
           </Text>
         </Stack>
 
@@ -64,16 +69,40 @@ export const IntroducingChatApps = () => {
             align={['flex-start', 'center']}
           >
             <DoIcon />
-            <iframe 
-              src="https://bot.chatworth.io/chatworth-ai-a8up210" 
-              width="100%" 
-              height="562px" 
-              frameBorder="0"
-              style={{
-                borderRadius: '0.375rem',
-                borderWidth: '1px',
-              }}
-            ></iframe>
+            <Box position="relative" w="full">
+              {!isChatLoaded && (
+                <Flex
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  right={0}
+                  bottom={0}
+                  align="center"
+                  justify="center"
+                  bg="gray.900"
+                  borderRadius="0.375rem"
+                  borderWidth="1px"
+                  zIndex={1}
+                >
+                  <Spinner mr={2} />
+                  <Text>Loading chat…</Text>
+                </Flex>
+              )}
+
+              <iframe
+                src="https://bot.chatworth.io/chatworth-ai-a8up210"
+                width="100%"
+                height="562px"
+                frameBorder="0"
+                loading="eager"
+                onLoad={() => setIsChatLoaded(true)}
+                style={{
+                  borderRadius: '0.375rem',
+                  borderWidth: '1px',
+                }}
+              ></iframe>
+            </Box>
+
             <Flex top="-20px" right="40px" pos="absolute">
               <Text fontFamily="'Indie Flower'" fontSize="2xl">
                 Try it out!
@@ -91,7 +120,7 @@ export const IntroducingChatApps = () => {
       </Stack>
     </Flex>
   );
-}
+};
 
 const FakeLeadGenForm = () => (
   <Stack borderWidth="1px" spacing="4" padding="6" rounded="md" w="full">
@@ -105,7 +134,7 @@ const FakeLeadGenForm = () => (
     </FormControl>
     <FormControl isRequired>
       <FormLabel htmlFor="services">
-        What services are you interested in? 
+        What services are you interested in?
       </FormLabel>
       <Stack>
         <Checkbox>Website Dev</Checkbox>
