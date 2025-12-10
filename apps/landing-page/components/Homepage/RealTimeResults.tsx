@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Flex, Stack, Heading, Text, Button, VStack } from '@chakra-ui/react';
-import { Standard } from '@typebot.io/react';
 import { ArrowRight } from 'assets/icons/ArrowRight';
-import { PublicTypebot } from '@typebot.io/schemas';
-import { sendRequest } from '@typebot.io/lib';
+
+// Dynamically load the Typebot Standard widget on the client only
+const TypebotStandard = dynamic(
+  () => import('@typebot.io/react').then((mod) => mod.Standard),
+  { ssr: false }
+);
 
 const nameBlockId = 'cc313ogcesbikz61f5c5scsm';
 const messageBlockId = 'qqbm08tbeorqisluz3g99bq8';
@@ -12,28 +16,14 @@ const AIRTABLE_EMBED_URL =
   'https://airtable.com/embed/app19rMMlM3AunNmT/shraPEcx5DKCdudmF?backgroundColor=cyan';
 
 export const RealTimeResults = () => {
-  const [, setTypebot] = useState<PublicTypebot | null>(null);
   const [iframeKey, setIframeKey] = useState(0);
 
-  // Simple helper to force the iframe to reload by remounting it
+  // Force Airtable iframe reload by remounting it
   const refreshIframeContent = useCallback(() => {
     setIframeKey((prev) => prev + 1);
   }, []);
 
-  // Optional: warm up the Typebot template so it responds faster
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const fetchTemplate = async () => {
-      const { data, error } = await sendRequest(`/typebots/realtime-airtable.json`);
-      if (error) return;
-      setTypebot(data as PublicTypebot);
-    };
-
-    fetchTemplate();
-  }, []);
-
-  // 🔔 Listen for Chatworth postMessage events
+  // Listen for Chatworth -> parent postMessage
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -44,7 +34,6 @@ export const RealTimeResults = () => {
       const payload = data as { from?: string; action?: string };
 
       if (payload.from === 'chatworth' && payload.action === 'refresh-airtable') {
-        // Short delay so Airtable has time to write the new record
         setTimeout(() => {
           refreshIframeContent();
         }, 500);
@@ -57,7 +46,7 @@ export const RealTimeResults = () => {
     };
   }, [refreshIframeContent]);
 
-  // Still keep the Typebot block-based refresh in case you want to use it as well
+  // Optional: also refresh on specific Typebot blocks
   const handleAnswer = ({ blockId }: { blockId: string }) => {
     if ([nameBlockId, messageBlockId].includes(blockId)) {
       setTimeout(() => {
@@ -96,12 +85,14 @@ export const RealTimeResults = () => {
         w="full"
         maxW="1200px"
       >
-        <Standard
+        {/* Typebot widget, client-side only */}
+        <TypebotStandard
           typebot="my-typebot-orp4iiy"
           onAnswer={handleAnswer}
           style={{ width: '100%', height: '400px' }}
         />
 
+        {/* Airtable iframe that refreshes when Chatworth posts a message */}
         <iframe
           key={iframeKey}
           src={AIRTABLE_EMBED_URL}
