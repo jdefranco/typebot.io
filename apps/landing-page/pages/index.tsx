@@ -1,5 +1,6 @@
+// pages/index.tsx
+
 import { Stack } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
 
 import { Footer } from 'components/common/Footer';
 import { SocialMetaTags } from 'components/common/SocialMetaTags';
